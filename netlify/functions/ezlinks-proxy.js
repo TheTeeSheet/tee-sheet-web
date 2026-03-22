@@ -1,5 +1,5 @@
 // Netlify serverless function - proxies EZ Links API via ScraperAPI
-// ScraperAPI POST: send to their API endpoint directly with the target URL as a header
+// render=false skips headless browser rendering for faster response
 
 const SCRAPER_API_KEY = '27f403b316a3cccff464a55aaf96c949';
 
@@ -51,17 +51,15 @@ exports.handler = async function(event) {
   });
 
   try {
-    // ScraperAPI: POST to their endpoint, pass target URL as query param
-    const scraperUrl = 'https://api.scraperapi.com/'
+    var scraperUrl = 'https://api.scraperapi.com/'
       + '?api_key=' + SCRAPER_API_KEY
       + '&url=' + encodeURIComponent(targetUrl)
-      + '&keep_headers=true';
+      + '&render=false'
+      + '&country_code=us';
 
-    const response = await fetch(scraperUrl, {
+    var response = await fetch(scraperUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: postBody,
     });
 
@@ -74,11 +72,10 @@ exports.handler = async function(event) {
     var text = await response.text();
     var data;
     try { data = JSON.parse(text); } catch(e) {
-      return { statusCode: 500, headers, body: JSON.stringify({ error: 'JSON parse failed', detail: text.slice(0, 500) }) };
+      return { statusCode: 500, headers, body: JSON.stringify({ error: 'JSON parse failed', raw: text.slice(0, 500) }) };
     }
 
     var slots = data.r06 || [];
-
     var teeTimes = slots.map(function(tt) {
       return {
         time: tt.r24,
