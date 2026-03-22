@@ -1,5 +1,7 @@
-// Netlify serverless function - proxies EZ Links API requests
+// Netlify serverless function - proxies EZ Links API via ScraperAPI
 // Called as: /.netlify/functions/ezlinks-proxy?subdomain=mccormickranch&date=2026-03-22&players=2
+
+const SCRAPER_API_KEY = '27f403b316a3cccff464a55aaf96c949';
 
 exports.handler = async function(event) {
   const headers = {
@@ -36,30 +38,39 @@ exports.handler = async function(event) {
   const parts = date.split('-');
   const dateFormatted = parts[1] + '/' + parts[2] + '/' + parts[0];
   const baseUrl = 'https://' + subdomain + '.ezlinksgolf.com';
+  const targetUrl = baseUrl + '/api/search/search';
+
+  const postBody = JSON.stringify({
+    p01: config.courseIds,
+    p02: dateFormatted,
+    p03: '5:00 AM',
+    p04: '7:00 PM',
+    p05: 0,
+    p06: players,
+    p07: false,
+  });
 
   try {
-    const response = await fetch(baseUrl + '/api/search/search', {
+    // Use ScraperAPI to proxy the request through residential IPs
+    const scraperUrl = 'https://api.scraperapi.com?api_key=' + SCRAPER_API_KEY
+      + '&url=' + encodeURIComponent(targetUrl)
+      + '&method=POST'
+      + '&keep_headers=true';
+
+    const response = await fetch(scraperUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json, text/plain, */*',
         'Origin': baseUrl,
         'Referer': baseUrl + '/index.html',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       },
-      body: JSON.stringify({
-        p01: config.courseIds,
-        p02: dateFormatted,
-        p03: '5:00 AM',
-        p04: '7:00 PM',
-        p05: 0,
-        p06: players,
-        p07: false,
-      }),
+      body: postBody,
     });
 
     if (!response.ok) {
-      return { statusCode: response.status, headers, body: JSON.stringify({ error: 'EZ Links HTTP ' + response.status }) };
+      var errText = '';
+      try { errText = await response.text(); } catch(e) {}
+      return { statusCode: response.status, headers, body: JSON.stringify({ error: 'EZ Links HTTP ' + response.status, detail: errText.slice(0, 200) }) };
     }
 
     const data = await response.json();
