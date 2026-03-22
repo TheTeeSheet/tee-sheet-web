@@ -1,5 +1,5 @@
 // Netlify serverless function - proxies EZ Links API via ScraperAPI
-// Called as: /.netlify/functions/ezlinks-proxy?subdomain=mccormickranch&date=2026-03-22&players=2
+// ScraperAPI POST: send to their API endpoint directly with the target URL as a header
 
 const SCRAPER_API_KEY = '27f403b316a3cccff464a55aaf96c949';
 
@@ -51,18 +51,16 @@ exports.handler = async function(event) {
   });
 
   try {
-    // Use ScraperAPI to proxy the request through residential IPs
-    const scraperUrl = 'https://api.scraperapi.com?api_key=' + SCRAPER_API_KEY
+    // ScraperAPI: POST to their endpoint, pass target URL as query param
+    const scraperUrl = 'https://api.scraperapi.com/'
+      + '?api_key=' + SCRAPER_API_KEY
       + '&url=' + encodeURIComponent(targetUrl)
-      + '&method=POST'
       + '&keep_headers=true';
 
     const response = await fetch(scraperUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': baseUrl,
-        'Referer': baseUrl + '/index.html',
       },
       body: postBody,
     });
@@ -70,13 +68,18 @@ exports.handler = async function(event) {
     if (!response.ok) {
       var errText = '';
       try { errText = await response.text(); } catch(e) {}
-      return { statusCode: response.status, headers, body: JSON.stringify({ error: 'EZ Links HTTP ' + response.status, detail: errText.slice(0, 200) }) };
+      return { statusCode: response.status, headers, body: JSON.stringify({ error: 'ScraperAPI HTTP ' + response.status, detail: errText.slice(0, 500) }) };
     }
 
-    const data = await response.json();
-    const slots = data.r06 || [];
+    var text = await response.text();
+    var data;
+    try { data = JSON.parse(text); } catch(e) {
+      return { statusCode: 500, headers, body: JSON.stringify({ error: 'JSON parse failed', detail: text.slice(0, 500) }) };
+    }
 
-    const teeTimes = slots.map(function(tt) {
+    var slots = data.r06 || [];
+
+    var teeTimes = slots.map(function(tt) {
       return {
         time: tt.r24,
         course: config.name,
@@ -88,7 +91,7 @@ exports.handler = async function(event) {
       };
     });
 
-    return { statusCode: 200, headers, body: JSON.stringify({ course: config.name, platform: 'ezlinks', teeTimes }) };
+    return { statusCode: 200, headers, body: JSON.stringify({ course: config.name, platform: 'ezlinks', teeTimes: teeTimes }) };
   } catch (error) {
     return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
   }
