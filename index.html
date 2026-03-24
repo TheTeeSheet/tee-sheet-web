@@ -669,11 +669,11 @@ async function fetchAllMemberSportsTimes(date, players) {
   );
 }
 
-// ── EZLINKS CLIENT-SIDE FETCH ────────────────────────────────────────────────
+// ── EZLINKS VIA NETLIFY PROXY ────────────────────────────────────────────────
 const EZLINKS_COURSES = {
-  'McCormick Ranch Golf Club': { subdomain: 'mccormickranch', courseIds: [495, 496] },
-  'Toka Sticks Golf Club':     { subdomain: 'tokasticks', courseIds: [919] },
-  'Western Skies Golf Club':   { subdomain: 'westernskies', courseIds: [17936, 24819] },
+  'McCormick Ranch Golf Club': { subdomain: 'mccormickranch' },
+  'Toka Sticks Golf Club':     { subdomain: 'tokasticks' },
+  'Western Skies Golf Club':   { subdomain: 'westernskies' },
 };
 
 async function fetchEZLinksTimesForCourse(name, date, players) {
@@ -682,34 +682,18 @@ async function fetchEZLinksTimesForCourse(name, date, players) {
   const key = `${name}|${date}|${players}`;
   if (teeTimeCache[key] !== undefined) return;
   try {
-    const parts = date.split('-');
-    const dateFormatted = parts[1] + '/' + parts[2] + '/' + parts[0];
-    const baseUrl = 'https://' + entry.subdomain + '.ezlinksgolf.com';
-    const res = await fetch(baseUrl + '/api/search/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        p01: entry.courseIds,
-        p02: dateFormatted,
-        p03: '5:00 AM',
-        p04: '7:00 PM',
-        p05: 0,
-        p06: players || 2,
-        p07: false
-      }),
-    });
+    const res = await fetch(`/.netlify/functions/ezlinks-proxy?subdomain=${entry.subdomain}&date=${date}&players=${players || 2}`);
     if (!res.ok) { teeTimeCache[key] = []; return; }
     const data = await res.json();
-    const slots = data.r06 || [];
-    const times = slots.map(tt => ({
-      time: tt.r24,
-      price: tt.r08 || null,
-      priceStr: tt.r08 ? '$' + tt.r08 + (tt.r09 && tt.r09 !== tt.r08 ? '-$' + tt.r09 : '') : null,
-      spots: tt.r14 || 4, maxPlayers: tt.r14 || 4,
-      bookingUrl: baseUrl + '/index.html#/search',
+    const times = (data.teeTimes || []).map(tt => ({
+      time: tt.time,
+      price: null,
+      priceStr: tt.price !== 'N/A' ? tt.price : null,
+      spots: parseInt(tt.players) || 4, maxPlayers: parseInt(tt.players) || 4,
+      bookingUrl: tt.bookingUrl,
     }));
     teeTimeCache[key] = times;
-  } catch(e) { teeTimeCache[key] = []; console.error('EZLinks fetch failed for', name, e); }
+  } catch(e) { teeTimeCache[key] = []; console.error('EZLinks proxy fetch failed for', name, e); }
 }
 
 async function fetchAllEZLinksTimes(date, players) {
