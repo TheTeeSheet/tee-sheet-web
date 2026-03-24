@@ -1263,7 +1263,7 @@ async function _doRender(){
       timesHtml=times.slice(0,12).map(t=>{
         const rawTime=typeof t==='object'?t.time:t;
         const time=formatTime24(rawTime);
-        const price=typeof t==='object'?(t.priceStr||`$${t.price||t.greenFee||c.staticPrice||'—'}`):(`$${c.staticPrice}`);
+        const price=typeof t==='object'?(t.priceStr||(t.price&&String(t.price).startsWith('$')?t.price:`$${t.price||t.greenFee||c.staticPrice||'—'}`)):(`$${c.staticPrice}`);
         const plrs=typeof t==='object'?(t.players||t.spots||t.maxPlayers||Math.floor(Math.random()*4)+1):Math.floor(Math.random()*4)+1;
         const teeHref=fixMDUrl((typeof t==='object'&&t.bookingUrl)||bookUrl);
         return `<a href="${teeHref}" target="_blank" class="tee-time-btn">
@@ -1347,7 +1347,7 @@ async function _doRender(){
         timesHtml = filtered.slice(0, 12).map(t => {
           const rawTime = typeof t==='object' ? t.time : t;
           const time = formatTime24(rawTime);
-          const price = typeof t==='object' ? (t.priceStr || `$${t.price||t.greenFee||'—'}`) : `$${c.staticPrice}`;
+          const price = typeof t==='object' ? (t.priceStr || (t.price&&String(t.price).startsWith('$')?t.price:`$${t.price||t.greenFee||'—'}`)) : `$${c.staticPrice}`;
           const plrs = typeof t==='object' ? (t.players||t.spots||t.maxPlayers||4) : 4;
           let href = (typeof t==='object' && t.bookingUrl) || bookUrl;
           href = fixMDUrl(href);
