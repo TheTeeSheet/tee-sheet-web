@@ -610,6 +610,24 @@ async function fetchAllArizonaTimes(date, players) {
   } catch(e) { console.error('Arizona bulk fetch failed:', e); }
 }
 
+async function fetchAllCaliforniaTimes(date, players) {
+  try {
+    const url = `https://tee-sheet-api-production.up.railway.app/api/tee-times-ca?date=${date}&players=${players}`;
+    const res = await fetch(url);
+    if (!res.ok) return;
+    const data = await res.json();
+    Object.entries(data).forEach(([slug, courseData]) => {
+      const name = courseData.course;
+      const key = `${name}|${date}|${players}`;
+      const times = (courseData.teeTimes || []).map(t => ({
+        time: t.time, spots: t.spots, maxPlayers: t.spots,
+        price: t.price, priceStr: t.priceStr, bookingUrl: t.bookingUrl,
+      }));
+      teeTimeCache[key] = times;
+    });
+  } catch(e) { console.error('California bulk fetch failed:', e); }
+}
+
 // ── MEMBERSPORTS CLIENT-SIDE FETCH ───────────────────────────────────────────
 const MEMBERSPORTS_IDS = {
   'Fox Hollow Golf Club':    { clubId: 15396, courseId: 18907 },
@@ -933,51 +951,42 @@ const courses = {
     {name:'Coral Canyon Golf Course',city:'Washington',rating:4.5,reviews:723,isLive:false},
   ],
   california: [
+    {name:'Aviara Golf Club',city:'Carlsbad',rating:4.6,reviews:1234,isLive:true},
+    {name:'Maderas Golf Club',city:'Poway',rating:4.5,reviews:789,isLive:true},
+    {name:'Monarch Beach Golf Links',city:'Dana Point',rating:4.4,reviews:789,isLive:true},
+    {name:'Classic Club',city:'Palm Desert',rating:4.4,reviews:712,isLive:true},
+    {name:'Indian Wells Golf Resort',city:'Indian Wells',rating:4.5,reviews:789,isLive:true},
+    {name:'Westin Rancho Mirage Golf Resort & Spa',city:'Rancho Mirage',rating:4.3,reviews:623,isLive:true},
+    {name:'Bayonet and Black Horse',city:'Seaside',rating:4.5,reviews:634,isLive:true},
+    {name:'Baylands Golf Links',city:'Palo Alto',rating:4.2,reviews:456,isLive:true},
+    {name:'Bella Verde Golf Club',city:'San Jose',rating:4.1,reviews:389,isLive:true},
+    {name:'The Golf Club at Moffett Field',city:'Mountain View',rating:4.2,reviews:312,isLive:true},
+    {name:'Hiddenbrooke Golf Club',city:'Vallejo',rating:4.3,reviews:534,isLive:true},
+    {name:'Tustin Ranch Golf Club',city:'Tustin',rating:4.3,reviews:567,isLive:true},
+    {name:'Alhambra Golf Course',city:'Alhambra',rating:4.0,reviews:345,isLive:true},
+    {name:'California Golf Course',city:'Whittier',rating:3.9,reviews:234,isLive:true},
+    {name:'Pico Rivera Golf Club',city:'Pico Rivera',rating:4.0,reviews:312,isLive:true},
+    {name:'Willowick Municipal Golf Course',city:'Santa Ana',rating:3.9,reviews:278,isLive:true},
+    {name:'Yocha Dehe Golf Club',city:'Brooks',rating:4.4,reviews:445,isLive:true},
+    {name:'The Ridge Golf and Event Center',city:'Auburn',rating:4.2,reviews:389,isLive:true},
+    {name:'Native Oaks Golf Club',city:'Vacaville',rating:4.1,reviews:312,isLive:true},
+    {name:'Balboa Park Golf Course',city:'San Diego',rating:4.1,reviews:934,isLive:true},
+    {name:'Mission Bay Golf Course',city:'San Diego',rating:4.0,reviews:678,isLive:true},
+    {name:'San Clemente Municipal Golf Course',city:'San Clemente',rating:4.1,reviews:456,isLive:true},
+    {name:'Golden Gate Park Golf Course',city:'San Francisco',rating:4.0,reviews:534,isLive:true},
     {name:'Pebble Beach Golf Links',city:'Pebble Beach',rating:4.9,reviews:4821,staticPrice:595},
-    {name:'Torrey Pines \u2014 South',city:'La Jolla',rating:4.8,reviews:3214,staticPrice:265},
-    {name:'Pelican Hill Golf Club \u2014 Ocean North',city:'Newport Coast',rating:4.7,reviews:1876,staticPrice:395},
-    {name:'Riviera Country Club',city:'Pacific Palisades',rating:4.8,reviews:987,staticPrice:350},
+    {name:'Torrey Pines Golf Course',city:'La Jolla',rating:4.8,reviews:3214,staticPrice:265},
+    {name:'Pelican Hill Golf Club',city:'Newport Coast',rating:4.7,reviews:1876,staticPrice:395},
     {name:'Spyglass Hill Golf Course',city:'Pebble Beach',rating:4.7,reviews:1654,staticPrice:395},
     {name:'Pasatiempo Golf Club',city:'Santa Cruz',rating:4.6,reviews:1123,staticPrice:265},
-    {name:'The Farms Golf Club',city:'Rancho Santa Fe',rating:4.5,reviews:634,staticPrice:199},
-    {name:'Monarch Beach Golf Links',city:'Dana Point',rating:4.4,reviews:789,staticPrice:175},
-    {name:'Aviara Golf Club',city:'Carlsbad',rating:4.6,reviews:1234,staticPrice:249},
-    {name:'Sherwood Country Club',city:'Thousand Oaks',rating:4.7,reviews:543,staticPrice:325},
     {name:'Harding Park Golf Course',city:'San Francisco',rating:4.5,reviews:1876,staticPrice:99},
     {name:'Poppy Hills Golf Course',city:'Pebble Beach',rating:4.3,reviews:923,staticPrice:125},
-    {name:'La Purisima Golf Course',city:'Lompoc',rating:4.5,reviews:812,staticPrice:79},
+    {name:'Desert Willow Golf Resort',city:'Palm Desert',rating:4.7,reviews:1234,staticPrice:199},
+    {name:'PGA West',city:'La Quinta',rating:4.8,reviews:1567,staticPrice:279},
+    {name:'Half Moon Bay Golf Links',city:'Half Moon Bay',rating:4.6,reviews:1089,staticPrice:195},
     {name:'Rancho Park Golf Course',city:'Los Angeles',rating:4.2,reviews:1543,staticPrice:35},
-    {name:'Edgewood Tahoe Golf Course',city:'Lake Tahoe',rating:4.7,reviews:1234,staticPrice:295},
-    {name:'Half Moon Bay \u2014 Ocean',city:'Half Moon Bay',rating:4.6,reviews:1089,staticPrice:195},
-    {name:'Northstar California Golf Course',city:'Truckee',rating:4.4,reviews:634,staticPrice:99},
-    {name:'Incline Village \u2014 Mountain',city:'Incline Village',rating:4.3,reviews:512,staticPrice:89},
-    {name:'The Club at Ruby Hill',city:'Pleasanton',rating:4.4,reviews:489,staticPrice:119},
-    {name:'Cinnabar Hills Golf Club',city:'San Jose',rating:4.3,reviews:723,staticPrice:89},
-    {name:'Pacific Grove Golf Links',city:'Pacific Grove',rating:4.4,reviews:867,staticPrice:55},
-    {name:'Bayonet Golf Course',city:'Seaside',rating:4.5,reviews:634,staticPrice:99},
-    {name:'Torrey Pines \u2014 North',city:'La Jolla',rating:4.5,reviews:1876,staticPrice:145},
-    {name:'Riverwalk Golf Club',city:'San Diego',rating:4.2,reviews:1123,staticPrice:79},
-    {name:'Balboa Park Golf Course',city:'San Diego',rating:4.1,reviews:934,staticPrice:45},
-    {name:'Encinitas Ranch Golf Club',city:'Encinitas',rating:4.3,reviews:678,staticPrice:89},
-    {name:'San Vicente Golf Resort',city:'Ramona',rating:4.4,reviews:445,staticPrice:99},
-    {name:'Steele Canyon Golf Club',city:'Jamul',rating:4.3,reviews:512,staticPrice:89},
-    {name:'Tijeras Creek Golf Club',city:'Rancho Santa Margarita',rating:4.2,reviews:589,staticPrice:79},
-    {name:'Coyote Hills Golf Course',city:'Fullerton',rating:4.0,reviews:567,staticPrice:59},
-    {name:'Los Serranos Golf Club',city:'Chino Hills',rating:4.1,reviews:623,staticPrice:65},
-    {name:'Penmar Golf Course',city:'Venice',rating:3.9,reviews:489,staticPrice:25},
-    {name:'Griffith Park \u2014 Wilson',city:'Los Angeles',rating:4.0,reviews:812,staticPrice:39},
+    {name:'Griffith Park Golf Course',city:'Los Angeles',rating:4.0,reviews:812,staticPrice:39},
     {name:'Industry Hills Golf Club',city:'City of Industry',rating:4.1,reviews:534,staticPrice:69},
-    {name:'El Prado Golf Course',city:'Chino',rating:4.0,reviews:612,staticPrice:49},
-    {name:'San Dimas Canyon Golf Club',city:'San Dimas',rating:4.1,reviews:456,staticPrice:59},
-    {name:'Boulder Oaks Golf Club',city:'Escondido',rating:4.2,reviews:389,staticPrice:65},
-    {name:'Desert Willow Golf Resort \u2014 Firecliff',city:'Palm Desert',rating:4.7,reviews:1234,staticPrice:199},
-    {name:'PGA West \u2014 Stadium Course',city:'La Quinta',rating:4.8,reviews:1567,staticPrice:279},
-    {name:'Indian Wells Golf Resort \u2014 Celebrity',city:'Indian Wells',rating:4.5,reviews:789,staticPrice:149},
-    {name:'Marriott Shadow Ridge',city:'Palm Desert',rating:4.3,reviews:623,staticPrice:99},
-    {name:'The Classic Club',city:'Palm Desert',rating:4.4,reviews:712,staticPrice:129},
-    {name:'La Quinta Resort \u2014 Mountain Course',city:'La Quinta',rating:4.5,reviews:934,staticPrice:169},
-    {name:'Oak Valley Golf Club',city:'Beaumont',rating:4.2,reviews:445,staticPrice:69},
-    {name:'Glen Annie Golf Club',city:'Goleta',rating:4.3,reviews:512,staticPrice:75},
     {name:'Rancho Canada Golf Club',city:'Carmel Valley',rating:4.2,reviews:567,staticPrice:79},
     {name:'Quail Lodge Golf Club',city:'Carmel',rating:4.5,reviews:634,staticPrice:149},
     {name:'Eagle Vail Golf Course',city:'Avon',rating:4.3,reviews:389,staticPrice:99},
@@ -1307,6 +1316,7 @@ async function _doRender(){
     // Determine which bulk fetches we need
     const needsUtah = livePool.some(c => courses.utah.some(uc => uc.name === c.name));
     const needsArizona = livePool.some(c => courses.arizona.some(ac => ac.name === c.name && ac.isLive));
+    const needsCalifornia = livePool.some(c => courses.california.some(cc => cc.name === c.name && cc.isLive));
 
     if (needsUtah) {
       fetches.push(fetchAllUtahTimes(date, players || 1));
@@ -1315,6 +1325,9 @@ async function _doRender(){
     if (needsArizona) {
       fetches.push(fetchAllArizonaTimes(date, players || 1));
       fetches.push(fetchAllEZLinksTimes(date, players || 1));
+    }
+    if (needsCalifornia) {
+      fetches.push(fetchAllCaliforniaTimes(date, players || 1));
     }
 
     await Promise.all(fetches);
