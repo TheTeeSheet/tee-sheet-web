@@ -1403,12 +1403,6 @@ async function handleSignup(){
   btn.textContent='Creating account...'; btn.disabled=true;
   const {data,error} = await sb.auth.signUp({email,password:pass,options:{data:{full_name:name}}});
   if(error){ alert(error.message); btn.textContent='Create Account'; btn.disabled=false; return; }
-  if(data.user && !data.user.confirmed_at){
-    alert('Check your email to confirm your account, then sign in.');
-    switchTab('login');
-    btn.textContent='Create Account'; btn.disabled=false;
-    return;
-  }
   currentUser = data.user;
   await loadProfile();
   updateAuthUI();
@@ -1429,14 +1423,14 @@ function openAlertsFromHeader(){
   if(!currentUser){ openModal(); return; }
   alertTargetCourse=null; alertTargetCity=null;
   document.getElementById('alertOverlay').classList.add('open');
-  if(userPlan) openManageAlerts(); else showPaywall();
+  openManageAlerts();
 }
 
 function openAlertModal(course,city){
   if(!currentUser){ openModal(); return; }
   alertTargetCourse=course; alertTargetCity=city;
   document.getElementById('alertOverlay').classList.add('open');
-  if(userPlan) showAlertForm(course,city); else showPaywall();
+  showAlertForm(course,city);
 }
 
 function closeAlertModal(){
