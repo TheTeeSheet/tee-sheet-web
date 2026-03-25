@@ -6,6 +6,7 @@
 <meta name="description" content="Find and book live tee times across Arizona, California, and Utah. Compare real-time availability and prices at 80+ golf courses. No fees, no signup required.">
 <title>Daily Tee Times — Find & Book Tee Times</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
     --green-deep: #0f2e1a;
@@ -998,10 +999,16 @@ function fuzzyScore(text, query) {
   return total/qT.length;
 }
 
+// ── SUPABASE INIT ────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://kzgkiqukyazicyhvvocb.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6Z2tpcXVreWF6aWN5aHZ2b2NiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzODkxNjAsImV4cCI6MjA4OTk2NTE2MH0.5bmG-60zHuEHEcGwlYYHMcJhqny_vXtrJ_9QUI0k_h8';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let activeState='arizona', showingFavs=false, searchQuery='';
 let favorites=new Set(JSON.parse(localStorage.getItem('tsFavs')||'[]'));
 let currentUser=null;
+let userProfile=null;
 
 // ── ALERTS STATE ──────────────────────────────────────────────────────────────
 let userPlan=null;
@@ -1295,14 +1302,72 @@ async function _doRender(){
   }
 }
 
+
+// ── SUPABASE AUTH ─────────────────────────────────────────────────────────────
+
+// Check session on load
+async function checkAuth(){
+  const {data:{session}} = await sb.auth.getSession();
+  if(session){
+    currentUser = session.user;
+    await loadProfile();
+    await loadAlerts();
+    updateAuthUI();
+  }
+}
+
+async function loadProfile(){
+  if(!currentUser) return;
+  const {data} = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
+  if(data) userProfile = data;
+  // Check subscription
+  const {data:sub} = await sb.from('subscriptions').select('*').eq('user_id', currentUser.id).eq('status','active').single();
+  if(sub) userPlan = sub.plan;
+}
+
+async function loadAlerts(){
+  if(!currentUser) return;
+  const {data} = await sb.from('alerts').select('*').eq('user_id', currentUser.id).eq('is_active', true).order('created_at',{ascending:false});
+  activeAlerts = data || [];
+}
+
+function updateAuthUI(){
+  const btn = document.getElementById('accountBtn');
+  const hBtn = document.getElementById('alertsHeaderBtn');
+  if(currentUser){
+    const name = userProfile?.full_name || currentUser.email.split('@')[0];
+    btn.innerHTML = name.charAt(0).toUpperCase() + ' · ' + name.split(' ')[0];
+    btn.classList.add('signed-in');
+    if(userPlan){
+      hBtn.classList.add('has-plan');
+      hBtn.textContent = '🔔 ' + (userPlan==='pro'?'Pro':'Basic');
+    }
+  } else {
+    btn.innerHTML = 'Sign In';
+    btn.classList.remove('signed-in');
+    hBtn.classList.remove('has-plan');
+    hBtn.textContent = '🔔 Alerts';
+  }
+}
+
 // ── ACCOUNT MODAL ─────────────────────────────────────────────────────────────
 function openModal(){
   document.getElementById('modalOverlay').classList.add('open');
-  document.getElementById('authView').style.display=currentUser?'none':'block';
-  document.getElementById('signedInView').style.display=currentUser?'block':'none';
+  if(currentUser){
+    document.getElementById('authView').style.display='none';
+    document.getElementById('signedInView').style.display='block';
+    const name = userProfile?.full_name || currentUser.email.split('@')[0];
+    document.getElementById('displayName').textContent = name;
+    document.getElementById('displayEmail').textContent = currentUser.email;
+    document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
+  } else {
+    document.getElementById('authView').style.display='block';
+    document.getElementById('signedInView').style.display='none';
+  }
 }
 function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
 function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+
 function switchTab(tab){
   document.getElementById('loginForm').style.display=tab==='login'?'flex':'none';
   document.getElementById('signupForm').style.display=tab==='signup'?'flex':'none';
@@ -1310,43 +1375,65 @@ function switchTab(tab){
   document.getElementById('tabSignup').classList.toggle('active',tab==='signup');
   document.getElementById('modalSub').textContent=tab==='login'?'Welcome back. Sign in to your account.':'Create your free account.';
 }
-function handleLogin(){
+
+async function handleLogin(){
   const email=document.getElementById('loginEmail').value.trim();
   const pass=document.getElementById('loginPassword').value;
   if(!email||!pass) return alert('Please fill in all fields.');
-  signIn(email.split('@')[0],email);
+  const btn = document.querySelector('#loginForm .form-submit');
+  btn.textContent='Signing in...'; btn.disabled=true;
+  const {data,error} = await sb.auth.signInWithPassword({email,password:pass});
+  if(error){ alert(error.message); btn.textContent='Sign In'; btn.disabled=false; return; }
+  currentUser = data.user;
+  await loadProfile();
+  await loadAlerts();
+  updateAuthUI();
+  closeModal();
+  btn.textContent='Sign In'; btn.disabled=false;
+  renderCards();
 }
-function handleSignup(){
+
+async function handleSignup(){
   const name=document.getElementById('signupName').value.trim();
   const email=document.getElementById('signupEmail').value.trim();
   const pass=document.getElementById('signupPassword').value;
   if(!name||!email||!pass) return alert('Please fill in all fields.');
-  signIn(name,email);
-}
-function signIn(name,email){
-  currentUser={name,email};
-  document.getElementById('accountBtn').innerHTML=`${name.charAt(0).toUpperCase()} · ${name.split(' ')[0]}`;
-  document.getElementById('accountBtn').classList.add('signed-in');
-  document.getElementById('displayName').textContent=name;
-  document.getElementById('displayEmail').textContent=email;
-  document.getElementById('avatarInitial').textContent=name.charAt(0).toUpperCase();
+  if(pass.length<6) return alert('Password must be at least 6 characters.');
+  const btn = document.querySelector('#signupForm .form-submit');
+  btn.textContent='Creating account...'; btn.disabled=true;
+  const {data,error} = await sb.auth.signUp({email,password:pass,options:{data:{full_name:name}}});
+  if(error){ alert(error.message); btn.textContent='Create Account'; btn.disabled=false; return; }
+  if(data.user && !data.user.confirmed_at){
+    alert('Check your email to confirm your account, then sign in.');
+    switchTab('login');
+    btn.textContent='Create Account'; btn.disabled=false;
+    return;
+  }
+  currentUser = data.user;
+  await loadProfile();
+  updateAuthUI();
   closeModal();
+  btn.textContent='Create Account'; btn.disabled=false;
 }
-function handleSignout(){
-  currentUser=null;
-  document.getElementById('accountBtn').innerHTML='Sign In';
-  document.getElementById('accountBtn').classList.remove('signed-in');
+
+async function handleSignout(){
+  await sb.auth.signOut();
+  currentUser=null; userProfile=null; userPlan=null; activeAlerts=[];
+  updateAuthUI();
   closeModal();
+  renderCards();
 }
 
 // ── ALERTS ────────────────────────────────────────────────────────────────────
 function openAlertsFromHeader(){
+  if(!currentUser){ openModal(); return; }
   alertTargetCourse=null; alertTargetCity=null;
   document.getElementById('alertOverlay').classList.add('open');
   if(userPlan) openManageAlerts(); else showPaywall();
 }
 
 function openAlertModal(course,city){
+  if(!currentUser){ openModal(); return; }
   alertTargetCourse=course; alertTargetCity=city;
   document.getElementById('alertOverlay').classList.add('open');
   if(userPlan) showAlertForm(course,city); else showPaywall();
@@ -1375,16 +1462,25 @@ function selectPlan(plan){
   document.getElementById('planPro').classList.toggle('selected',plan==='pro');
   const btn=document.getElementById('paywallCta');
   btn.disabled=false; btn.style.opacity='1';
-  btn.textContent=`Subscribe to ${plan==='basic'?'Basic ($2.99/mo)':'Pro ($4.99/mo)'}`;
+  btn.textContent='Subscribe to '+(plan==='basic'?'Basic ($2.99/mo)':'Pro ($4.99/mo)');
 }
 
-function subscribePlan(){
-  if(!selectedPlan) return;
-  userPlan=selectedPlan;
-  const hBtn=document.getElementById('alertsHeaderBtn');
-  hBtn.classList.add('has-plan');
-  hBtn.textContent=`🔔 ${userPlan==='pro'?'Pro':'Basic'}`;
-  showAlertForm(alertTargetCourse,alertTargetCity);
+async function subscribePlan(){
+  if(!selectedPlan || !currentUser) return;
+  const btn=document.getElementById('paywallCta');
+  btn.textContent='Setting up...'; btn.disabled=true;
+  // Save subscription to Supabase (Stripe integration comes later)
+  const {error} = await sb.from('subscriptions').insert({
+    user_id: currentUser.id,
+    plan: selectedPlan,
+    status: 'active'
+  });
+  if(error){ alert('Error: '+error.message); btn.textContent='Try Again'; btn.disabled=false; return; }
+  userPlan = selectedPlan;
+  updateAuthUI();
+  // If we had a target course, show the alert form
+  if(alertTargetCourse) showAlertForm(alertTargetCourse, alertTargetCity);
+  else openManageAlerts();
 }
 
 function showAlertForm(course,city){
@@ -1393,15 +1489,17 @@ function showAlertForm(course,city){
   document.getElementById('alertFormView').classList.add('visible');
   if(course){
     document.getElementById('alertCourse').value=course;
-    document.getElementById('alertFormSub').textContent=`${city} · Set your criteria and we'll text you when it opens up.`;
+    document.getElementById('alertFormSub').textContent=city+' · Set your criteria and we\'ll text you when it opens up.';
   } else {
     document.getElementById('alertCourse').value='';
     document.getElementById('alertFormSub').textContent='Set your criteria and we\'ll text you when it opens up.';
   }
   document.getElementById('alertDate').value=getTodayStr();
+  // Pre-fill phone if we have it
+  if(userProfile?.phone) document.getElementById('alertPhone').value=userProfile.phone;
 }
 
-function saveAlert(){
+async function saveAlert(){
   const course=document.getElementById('alertCourse').value;
   const date=document.getElementById('alertDate').value;
   const players=document.getElementById('alertPlayers').value;
@@ -1409,19 +1507,54 @@ function saveAlert(){
   const timeTo=document.getElementById('alertTo').value;
   const phone=document.getElementById('alertPhone').value.trim();
   if(!course||!date||!phone) return alert('Please fill in all required fields.');
-  activeAlerts.push({id:Date.now(),course,city:alertTargetCity,date,timeFrom,timeTo,players,phone});
-  closeAlertModal();
+  if(!currentUser) return alert('Please sign in first.');
+
+  const btn=document.querySelector('.alert-submit');
+  btn.textContent='Saving...'; btn.disabled=true;
+
+  // Save phone to profile if not set
+  if(!userProfile?.phone){
+    await sb.from('profiles').update({phone}).eq('id', currentUser.id);
+    if(userProfile) userProfile.phone = phone;
+  }
+
+  // Determine state from course data
+  let state = null;
+  for(const [st, list] of Object.entries(courses)){
+    if(list.some(c=>c.name===course)){
+      state = st==='arizona'?'AZ':st==='california'?'CA':st==='utah'?'UT':null;
+      break;
+    }
+  }
+
+  const {data,error} = await sb.from('alerts').insert({
+    user_id: currentUser.id,
+    course_name: course,
+    course_city: alertTargetCity || '',
+    state: state,
+    target_date: date,
+    earliest_time: timeFrom+':00',
+    latest_time: timeTo+':00',
+    min_players: parseInt(players),
+    phone: phone,
+    is_active: true
+  }).select();
+
+  btn.textContent='Set Alert'; btn.disabled=false;
+  if(error){ alert('Error saving alert: '+error.message); return; }
+  if(data && data[0]) activeAlerts.unshift(data[0]);
+  openManageAlerts();
   renderCards();
 }
 
-function openManageAlerts(){
+async function openManageAlerts(){
   closeModal();
   document.getElementById('alertOverlay').classList.add('open');
   document.getElementById('paywallView').style.display='none';
   document.getElementById('alertFormView').classList.remove('visible');
   document.getElementById('manageAlertsView').style.display='block';
   document.getElementById('alertPlanBadge').textContent=userPlan
-    ? `Plan: ${userPlan==='pro'?'Pro ($4.99/mo)':'Basic ($2.99/mo)'} · ${activeAlerts.length} active alert${activeAlerts.length!==1?'s':''}`
+    ? 'Plan: '+(userPlan==='pro'?'Pro ($4.99/mo)':'Basic ($2.99/mo)')+' · '+activeAlerts.length+' active alert'+(activeAlerts.length!==1?'s':'')
     : 'No active plan';
   renderAlertsList();
 }
@@ -1429,20 +1562,18 @@ function openManageAlerts(){
 function renderAlertsList(){
   const list=document.getElementById('alertsList');
   if(!activeAlerts.length){
-    list.innerHTML=`<div style="text-align:center;color:var(--gray-dark);font-size:13px;padding:20px 0;">No active alerts yet.</div>`;
+    list.innerHTML='<div style="text-align:center;color:var(--gray-dark);font-size:13px;padding:20px 0;">No active alerts yet. Click the 🔔 on any course to set one.</div>';
     return;
   }
-  list.innerHTML=activeAlerts.map(a=>`
-    <div class="alert-item">
-      <div class="alert-item-info">
-        <strong>${a.course}</strong>
-        <span>${a.date} · ${a.timeFrom}–${a.timeTo} · ${a.players} players</span>
-      </div>
-      <button class="alert-delete" onclick="deleteAlert(${a.id})">✕</button>
-    </div>`).join('');
+  list.innerHTML=activeAlerts.map(a=>{
+    const from = a.earliest_time ? a.earliest_time.slice(0,5) : '06:00';
+    const to = a.latest_time ? a.latest_time.slice(0,5) : '18:00';
+    return '<div class="alert-item"><div class="alert-item-info"><strong>'+a.course_name+'</strong><span>'+a.target_date+' · '+from+'–'+to+' · '+a.min_players+' player'+(a.min_players!==1?'s':'')+'</span></div><button class="alert-delete" onclick="deleteAlert(\''+a.id+'\')">✕</button></div>';
+  }).join('');
 }
 
-function deleteAlert(id){
+async function deleteAlert(id){
+  await sb.from('alerts').update({is_active:false}).eq('id', id);
   activeAlerts=activeAlerts.filter(a=>a.id!==id);
   renderAlertsList();
   renderCards();
@@ -1451,6 +1582,9 @@ function deleteAlert(id){
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){ closeModal(); closeAlertModal(); }
 });
+
+// ── CHECK AUTH ON LOAD ───────────────────────────────────────────────────────
+checkAuth();
 </script>
 </body>
 </html>
