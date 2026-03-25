@@ -1536,13 +1536,14 @@ async function saveAlert(){
 
   btn.textContent='Set Alert'; btn.disabled=false;
   if(error){ alert('Error saving alert: '+error.message); return; }
-        // Send confirmation SMS via Railway API
-        const smsPhone = phone.startsWith('+') ? phone : '+1' + phone.replace(/[^0-9]/g,'');
-        fetch(https://kzgkiqukyazicyhvvocb.supabase.co/functions/v1/send-confirmation, {
+        // Send confirmation SMS
+        var smsPhone = phone.startsWith('+') ? phone : '+1' + phone.replace(/[^0-9]/g, '');
+        fetch('https://kzgkiqukyazicyhvvocb.supabase.co/functions/v1/send-confirmation', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({course_name: course, target_date: date, earliest_time: timeFrom, latest_time: timeTo, phone: smsPhone})
-        }).catch(e => console.error('SMS confirmation failed:', e));
+        }).catch(function(e) { console.error('SMS failed:', e); });
+
 
   if(data && data[0]) activeAlerts.unshift(data[0]);
   openManageAlerts();
