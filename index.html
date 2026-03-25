@@ -1571,12 +1571,22 @@ function renderAlertsList(){
   list.innerHTML=activeAlerts.map(a=>{
     const from = a.earliest_time ? a.earliest_time.slice(0,5) : '06:00';
     const to = a.latest_time ? a.latest_time.slice(0,5) : '18:00';
-    return '<div class="alert-item"><div class="alert-item-info"><strong>'+a.course_name+'</strong><span>'+a.target_date+' · '+from+'–'+to+' · '+a.min_players+' player'+(a.min_players!==1?'s':'')+'</span></div><button class="alert-delete" onclick="deleteAlert(\''+a.id+'\')">✕</button></div>';
+    return '<div class="alert-item"><div class="alert-item-info"><strong>'+a.course_name+'</strong><span>'+a.target_date+' · '+from+'–'+to+' · '+a.min_players+' player'+(a.min_players!==1?'s':'')+'</span></div><button class="alert-delete" onclick="deleteAlert(\''+a.id+'\',\''+a.course_name+'\',\''+a.phone+'\')">✕</button></div>';
   }).join('');
 }
 
-async function deleteAlert(id){
+async function deleteAlert(id, courseName, phone){
   await sb.from('alerts').update({is_active:false}).eq('id', id);
+        // Send cancellation SMS
+        if (phone) {
+          var cancelPhone = phone.startsWith('+') ? phone : '+1' + phone.replace(/[^0-9]/g, '');
+          fetch('https://kzgkiqukyazicyhvvocb.supabase.co/functions/v1/send-confirmation', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({course_name: courseName, phone: cancelPhone, cancel: true})
+          }).catch(function(e) { console.error('Cancel SMS failed:', e); });
+        }
+
   activeAlerts=activeAlerts.filter(a=>a.id!==id);
   renderAlertsList();
   renderCards();
