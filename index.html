@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
-    --green-deep: #0f2e1
+    --green-deep: #0f2e1a
     --green-mid: #1a4a2e;
     --green-accent: #2d7a4f;
     --green-bright: #3da66a;
@@ -1177,7 +1177,7 @@ async function _doRender(){
     } else if(!c.isLive && !c.staticPrice) {
       timesHtml=`<a href="${bookUrl}" target="_blank" class="check-avail-btn">Check Availability →</a>`;
     } else {
-      timesHtml=times..map(t=>{
+      timesHtml=times.map(t=>{
         const rawTime=typeof t==='object'?t.time:t;
         const time=formatTime24(rawTime);
         const price=typeof t==='object'?(t.priceStr||(t.price&&String(t.price).startsWith('$')?t.price:`$${t.price||t.greenFee||c.staticPrice||'—'}`)):(`$${c.staticPrice}`);
@@ -1265,7 +1265,7 @@ async function _doRender(){
       if (!filtered.length) {
         timesHtml = `<span class="no-times">No available times — try a different date or player count</span>`;
       } else {
-        timesHtml = filtered..map(t => {
+        timesHtml = filtered.map(t => {
           const rawTime = typeof t==='object' ? t.time : t;
           const time = formatTime24(rawTime);
           const price = typeof t==='object' ? (t.priceStr || (t.price&&String(t.price).startsWith('$')?t.price:`$${t.price||t.greenFee||'—'}`)) : `$${c.staticPrice}`;
