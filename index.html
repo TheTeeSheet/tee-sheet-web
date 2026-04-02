@@ -609,6 +609,17 @@ const teeTimeCache = {};
 
 // ── LIVE API FETCHING ────────────────────────────────────────────────────────
 
+function parseSpots(t) {
+  // Handle both Chronogolf (numeric spots) and golfwithaccess (players range string "1-4")
+  if (typeof t.spots === 'number' && t.spots > 0) return t.spots;
+  if (t.players) {
+    const pStr = String(t.players);
+    if (pStr.includes('-')) return parseInt(pStr.split('-')[1]) || 4;
+    return parseInt(pStr) || 4;
+  }
+  return 4;
+}
+
 async function fetchAllUtahTimes(date, players) {
   try {
     const url = `https://tee-sheet-api-production.up.railway.app/api/tee-times?date=${date}&players=${players}`;
@@ -618,10 +629,13 @@ async function fetchAllUtahTimes(date, players) {
     Object.entries(data).forEach(([slug, courseData]) => {
       const name = courseData.course;
       const key = `${name}|${date}|${players}`;
-      const times = (courseData.teeTimes || []).map(t => ({
-        time: t.time, spots: t.spots, maxPlayers: t.spots,
-        price: t.price, priceStr: t.priceStr, bookingUrl: t.bookingUrl,
-      }));
+      const times = (courseData.teeTimes || []).map(t => {
+        const sp = parseSpots(t);
+        return {
+          time: t.time, spots: sp, maxPlayers: sp,
+          price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
+        };
+      });
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('Utah bulk fetch failed:', e); }
@@ -636,10 +650,13 @@ async function fetchAllArizonaTimes(date, players) {
     Object.entries(data).forEach(([slug, courseData]) => {
       const name = courseData.course;
       const key = `${name}|${date}|${players}`;
-      const times = (courseData.teeTimes || []).map(t => ({
-        time: t.time, spots: t.spots, maxPlayers: t.spots,
-        price: t.price, priceStr: t.priceStr, bookingUrl: t.bookingUrl,
-      }));
+      const times = (courseData.teeTimes || []).map(t => {
+        const sp = parseSpots(t);
+        return {
+          time: t.time, spots: sp, maxPlayers: sp,
+          price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
+        };
+      });
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('Arizona bulk fetch failed:', e); }
@@ -655,19 +672,10 @@ async function fetchAllCaliforniaTimes(date, players) {
       const name = courseData.course;
       const key = `${name}|${date}|${players}`;
       const times = (courseData.teeTimes || []).map(t => {
-        // CA API returns players as "1-4" range string or plain number
-        let maxSpots = 4;
-        if (t.players) {
-          const pStr = String(t.players);
-          if (pStr.includes('-')) {
-            maxSpots = parseInt(pStr.split('-')[1]) || 4;
-          } else {
-            maxSpots = parseInt(pStr) || 4;
-          }
-        }
+        const sp = parseSpots(t);
         return {
-          time: t.time, spots: maxSpots, maxPlayers: maxSpots,
-          price: t.price, priceStr: t.price, bookingUrl: t.bookingUrl,
+          time: t.time, spots: sp, maxPlayers: sp,
+          price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
         };
       });
       teeTimeCache[key] = times;
