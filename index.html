@@ -475,7 +475,7 @@
   <div class="nav-right">
     <button class="fav-tab" id="favTab" onclick="toggleFavView()">★ Saved</button>
     <div class="course-search-wrap">
-      <input type="text" id="courseSearch" placeholder="Search courses…" oninput="onSearchInput(this.value)" autocomplete="off">
+      <input type="search" id="courseSearch" name="course-search-nofill" placeholder="Search courses…" oninput="onSearchInput(this.value)" autocomplete="off" data-lpignore="true" data-1p-ignore="true">
       <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
     </div>
   </div>
