@@ -287,9 +287,9 @@
   .form-submit:hover { background: var(--green-bright); }
   .signed-in-view { text-align: center; padding: 8px 0; }
   .avatar {
-    width: 60px; height: 60px; border-radius: 50%; background: var(--green-accent); color: var(--white);
+    width: auto; min-width: 60px; height: auto; padding: 14px 20px; border-radius: 30px; background: var(--green-accent); color: var(--white);
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px; font-weight: 700; margin: 0 auto 14px;
+    font-size: 18px; font-weight: 700; margin: 0 auto 14px;
   }
   .modal-signout {
     background: var(--gray-light); color: var(--text-dark); border: none;
@@ -1390,7 +1390,7 @@ function updateAuthUI(){
   const hBtn = document.getElementById('alertsHeaderBtn');
   if(currentUser){
     const name = userProfile?.full_name || currentUser.email.split('@')[0];
-    btn.innerHTML = name.charAt(0).toUpperCase() + ' · ' + name.split(' ')[0];
+    btn.innerHTML = name.split(' ')[0];
     btn.classList.add('signed-in');
     if(userPlan){
       hBtn.classList.add('has-plan');
@@ -1413,7 +1413,7 @@ function openModal(){
     const name = userProfile?.full_name || currentUser.email.split('@')[0];
     document.getElementById('displayName').textContent = name;
     document.getElementById('displayEmail').textContent = currentUser.email;
-    document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
+    document.getElementById('avatarInitial').textContent = name.split(' ')[0];
   } else {
     document.getElementById('authView').style.display='block';
     document.getElementById('signedInView').style.display='none';
