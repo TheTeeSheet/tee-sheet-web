@@ -654,10 +654,22 @@ async function fetchAllCaliforniaTimes(date, players) {
     Object.entries(data).forEach(([slug, courseData]) => {
       const name = courseData.course;
       const key = `${name}|${date}|${players}`;
-      const times = (courseData.teeTimes || []).map(t => ({
-        time: t.time, spots: t.spots, maxPlayers: t.spots,
-        price: t.price, priceStr: t.priceStr, bookingUrl: t.bookingUrl,
-      }));
+      const times = (courseData.teeTimes || []).map(t => {
+        // CA API returns players as "1-4" range string or plain number
+        let maxSpots = 4;
+        if (t.players) {
+          const pStr = String(t.players);
+          if (pStr.includes('-')) {
+            maxSpots = parseInt(pStr.split('-')[1]) || 4;
+          } else {
+            maxSpots = parseInt(pStr) || 4;
+          }
+        }
+        return {
+          time: t.time, spots: maxSpots, maxPlayers: maxSpots,
+          price: t.price, priceStr: t.price, bookingUrl: t.bookingUrl,
+        };
+      });
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('California bulk fetch failed:', e); }
