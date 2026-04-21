@@ -1827,5 +1827,95 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').catch(() => {});
 }
 </script>
+
+<!-- DTT Analytics Tracking -->
+<script>
+(function() {
+  'use strict';
+  var SUPABASE_URL = 'https://kzgkiqukyazicyhvvocb.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6Z2tpcXVreWF6aWN5aHZ2b2NiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzODkxNjAsImV4cCI6MjA4OTk2NTE2MH0.5bmG-60zHuEHEcGwlYYHMcJhqny_vXtrJ_9QUI0k_h8';
+
+  function getSessionId() {
+    try {
+      var id = sessionStorage.getItem('dtt_sid');
+      if (!id) {
+        id = (crypto && crypto.randomUUID) ? crypto.randomUUID() : ('s-' + Date.now() + '-' + Math.random().toString(36).slice(2, 11));
+        sessionStorage.setItem('dtt_sid', id);
+      }
+      return id;
+    } catch (e) {
+      if (!window.__dtt_sid_fallback) {
+        window.__dtt_sid_fallback = 'f-' + Date.now() + '-' + Math.random().toString(36).slice(2, 11);
+      }
+      return window.__dtt_sid_fallback;
+    }
+  }
+
+  function send(eventType, metadata) {
+    try {
+      var body = JSON.stringify({
+        event_type: eventType,
+        session_id: getSessionId(),
+        page: location.pathname + location.search,
+        metadata: metadata || null,
+        user_agent: navigator.userAgent.slice(0, 500),
+        referrer: document.referrer ? document.referrer.slice(0, 500) : null
+      });
+      fetch(SUPABASE_URL + '/rest/v1/site_events', {
+        method: 'POST',
+        body: body,
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        keepalive: true
+      }).catch(function(){});
+    } catch (e) {
+      if (window.console) console.debug('track error', e);
+    }
+  }
+
+  window.track = send;
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    send('page_view');
+  } else {
+    document.addEventListener('DOMContentLoaded', function() { send('page_view'); });
+  }
+
+  try {
+    if (!sessionStorage.getItem('dtt_session_started')) {
+      sessionStorage.setItem('dtt_session_started', '1');
+      send('session_start', { referrer: document.referrer || null });
+    }
+  } catch (e) {}
+
+  document.addEventListener('click', function(e) {
+    var el = e.target;
+    if (!el) return;
+    for (var i = 0; i < 5 && el; i++) {
+      if (el.classList && (el.classList.contains('tee-time') || el.classList.contains('teetime') || (el.getAttribute && el.getAttribute('data-tee-time')))) {
+        var card = el.closest ? el.closest('[data-course]') : null;
+        var courseName = card && card.getAttribute ? card.getAttribute('data-course') : null;
+        send('tee_time_click', { course: courseName, time: el.textContent ? el.textContent.trim().slice(0, 50) : null });
+        return;
+      }
+      if (el.classList && /state-tab|tab-arizona|tab-california|tab-utah/.test(el.className)) {
+        send('state_tab_click', { tab: el.textContent ? el.textContent.trim().slice(0, 20) : null });
+        return;
+      }
+      if (el.classList && (el.classList.contains('course-card-header') || el.classList.contains('course-header'))) {
+        var c = el.closest ? el.closest('[data-course]') : null;
+        send('course_expand', { course: c ? c.getAttribute('data-course') : null });
+        return;
+      }
+      el = el.parentElement;
+    }
+  }, true);
+})();
+</script>
+
 </body>
 </html>
