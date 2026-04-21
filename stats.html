@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>DTT Stats</title>
+<style>
+  :root {
+    --bg: #0f2e1a;
+    --bg-alt: #15371f;
+    --card: #1b4327;
+    --border: #2a5a37;
+    --text: #e6f1ea;
+    --text-dim: #9cb8a4;
+    --accent: #f6c66e;
+    --accent-green: #3ea86a;
+    --red: #e07a7a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; min-height: 100vh; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 20px; }
+  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
+  h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .subtitle { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+  .status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-dim); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.4; } }
+
+  /* Gate */
+  .gate { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; }
+  .gate input { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; border-radius: 8px; font-size: 14px; width: 280px; }
+  .gate button { background: var(--accent); color: var(--bg); border: 0; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 12px; width: 280px; }
+  .gate .err { color: var(--red); font-size: 13px; margin-top: 10px; min-height: 18px; }
+
+  /* Dashboard */
+  .dashboard { display: none; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .card-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 10px; }
+  .card-value { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; }
+  .card-sub { font-size: 12px; color: var(--text-dim); margin-top: 6px; }
+
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+  .panel-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 14px; }
+
+  .events-list { max-height: 500px; overflow-y: auto; }
+  .event-row { display: grid; grid-template-columns: 80px 140px 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--bg-alt); font-size: 13px; align-items: center; }
+  .event-row:last-child { border-bottom: 0; }
+  .event-time { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+  .event-type { font-weight: 500; }
+  .event-type.page_view { color: #8fb4f0; }
+  .event-type.tee_time_click { color: var(--accent); }
+  .event-type.alert_signup { color: var(--accent-green); }
+  .event-type.state_tab_click { color: #b090f0; }
+  .event-type.course_expand { color: #e0c070; }
+  .event-type.search { color: #c0c0c0; }
+  .event-type.session_start { color: #70e0c0; }
+  .event-meta { color: var(--text-dim); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .section-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .section-2col { grid-template-columns: 1fr; } }
+
+  .breakdown-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 6px 0; font-size: 13px; }
+  .breakdown-label { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .breakdown-count { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+
+  .refresh-note { color: var(--text-dim); font-size: 11px; text-align: center; margin-top: 20px; }
+  .error-box { background: #3a1818; border: 1px solid #5a2a2a; color: var(--red); padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 20px; display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Password gate -->
+  <div id="gate" class="gate">
+    <h1 style="margin-bottom: 24px;">DTT Stats</h1>
+    <input id="pw" type="password" placeholder="Password" autofocus autocomplete="current-password">
+    <button id="pw-submit">Enter</button>
+    <div id="pw-err" class="err"></div>
+  </div>
+
+  <!-- Dashboard (shown after auth) -->
+  <div id="dashboard" class="dashboard">
+    <header>
+      <div>
+        <h1>Daily Tee Times — Stats</h1>
+        <div class="subtitle">Live analytics</div>
+      </div>
+      <div class="status"><span class="dot"></span> <span id="last-update">updating…</span></div>
+    </header>
+
+    <div id="err" class="error-box"></div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">Sessions Today</div>
+        <div class="card-value" id="sessions-today">—</div>
+        <div class="card-sub"><span id="sessions-7d">—</span> past 7d · <span id="sessions-30d">—</span> past 30d</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Tee Time Clicks Today</div>
+        <div class="card-value" id="clicks-today">—</div>
+        <div class="card-sub"><span id="clicks-7d">—</span> past 7d · <span id="clicks-30d">—</span> past 30d</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Alert Signups Today</div>
+        <div class="card-value" id="signups-today">—</div>
+        <div class="card-sub"><span id="signups-7d">—</span> past 7d · <span id="signups-30d">—</span> past 30d</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Conversion Today</div>
+        <div class="card-value" id="conv-today">—</div>
+        <div class="card-sub">sessions that clicked a tee time</div>
+      </div>
+    </div>
+
+    <div class="section-2col">
+      <div class="panel">
+        <div class="panel-title">Top Courses (past 7d)</div>
+        <div id="top-courses"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Traffic Sources (past 7d)</div>
+        <div id="top-refs"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Live Event Feed (last 50 events)</div>
+      <div class="events-list" id="events-list"></div>
+    </div>
+
+    <div class="refresh-note">Auto-refreshes every 10 seconds</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ---- Config: fill these in ----
+  var SUPABASE_URL = 'https://kzgkiqukyazicyhvvocb.supabase.co';
+  var SUPABASE_SERVICE_ROLE_KEY = 'REPLACE_WITH_SERVICE_ROLE_KEY';
+  var PASSWORD_SHA256 = 'cedd645e07a4a50a506e407a2a06349cba82e55b5807dca9b3ce44e4577e023e';
+  // SECURITY NOTE: hashing in JS is security-through-obscurity only.
+  // Anyone who views source can see this hash and attempt rainbow-table attacks.
+  // For real security, put this page behind Cloudflare Access later.
+
+  // ---- Password gate ----
+  async function sha256Hex(str) {
+    var buf = new TextEncoder().encode(str);
+    var hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+  }
+
+  async function tryAuth(pw) {
+    var hash = await sha256Hex(pw);
+    return hash === PASSWORD_SHA256;
+  }
+
+  document.getElementById('pw-submit').addEventListener('click', submitPw);
+  document.getElementById('pw').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') submitPw();
+  });
+
+  async function submitPw() {
+    var pw = document.getElementById('pw').value;
+    var err = document.getElementById('pw-err');
+    err.textContent = '';
+    if (!pw) { err.textContent = 'Enter password'; return; }
+    var ok = await tryAuth(pw);
+    if (ok) {
+      sessionStorage.setItem('dtt_stats_auth', '1');
+      showDashboard();
+    } else {
+      err.textContent = 'Wrong password';
+    }
+  }
+
+  if (sessionStorage.getItem('dtt_stats_auth') === '1') {
+    showDashboard();
+  }
+
+  function showDashboard() {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadData();
+    setInterval(loadData, 10000);
+  }
+
+  // ---- Data loading ----
+  async function supa(path) {
+    var res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
+      headers: {
+        'apikey': SUPABASE_SERVICE_ROLE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_SERVICE_ROLE_KEY,
+        'Accept': 'application/json'
+      }
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }
+
+  function showErr(msg) {
+    var e = document.getElementById('err');
+    e.style.display = 'block';
+    e.textContent = msg;
+  }
+  function hideErr() {
+    document.getElementById('err').style.display = 'none';
+  }
+
+  async function loadData() {
+    try {
+      hideErr();
+
+      // Totals
+      var totals = await supa('stats_totals');
+      var t = totals[0] || {};
+      setText('sessions-today', t.sessions_today);
+      setText('sessions-7d', t.sessions_7d);
+      setText('sessions-30d', t.sessions_30d);
+      setText('clicks-today', t.tee_time_clicks_today);
+      setText('clicks-7d', t.tee_time_clicks_7d);
+      setText('clicks-30d', t.tee_time_clicks_30d);
+      setText('signups-today', t.alert_signups_today);
+      setText('signups-7d', t.alert_signups_7d);
+      setText('signups-30d', t.alert_signups_30d);
+
+      // Conversion = sessions that clicked at least one tee time / total sessions (today)
+      var clickSessions = await supa("site_events?event_type=eq.tee_time_click&created_at=gte." + isoAgo(1) + "&select=session_id");
+      var uniqClickSessions = new Set(clickSessions.map(function(r){return r.session_id;})).size;
+      var sessionsToday = t.sessions_today || 0;
+      var convPct = sessionsToday > 0 ? Math.round((uniqClickSessions / sessionsToday) * 100) : 0;
+      document.getElementById('conv-today').textContent = convPct + '%';
+
+      // Top courses (from tee_time_click events, past 7d)
+      var clicks7d = await supa("site_events?event_type=eq.tee_time_click&created_at=gte." + isoAgo(7) + "&select=metadata&limit=1000");
+      var courseCounts = {};
+      clicks7d.forEach(function(r) {
+        var course = r.metadata && r.metadata.course;
+        if (course) courseCounts[course] = (courseCounts[course] || 0) + 1;
+      });
+      renderBreakdown('top-courses', courseCounts);
+
+      // Traffic sources (from page_view events, past 7d)
+      var views7d = await supa("site_events?event_type=eq.page_view&created_at=gte." + isoAgo(7) + "&select=referrer&limit=1000");
+      var refCounts = {};
+      views7d.forEach(function(r) {
+        var ref = r.referrer ? hostnameOf(r.referrer) : '(direct)';
+        refCounts[ref] = (refCounts[ref] || 0) + 1;
+      });
+      renderBreakdown('top-refs', refCounts);
+
+      // Live events feed (last 50)
+      var recent = await supa('site_events?order=created_at.desc&limit=50&select=created_at,event_type,metadata,page');
+      renderEvents(recent);
+
+      document.getElementById('last-update').textContent = 'updated ' + new Date().toLocaleTimeString();
+    } catch (e) {
+      showErr('Error loading data: ' + e.message);
+    }
+  }
+
+  function setText(id, v) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = (v == null) ? '0' : String(v);
+  }
+
+  function isoAgo(days) {
+    var d = new Date(Date.now() - days * 86400 * 1000);
+    return d.toISOString();
+  }
+
+  function hostnameOf(url) {
+    try { return new URL(url).hostname; } catch (e) { return '(unknown)'; }
+  }
+
+  function renderBreakdown(elId, counts) {
+    var entries = Object.entries(counts).sort(function(a,b){return b[1]-a[1];}).slice(0, 10);
+    var html = entries.length === 0 ? '<div style="color: var(--text-dim); font-size: 13px;">No data yet</div>' :
+      entries.map(function(e) {
+        return '<div class="breakdown-row"><div class="breakdown-label">' + escapeHtml(e[0]) + '</div><div class="breakdown-count">' + e[1] + '</div></div>';
+      }).join('');
+    document.getElementById(elId).innerHTML = html;
+  }
+
+  function renderEvents(events) {
+    if (!events || events.length === 0) {
+      document.getElementById('events-list').innerHTML = '<div style="color: var(--text-dim); font-size: 13px; padding: 20px 0; text-align: center;">Waiting for events…</div>';
+      return;
+    }
+    var html = events.map(function(e) {
+      var ago = timeAgo(new Date(e.created_at));
+      var meta = '';
+      if (e.metadata) {
+        if (e.metadata.course) meta = e.metadata.course;
+        else if (e.metadata.tab) meta = e.metadata.tab;
+        else if (e.metadata.time) meta = e.metadata.time;
+      }
+      if (!meta && e.page) meta = e.page;
+      return '<div class="event-row">' +
+        '<div class="event-time">' + ago + '</div>' +
+        '<div class="event-type ' + e.event_type + '">' + e.event_type + '</div>' +
+        '<div class="event-meta">' + escapeHtml(meta || '') + '</div>' +
+        '</div>';
+    }).join('');
+    document.getElementById('events-list').innerHTML = html;
+  }
+
+  function timeAgo(d) {
+    var s = Math.round((Date.now() - d.getTime()) / 1000);
+    if (s < 60) return s + 's ago';
+    if (s < 3600) return Math.floor(s/60) + 'm ago';
+    if (s < 86400) return Math.floor(s/3600) + 'h ago';
+    return Math.floor(s/86400) + 'd ago';
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+})();
+</script>
+</body>
+</html>
