@@ -1530,6 +1530,17 @@ async function _doRender(){
         nameEl.innerHTML += ` <span class="live-badge">● LIVE</span>`;
       }
       cardEl.querySelector('.tee-times-grid').innerHTML = timesHtml;
+      const countEl = cardEl.querySelector('.tee-time-count');
+      if (countEl) {
+        const n = filtered.length;
+        if (n > 0) {
+          countEl.textContent = n + (n === 1 ? ' time' : ' times');
+          countEl.classList.remove('empty');
+        } else {
+          countEl.textContent = 'No times';
+          countEl.classList.add('empty');
+        }
+      }
     });
 
     // Re-sort: live times first, then check-avail, then no times
