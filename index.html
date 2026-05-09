@@ -233,29 +233,58 @@
   /* ── CARDS ── */
   .course-card {
     background: var(--white); border-radius: 12px;
-    border-left: 3px solid var(--green-accent);
-    box-shadow: var(--shadow); margin-bottom: 14px;
-    padding: 18px 20px; transition: box-shadow 0.2s, transform 0.2s;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    margin-bottom: 10px;
+    padding: 18px 22px;
+    transition: box-shadow 0.2s, border-color 0.2s, background 0.15s;
     animation: fadeUp 0.3s ease both;
   }
-  .course-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .course-card:not(.expanded):hover {
+    background: #fafbf9;
+    border-color: rgba(16, 90, 51, 0.18);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .course-card.expanded {
+    border-color: rgba(16, 90, 51, 0.25);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
   /* === Collapsible cards (added) === */
   .course-card { cursor: pointer; }
   .course-card.expanded { cursor: default; }
-  .card-header { align-items: center !important; }
-  .tee-time-count {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 600;
-    color: var(--green-accent);
-    background: rgba(16, 90, 51, 0.08);
-    padding: 4px 10px; border-radius: 999px;
-    white-space: nowrap; margin-left: 8px;
+  .card-header {
+    align-items: center !important;
+    margin-bottom: 0 !important;
+    padding: 4px 0;
   }
-  .tee-time-count.empty { color: #888; background: rgba(0,0,0,0.04); }
+  .tee-time-count {
+    display: inline-flex; align-items: center;
+    font-size: 14px; font-weight: 600;
+    color: var(--green-accent);
+    background: rgba(16, 90, 51, 0.1);
+    padding: 6px 14px; border-radius: 999px;
+    white-space: nowrap; margin-left: 10px;
+    letter-spacing: 0.01em;
+  }
+  .tee-time-count.empty {
+    color: #999;
+    background: rgba(0,0,0,0.04);
+    font-weight: 500;
+  }
   .card-chevron {
-    width: 16px; height: 16px; flex-shrink: 0;
-    transition: transform 0.25s ease;
-    color: #888; margin-left: 6px;
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+    transition: transform 0.25s ease, background 0.15s, color 0.15s;
+    color: #555;
+    margin-left: 10px;
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.04);
+    box-sizing: border-box;
+  }
+  .course-card:not(.expanded):hover .card-chevron {
+    background: rgba(16, 90, 51, 0.12);
+    color: var(--green-accent);
   }
   .course-card.expanded .card-chevron { transform: rotate(180deg); }
   .tee-times-wrap {
@@ -1396,7 +1425,7 @@ async function _doRender(){
           <button class="alert-btn ${hasAlert?'has-alert':''}" onclick="openAlertModal('${c.name.replace(/'/g,"\\'")}','${c.city}')" title="Set tee time alert">🔔</button>
         </div>
         <span class="tee-time-count ${times && times.length ? '' : 'empty'}">${times && times.length ? times.length + (times.length===1?' time':' times') : 'No times'}</span>
-        <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </div>
       <div class="tee-times-wrap"><div class="tee-times-grid">${timesHtml}</div></div>`;
     card.addEventListener('click', function(e){
