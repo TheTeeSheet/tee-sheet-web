@@ -287,6 +287,30 @@
     color: var(--green-accent);
   }
   .course-card.expanded .card-chevron { transform: rotate(180deg); }
+  .card-meta-line {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 6px;
+    font-size: 13px; color: #666;
+  }
+  .card-meta-line .card-location {
+    display: inline-flex; align-items: center; gap: 4px;
+    color: #666;
+  }
+  .card-meta-line .alert-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 14px; padding: 2px 6px;
+    border-radius: 6px; opacity: 0.55;
+    transition: opacity 0.15s, background 0.15s;
+    line-height: 1;
+  }
+  .card-meta-line .alert-btn:hover {
+    opacity: 1; background: rgba(16, 90, 51, 0.08);
+  }
+  .card-meta-line .alert-btn.has-alert { opacity: 1; }
+  .card-action {
+    display: flex; align-items: center; gap: 10px;
+    flex-shrink: 0;
+  }
   .tee-times-wrap {
     max-height: 0; overflow: hidden;
     transition: max-height 0.3s ease, margin-top 0.3s ease, opacity 0.2s ease;
@@ -1418,14 +1442,16 @@ async function _doRender(){
               <span class="rating-num">${c.rating.toFixed(1)}</span>
               <span class="rating-count">(${c.reviews.toLocaleString()})</span>
             </div>
+            <div class="card-meta-line">
+              <span class="card-location">📍 ${c.city}</span>
+              <button class="alert-btn ${hasAlert?'has-alert':''}" onclick="openAlertModal('${c.name.replace(/'/g,"\\'")}','${c.city}')" title="Set tee time alert">🔔</button>
+            </div>
           </div>
         </div>
-        <div class="card-right">
-          <div class="card-location">📍 ${c.city}</div>
-          <button class="alert-btn ${hasAlert?'has-alert':''}" onclick="openAlertModal('${c.name.replace(/'/g,"\\'")}','${c.city}')" title="Set tee time alert">🔔</button>
+        <div class="card-action">
+          <span class="tee-time-count ${times && times.length ? '' : 'empty'}">${times && times.length ? times.length + (times.length===1?' time':' times') : 'No times'}</span>
+          <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </div>
-        <span class="tee-time-count ${times && times.length ? '' : 'empty'}">${times && times.length ? times.length + (times.length===1?' time':' times') : 'No times'}</span>
-        <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </div>
       <div class="tee-times-wrap"><div class="tee-times-grid">${timesHtml}</div></div>`;
     card.addEventListener('click', function(e){
