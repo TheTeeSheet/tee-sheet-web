@@ -271,6 +271,12 @@
     background: rgba(0,0,0,0.04);
     font-weight: 500;
   }
+  .tee-time-count.loading {
+    color: #888;
+    background: rgba(0,0,0,0.04);
+    font-weight: 500;
+    font-style: italic;
+  }
   .card-chevron {
     width: 36px; height: 36px;
     flex-shrink: 0;
@@ -1449,7 +1455,7 @@ async function _doRender(){
           </div>
         </div>
         <div class="card-action">
-          <span class="tee-time-count ${times && times.length ? '' : 'empty'}">${times && times.length ? times.length + (times.length===1?' time':' times') : 'No times'}</span>
+          <span class="tee-time-count ${times===null?'loading':(times && times.length?'':'empty')}">${times===null?'Loading…':(times && times.length?times.length+(times.length===1?' time':' times'):'No times')}</span>
           <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </div>
       </div>
@@ -1533,6 +1539,7 @@ async function _doRender(){
       const countEl = cardEl.querySelector('.tee-time-count');
       if (countEl) {
         const n = filtered.length;
+        countEl.classList.remove('loading');
         if (n > 0) {
           countEl.textContent = n + (n === 1 ? ' time' : ' times');
           countEl.classList.remove('empty');
