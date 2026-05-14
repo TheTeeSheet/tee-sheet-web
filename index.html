@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="google-site-verification" content="keZvGNV3moaa4Aqq-HD7JdQ8phIgjgkDD4xRw6Vs-Lo" />
-<meta name="description" content="Find and book live tee times across Arizona, California, and Utah. Compare real-time availability and prices at 80+ golf courses. No fees, no signup required.">
-<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses Arizona, golf courses Utah, golf courses California, cheap tee times, last minute tee times, golf booking, daily tee times">
+<meta name="description" content="Find and book live tee times across Arizona, California, Texas, and Utah. Compare real-time availability and prices at 100+ golf courses. No fees, no signup required.">
+<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses Arizona, golf courses Utah, golf courses California, golf courses Texas, cheap tee times, last minute tee times, golf booking, daily tee times">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://dailyteetimes.com/">
 <title>Daily Tee Times — Find & Book Tee Times in AZ, CA & UT</title>
@@ -13,14 +13,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dailyteetimes.com/">
 <meta property="og:title" content="Daily Tee Times — Find & Book Tee Times">
-<meta property="og:description" content="Compare live tee times and prices at 80+ golf courses across Arizona, California, and Utah. No fees, no signup required.">
+<meta property="og:description" content="Compare live tee times and prices at 100+ golf courses across Arizona, California, Texas, and Utah. No fees, no signup required.">
 <meta property="og:site_name" content="Daily Tee Times">
 <meta property="og:locale" content="en_US">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Daily Tee Times — Find & Book Tee Times">
-<meta name="twitter:description" content="Compare live tee times and prices at 80+ golf courses across Arizona, California, and Utah.">
+<meta name="twitter:description" content="Compare live tee times and prices at 100+ golf courses across Arizona, California, Texas, and Utah.">
 
 <!-- PWA -->
 <meta name="theme-color" content="#0f2e1a">
@@ -36,7 +36,7 @@
   "@type": "WebApplication",
   "name": "Daily Tee Times",
   "url": "https://dailyteetimes.com",
-  "description": "Find and book live tee times across Arizona, California, and Utah. Compare real-time availability and prices at 80+ golf courses.",
+  "description": "Find and book live tee times across Arizona, California, Texas, and Utah. Compare real-time availability and prices at 100+ golf courses.",
   "applicationCategory": "SportsApplication",
   "operatingSystem": "All",
   "offers": {
@@ -53,8 +53,8 @@
   "areaServed": [
     {"@type": "State", "name": "Arizona"},
     {"@type": "State", "name": "California"},
-    {"@type": "State", "name": "Utah"},
-              {"gtype": "State", "name": "Texas"}
+    {"@type": "State", "name": "Texas"},
+    {"@type": "State", "name": "Utah"}
   ]
 }
 </script>
@@ -636,6 +636,7 @@
   <div class="state-tabs">
     <button class="state-tab active" onclick="setActiveState('arizona',this)">Arizona <span class="count" id="count-arizona"></span></button>
     <button class="state-tab" onclick="setActiveState('california',this)">California <span class="count" id="count-california"></span></button>
+    <button class="state-tab" onclick="setActiveState('texas',this)">Texas <span class="count" id="count-texas"></span></button>
     <button class="state-tab" onclick="setActiveState('utah',this)">Utah <span class="count" id="count-utah"></span></button>
   </div>
   <div class="nav-right">
@@ -663,15 +664,17 @@
     <p>Compare tee times at Utah golf courses including Bonneville, Rose Park, Glendale, Mountain Dell, Stonebridge, The Links at Sleepy Ridge, Fox Hollow, Eaglewood, Talons Cove, and 20+ more courses across Salt Lake City, Provo, St. George, and Park City. Live pricing and real-time availability.</p>
     <h2>Book Tee Times in California</h2>
     <p>Search tee times at California golf courses including Indian Wells, PGA West, Desert Willow, Classic Club, Rams Hill, Torrey Pines, and 30+ more courses across Palm Springs, San Diego, and La Quinta. Real-time pricing and availability.</p>
+    <h2>Book Tee Times in Texas</h2>
+    <p>Compare tee times at Texas golf courses including Cowboys Golf Club, Texas Star, Tour 18 Dallas, Tangle Ridge, Tierra Verde, Memorial Park, Lions Municipal, Jimmy Clay, Roy Kizer, and more courses across Dallas–Fort Worth, Houston, and Austin. Live pricing and real-time availability.</p>
     <h2>How Daily Tee Times Works</h2>
-    <p>Daily Tee Times aggregates live tee time availability from 80+ golf courses across Arizona, California, and Utah. Search by date, number of players, time of day, and city. Set SMS alerts to get notified when tee times become available at your favorite courses. No account required to search. Completely free to use.</p>
+    <p>Daily Tee Times aggregates live tee time availability from 100+ golf courses across Arizona, California, Texas, and Utah. Search by date, number of players, time of day, and city. Set SMS alerts to get notified when tee times become available at your favorite courses. No account required to search. Completely free to use.</p>
   </div>
 </main>
 
 <!-- FOOTER -->
 <footer style="background:var(--green-deep);padding:32px 48px;text-align:center;margin-top:40px;">
   <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px;">Daily Tee Times</div>
-  <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px;">Find and book tee times across Arizona, California, and Utah.</div>
+  <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px;">Find and book tee times across Arizona, California, Texas, and Utah.</div>
   <div style="font-size:11px;color:rgba(255,255,255,0.25);">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
 
@@ -789,7 +792,7 @@
 
 <script>
 // ── UNIFIED TEE TIME CACHE ───────────────────────────────────────────────────
-// Single cache for all live tee time data (Utah + Arizona + future states)
+// Single cache for all live tee time data (Utah + Arizona + California + Texas + future states)
 const teeTimeCache = {};
 
 // ── LIVE API FETCHING ────────────────────────────────────────────────────────
@@ -866,6 +869,27 @@ async function fetchAllCaliforniaTimes(date, players) {
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('California bulk fetch failed:', e); }
+}
+
+async function fetchAllTexasTimes(date, players) {
+  try {
+    const url = `https://tee-sheet-api-production.up.railway.app/api/tee-times-tx?date=${date}&players=${players}`;
+    const res = await fetch(url);
+    if (!res.ok) return;
+    const data = await res.json();
+    Object.entries(data).forEach(([slug, courseData]) => {
+      const name = courseData.course;
+      const key = `${name}|${date}|${players}`;
+      const times = (courseData.teeTimes || []).map(t => {
+        const sp = parseSpots(t);
+        return {
+          time: t.time, spots: sp, maxPlayers: sp,
+          price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
+        };
+      });
+      teeTimeCache[key] = times;
+    });
+  } catch(e) { console.error('Texas bulk fetch failed:', e); }
 }
 
 // ── MEMBERSPORTS CLIENT-SIDE FETCH ───────────────────────────────────────────
@@ -1173,6 +1197,29 @@ const courses = {
     {name:'Corica Park Golf Course',city:'Alameda',rating:4.2,reviews:567,isLive:true},
     {name:'Poplar Creek Golf Course',city:'San Mateo',rating:4.0,reviews:345,isLive:true},
   ],
+  texas: [
+    // TODO: backfill rating/reviews from Google Maps; renderer skips rating UI if absent.
+    {name:'Cowboys Golf Club',city:'Grapevine',isLive:true},
+    {name:'Stevens Park Golf Course',city:'Dallas',isLive:true},
+    {name:'Sherrill Park Golf Club',city:'Richardson',isLive:true},
+    {name:'Tierra Verde Golf Club',city:'Arlington',isLive:true},
+    {name:'Tangle Ridge Golf Club',city:'Cedar Hill',isLive:true},
+    {name:'Waterchase Golf Club',city:'Fort Worth',isLive:true},
+    {name:'Texas Star Golf Club',city:'Euless',isLive:true},
+    {name:'Tour 18 Dallas',city:'Flower Mound',isLive:true},
+    {name:'Tenison Highlands Golf Club',city:'Dallas',isLive:true},
+    {name:'Pecan Valley Golf Course - Hills Nine',city:'Fort Worth',isLive:true},
+    {name:'Pecan Valley Golf Course - River Nine',city:'Fort Worth',isLive:true},
+    {name:'Meadowbrook Golf Course',city:'Fort Worth',isLive:true},
+    {name:'Rockwood Park Golf Course',city:'Fort Worth',isLive:true},
+    {name:'Memorial Park Golf Course',city:'Houston',isLive:true},
+    {name:'Lions Municipal Golf Course',city:'Austin',isLive:true},
+    {name:'Jimmy Clay Golf Course',city:'Austin',isLive:true},
+    {name:'Roy Kizer Golf Course',city:'Austin',isLive:true},
+    {name:'Morris Williams Golf Course',city:'Austin',isLive:true},
+    {name:'Hancock Golf Course',city:'Austin',isLive:true},
+    {name:'Grey Rock Golf Course',city:'Austin',isLive:true},
+  ],
 };
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
@@ -1290,7 +1337,7 @@ function setActiveState(state,btn){
   document.getElementById('favTab').classList.remove('active');
   document.querySelectorAll('.state-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  const names={arizona:'Arizona',utah:'Utah',california:'California'};
+  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas'};
   document.getElementById('resultsTitle').textContent=names[state]+' Courses';
   populateCityFilter(state);
   document.getElementById('cityFilter').value='';
@@ -1386,8 +1433,9 @@ async function _doRender(){
   container.innerHTML=`<div class="expand-controls"><button onclick="expandAllCards()">Expand all</button><button onclick="collapseAllCards()">Collapse all</button></div>`;
   pool.forEach((c,idx)=>{
     const isFav=favorites.has(c.name);
-    const fs=Math.floor(c.rating), half=c.rating%1>=0.5;
-    const stars='★'.repeat(fs)+(half?'½':'')+'☆'.repeat(5-fs-(half?1:0));
+    const hasRating=typeof c.rating==='number';
+    const fs=hasRating?Math.floor(c.rating):0, half=hasRating&&c.rating%1>=0.5;
+    const stars=hasRating?('★'.repeat(fs)+(half?'½':'')+'☆'.repeat(5-fs-(half?1:0))):'';
     const hasAlert=activeAlerts.some(a=>a.course===c.name);
 
     let times; let isLiveData=false;
@@ -1447,11 +1495,11 @@ async function _doRender(){
           <button class="fav-btn ${isFav?'active':''}" onclick="toggleFav('${c.name.replace(/'/g,"\\'")}',this)">${isFav?'★':'☆'}</button>
           <div class="card-meta">
             <div class="card-name">${c.name}${isLiveData ? ` <span class="live-badge">● LIVE</span>` : ''}</div>
-            <div class="card-rating">
+            ${hasRating ? `<div class="card-rating">
               <span class="stars">${stars}</span>
               <span class="rating-num">${c.rating.toFixed(1)}</span>
-              <span class="rating-count">(${c.reviews.toLocaleString()})</span>
-            </div>
+              <span class="rating-count">(${(c.reviews||0).toLocaleString()})</span>
+            </div>` : ''}
             <div class="card-meta-line">
               <span class="card-location">📍 ${c.city}</span>
             </div>
@@ -1480,6 +1528,7 @@ async function _doRender(){
     const needsUtah = livePool.some(c => courses.utah.some(uc => uc.name === c.name));
     const needsArizona = livePool.some(c => courses.arizona.some(ac => ac.name === c.name && ac.isLive));
     const needsCalifornia = livePool.some(c => courses.california.some(cc => cc.name === c.name && cc.isLive));
+    const needsTexas = livePool.some(c => courses.texas.some(tc => tc.name === c.name && tc.isLive));
 
     if (needsUtah) {
       fetches.push(fetchAllUtahTimes(date, players || 1));
@@ -1491,6 +1540,9 @@ async function _doRender(){
     }
     if (needsCalifornia) {
       fetches.push(fetchAllCaliforniaTimes(date, players || 1));
+    }
+    if (needsTexas) {
+      fetches.push(fetchAllTexasTimes(date, players || 1));
     }
 
     await Promise.all(fetches);
@@ -1750,7 +1802,7 @@ let acHighlight = -1;
 function getAllCourses() {
   const all = [];
   for (const [state, list] of Object.entries(courses)) {
-    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : 'UT';
+    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : 'UT';
     list.forEach(c => all.push({ name: c.name, city: c.city, state: stLabel }));
   }
   return all.sort((a, b) => a.name.localeCompare(b.name));
@@ -1869,7 +1921,7 @@ async function saveAlert(){
   let state = null;
   for(const [st, list] of Object.entries(courses)){
     if(list.some(c=>c.name===course)){
-      state = st==='arizona'?'AZ':st==='california'?'CA':st==='utah'?'UT':null;
+      state = st==='arizona'?'AZ':st==='california'?'CA':st==='utah'?'UT':st==='texas'?'TX':null;
       break;
     }
   }
@@ -2032,7 +2084,7 @@ if ('serviceWorker' in navigator) {
         send('tee_time_click', { course: courseName, time: el.textContent ? el.textContent.trim().slice(0, 50) : null });
         return;
       }
-      if (el.classList && /state-tab|tab-arizona|tab-california|tab-utah/.test(el.className)) {
+      if (el.classList && /state-tab|tab-arizona|tab-california|tab-texas|tab-utah/.test(el.className)) {
         send('state_tab_click', { tab: el.textContent ? el.textContent.trim().slice(0, 20) : null });
         return;
       }

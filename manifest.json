@@ -1,7 +1,7 @@
 {
   "name": "Daily Tee Times",
   "short_name": "Tee Times",
-  "description": "Find and book tee times across Arizona, California, and Utah.",
+  "description": "Find and book tee times across Arizona, California, Texas, and Utah.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f2e1a",
