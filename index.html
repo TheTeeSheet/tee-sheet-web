@@ -1199,24 +1199,64 @@ const courses = {
   ],
   texas: [
     // TODO: backfill rating/reviews from Google Maps; renderer skips rating UI if absent.
+    // NAMES MUST MATCH the `course` field returned by /api/tee-times-tx — the
+    // frontend caches API responses keyed on name. Adding a new entry to
+    // courses/texas.js in the API repo? Add it here too, exact same name.
+    // ── DFW metro — Arlington / Cedar Hill / Flower Mound / Grapevine ──────────
     {name:'Tour 18 Dallas',city:'Flower Mound',isLive:true},
     {name:'Tangle Ridge Golf Club',city:'Cedar Hill',isLive:true},
     {name:'Tierra Verde Golf Club',city:'Arlington',isLive:true},
     {name:'Texas Rangers Golf Club',city:'Arlington',isLive:true},
     {name:'Meadowbrook Park Golf Course',city:'Arlington',isLive:true},
     {name:'Lake Arlington Golf Course',city:'Arlington',isLive:true},
-    {name:'Sherrill Park Golf Club',city:'Richardson',isLive:true},
     {name:'Cowboys Golf Club',city:'Grapevine',isLive:true},
-    {name:'Pecan Valley Golf Course - Hills Nine',city:'Fort Worth',isLive:true},
-    {name:'Pecan Valley Golf Course - River Nine',city:'Fort Worth',isLive:true},
+    // ── DFW metro — Dallas / Plano / Richardson / Fairview / Frisco / McKinney / NRH
+    {name:'Sherrill Park Golf Club',city:'Richardson',isLive:true},
+    {name:'Westridge Golf Course',city:'McKinney',isLive:true},
+    {name:'Oak Hollow Golf Course',city:'McKinney',isLive:true},
+    {name:'Frisco Lakes Golf Club',city:'Frisco',isLive:true},
+    {name:'Heritage Ranch Golf & Country Club',city:'Fairview',isLive:true},
+    {name:'Iron Horse Golf Course',city:'North Richland Hills',isLive:true},
+    {name:'Ridgeview Ranch Golf Club',city:'Plano',isLive:true},
+    {name:'Preston West Par 3 Golf Course',city:'Dallas',isLive:true},
+    {name:'Bridlewood Golf Club',city:'Flower Mound',isLive:true},
+    {name:'Buffalo Creek Golf Club',city:'Heath',isLive:true},
+    {name:'Canyon West Golf Course',city:'Weatherford',isLive:true},
+    // ── Fort Worth munis (CPS) ─────────────────────────────────────────────────
+    {name:'Pecan Valley Hills',city:'Fort Worth',isLive:true},
+    {name:'Pecan Valley River',city:'Fort Worth',isLive:true},
     {name:'Meadowbrook Golf Course',city:'Fort Worth',isLive:true},
     {name:'Rockwood Park Golf Course',city:'Fort Worth',isLive:true},
+    // ── Houston metro ──────────────────────────────────────────────────────────
+    {name:'Golf Club of Houston',city:'Houston',isLive:true},
+    {name:'Wildcat Golf Club - Highlands',city:'Houston',isLive:true},
+    {name:'Wildcat Golf Club - Lakes',city:'Houston',isLive:true},
+    {name:'Hermann Park Golf Course',city:'Houston',isLive:true},
+    {name:'Grand Oaks Golf Club',city:'Houston',isLive:true},
+    {name:'Gleannloch Pines Golf Club',city:'Spring',isLive:true},
+    // ── Austin metro ───────────────────────────────────────────────────────────
+    {name:'Avery Ranch Golf Club',city:'Austin',isLive:true},
+    {name:'Falconhead Golf Club',city:'Bee Cave',isLive:true},
+    {name:'Forest Creek Golf Club',city:'Round Rock',isLive:true},
+    {name:'Delaware Springs Golf Course',city:'Burnet',isLive:true},
+    {name:'Berry Creek Country Club',city:'Georgetown',isLive:true},
     {name:'Lions Municipal Golf Course',city:'Austin',isLive:true},
     {name:'Jimmy Clay Golf Course',city:'Austin',isLive:true},
     {name:'Roy Kizer Golf Course',city:'Austin',isLive:true},
     {name:'Morris Williams Golf Course',city:'Austin',isLive:true},
     {name:'Hancock Golf Course',city:'Austin',isLive:true},
     {name:'Grey Rock Golf Course',city:'Austin',isLive:true},
+    // ── College Station / East Texas / Rio Grande Valley / West Texas / Hill Country
+    {name:'Texas A&M Campus Course',city:'College Station',isLive:true},
+    {name:'Pine Ridge Golf Course',city:'Beaumont',isLive:true},
+    {name:'Rayburn Resort',city:'Brookeland',isLive:true},
+    {name:'Llano Grande Golf Course',city:'Mercedes',isLive:true},
+    {name:'Monte Cristo Golf & Country Club',city:'Edinburg',isLive:true},
+    {name:'Reeves County Golf Course',city:'Pecos',isLive:true},
+    {name:'Olney Country Club',city:'Olney',isLive:true},
+    {name:'Battle Lake Golf Course',city:'Mart',isLive:true},
+    {name:'Copperas Hollow Country Club',city:'Caldwell',isLive:true},
+    {name:'Flying L Ranch Golf Course',city:'Bandera',isLive:true},
   ],
 };
 
