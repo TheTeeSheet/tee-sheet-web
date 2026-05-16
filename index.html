@@ -824,6 +824,12 @@ async function fetchAllUtahTimes(date, players) {
           price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
         };
       });
+      // Skip caching when server returned an error AND no tee times — this happens
+      // for membersports courses (MS API IP-filters Railway with 407) and for
+      // ezlinks/webtrac while Bright Data KYC is pending. Leaving the cache key
+      // undefined lets the per-platform client-side fetchers (fetchAllMemberSportsTimes,
+      // etc.) populate it, instead of being short-circuited by an empty cached value.
+      if (courseData.error && times.length === 0) return;
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('Utah bulk fetch failed:', e); }
@@ -845,6 +851,12 @@ async function fetchAllArizonaTimes(date, players) {
           price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
         };
       });
+      // Skip caching when server returned an error AND no tee times — this happens
+      // for membersports courses (MS API IP-filters Railway with 407) and for
+      // ezlinks/webtrac while Bright Data KYC is pending. Leaving the cache key
+      // undefined lets the per-platform client-side fetchers (fetchAllMemberSportsTimes,
+      // etc.) populate it, instead of being short-circuited by an empty cached value.
+      if (courseData.error && times.length === 0) return;
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('Arizona bulk fetch failed:', e); }
@@ -866,6 +878,12 @@ async function fetchAllCaliforniaTimes(date, players) {
           price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
         };
       });
+      // Skip caching when server returned an error AND no tee times — this happens
+      // for membersports courses (MS API IP-filters Railway with 407) and for
+      // ezlinks/webtrac while Bright Data KYC is pending. Leaving the cache key
+      // undefined lets the per-platform client-side fetchers (fetchAllMemberSportsTimes,
+      // etc.) populate it, instead of being short-circuited by an empty cached value.
+      if (courseData.error && times.length === 0) return;
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('California bulk fetch failed:', e); }
@@ -887,6 +905,12 @@ async function fetchAllTexasTimes(date, players) {
           price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
         };
       });
+      // Skip caching when server returned an error AND no tee times — this happens
+      // for membersports courses (MS API IP-filters Railway with 407) and for
+      // ezlinks/webtrac while Bright Data KYC is pending. Leaving the cache key
+      // undefined lets the per-platform client-side fetchers (fetchAllMemberSportsTimes,
+      // etc.) populate it, instead of being short-circuited by an empty cached value.
+      if (courseData.error && times.length === 0) return;
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('Texas bulk fetch failed:', e); }
