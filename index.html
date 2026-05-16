@@ -266,11 +266,11 @@
   }
   .tee-time-count {
     display: inline-flex; align-items: center;
-    font-size: 14px; font-weight: 600;
+    font-size: 13px; font-weight: 600;
     color: var(--green-accent);
     background: rgba(16, 90, 51, 0.1);
-    padding: 6px 14px; border-radius: 999px;
-    white-space: nowrap; margin-left: 10px;
+    padding: 4px 11px; border-radius: 999px;
+    white-space: nowrap; margin-left: auto;
     letter-spacing: 0.01em;
   }
   .tee-time-count.empty {
@@ -1562,12 +1562,12 @@ async function _doRender(){
             </div>` : ''}
             <div class="card-meta-line">
               <span class="card-location">📍 ${c.city}</span>
+              <span class="tee-time-count ${times===null?'loading':(times && times.length?'':'empty')}">${times===null?'Loading…':(times && times.length?times.length+(times.length===1?' time':' times'):'No times')}</span>
             </div>
           </div>
         </div>
         <div class="card-action">
           <button class="alert-btn ${hasAlert?'has-alert':''}" onclick="event.stopPropagation();openAlertModal('${c.name.replace(/'/g,"\\'")}','${c.city}')" title="Set tee time alert">🔔</button>
-          <span class="tee-time-count ${times===null?'loading':(times && times.length?'':'empty')}">${times===null?'Loading…':(times && times.length?times.length+(times.length===1?' time':' times'):'No times')}</span>
           <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </div>
       </div>
