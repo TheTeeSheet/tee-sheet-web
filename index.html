@@ -160,8 +160,15 @@
     color: var(--white); background: rgba(255,255,255,0.1);
     outline: none; cursor: pointer; text-align: center;
   }
+  .field-group select {
+    -webkit-appearance: none; -moz-appearance: none; appearance: none;
+    padding: 9px 32px 9px 32px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.7)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center;
+    text-align: center; text-align-last: center;
+  }
   .field-group input::placeholder { color: rgba(255,255,255,0.4); }
-  .field-group select option { background: var(--green-deep); color: var(--white); }
+  .field-group select option { background: var(--green-deep); color: var(--white); text-align: left; }
   .search-btn {
     background: var(--gold); color: var(--green-deep); border: none;
     border-radius: 8px; padding: 10px 24px; font-family: 'Inter', sans-serif;
