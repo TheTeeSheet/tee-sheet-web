@@ -991,8 +991,8 @@ const chronogolfSlugs = {
   'Glendale Golf Course':'glendale-golf-course',
   'Nibley Park Golf Course':'nibley-park-golf-course',
   'Rose Park Golf Course':'rose-park-golf-course',
-  'Mountain Dell — Lake':'mountain-dell-lake',
-  'Mountain Dell — Canyon':'mountain-dell-canyon',
+  'Mountain Dell — Lake':'mountain-dell-golf-club',
+  'Mountain Dell — Canyon':'mountain-dell-golf-club',
   // SL County
   'South Mountain Golf Course':'south-mountain-slco',
   'Riverbend Golf Course':'riverbend-slco',
@@ -1025,8 +1025,8 @@ const chronogolfSlugs = {
   'Logan River Golf Course':'logan-river',
   'Oquirrh Hills Golf Course':'oquirrh-hills',
   // St. George
-  'Sand Hollow \u2014 Championship':'sand-hollow-championship',
-  'Sand Hollow \u2014 Links':'sand-hollow-links',
+  'Sand Hollow \u2014 Championship':'sand-hollow-resort',
+  'Sand Hollow \u2014 Links':'sand-hollow-resort',
   'Black Desert Resort':'black-desert-resort',
   'The Ledges Golf Club':'the-ledges-golf-club',
   'Coral Canyon Golf Course':'coral-canyon',
@@ -1085,7 +1085,12 @@ function buildBookingUrl(name, date, players) {
   if (linkOutUrls[name]) return linkOutUrls[name];
   if (chronogolfSlugs[name]) {
     const clubSlug = chronogolfSlugs[name];
-    const courseIds = {'Mountain Dell — Lake':'2c162b65-6803-4bad-9a21-4c1ca88bb242','Mountain Dell — Canyon':'bd6e3c42-7ae5-4d97-b6d0-60ebf9957a7e'};
+    const courseIds = {
+      'Mountain Dell — Lake':'2c162b65-6803-4bad-9a21-4c1ca88bb242',
+      'Mountain Dell — Canyon':'bd6e3c42-7ae5-4d97-b6d0-60ebf9957a7e',
+      'Sand Hollow — Championship':'156b2e8d-85e7-41e5-8bc8-107cca3666bd',
+      'Sand Hollow — Links':'7d929560-7ea4-45ea-990d-6b5f3a20d20e',
+    };
     const cidParam = courseIds[name] ? `&coursesIds=${courseIds[name]}` : '';
     return `https://www.chronogolf.com/club/${clubSlug}/teetimes?date=${d}&nb_holes=18&players=${p}${cidParam}`;
   }
@@ -1436,12 +1441,6 @@ function showSkeleton(){
     </div>`).join('');
 }
 
-function fixMDUrl(u){
-  if(!u)return u;
-  if(u.includes('/club/mountain-dell-lake/'))return u.replace('/club/mountain-dell-lake/','/club/mountain-dell-golf-club/')+'&coursesIds=2c162b65-6803-4bad-9a21-4c1ca88bb242';
-  if(u.includes('/club/mountain-dell-canyon/'))return u.replace('/club/mountain-dell-canyon/','/club/mountain-dell-golf-club/')+'&coursesIds=bd6e3c42-7ae5-4d97-b6d0-60ebf9957a7e';
-  return u;
-}
 function expandAllCards(){
     document.querySelectorAll('.course-card').forEach(c=>c.classList.add('expanded'));
   }
@@ -1531,7 +1530,7 @@ async function _doRender(){
         const rawPrice=typeof t==='object'?(t.priceStr||t.price||t.greenFee||c.staticPrice||'—'):c.staticPrice;
         const price=String(rawPrice).startsWith('$')?rawPrice:`$${rawPrice}`;
         const plrs=typeof t==='object'?(t.players||t.spots||t.maxPlayers||Math.floor(Math.random()*4)+1):Math.floor(Math.random()*4)+1;
-        const teeHref=fixMDUrl((typeof t==='object'&&t.bookingUrl)||bookUrl);
+        const teeHref=(typeof t==='object'&&t.bookingUrl)||bookUrl;
         return `<a href="${teeHref}" target="_blank" class="tee-time-btn">
           <span class="t-time">${time}</span>
           <span class="t-price">${price}</span>
@@ -1631,8 +1630,7 @@ async function _doRender(){
           const rawPrice = typeof t==='object' ? (t.priceStr||t.price||t.greenFee||'—') : c.staticPrice;
           const price = String(rawPrice).startsWith('$') ? rawPrice : `$${rawPrice}`;
           const plrs = typeof t==='object' ? (t.players||t.spots||t.maxPlayers||4) : 4;
-          let href = (typeof t==='object' && t.bookingUrl) || bookUrl;
-          href = fixMDUrl(href);
+          const href = (typeof t==='object' && t.bookingUrl) || bookUrl;
           return `<a href="${href}" target="_blank" class="tee-time-btn">
             <span class="t-time">${time}</span>
             <span class="t-price">${price}</span>
