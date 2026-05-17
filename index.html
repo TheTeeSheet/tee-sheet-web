@@ -644,6 +644,7 @@
     <button class="state-tab active" onclick="setActiveState('arizona',this)">Arizona <span class="count" id="count-arizona"></span></button>
     <button class="state-tab" onclick="setActiveState('california',this)">California <span class="count" id="count-california"></span></button>
     <button class="state-tab" onclick="setActiveState('nevada',this)">Nevada <span class="count" id="count-nevada"></span></button>
+    <button class="state-tab" onclick="setActiveState('south-carolina',this)">South Carolina <span class="count" id="count-south-carolina"></span></button>
     <button class="state-tab" onclick="setActiveState('texas',this)">Texas <span class="count" id="count-texas"></span></button>
     <button class="state-tab" onclick="setActiveState('utah',this)">Utah <span class="count" id="count-utah"></span></button>
   </div>
@@ -895,6 +896,28 @@ async function fetchAllCaliforniaTimes(date, players) {
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('California bulk fetch failed:', e); }
+}
+
+async function fetchAllSouthCarolinaTimes(date, players) {
+  try {
+    const url = `https://tee-sheet-api-production.up.railway.app/api/tee-times-sc?date=${date}&players=${players}`;
+    const res = await fetch(url);
+    if (!res.ok) return;
+    const data = await res.json();
+    Object.entries(data).forEach(([slug, courseData]) => {
+      const name = courseData.course;
+      const key = `${name}|${date}|${players}`;
+      const times = (courseData.teeTimes || []).map(t => {
+        const sp = parseSpots(t);
+        return {
+          time: t.time, spots: sp, maxPlayers: sp,
+          price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
+        };
+      });
+      if (courseData.error && times.length === 0) return;
+      teeTimeCache[key] = times;
+    });
+  } catch(e) { console.error('South Carolina bulk fetch failed:', e); }
 }
 
 async function fetchAllNevadaTimes(date, players) {
@@ -1302,6 +1325,28 @@ const courses = {
     {name:'Wolf Creek Golf Club',city:'Mesquite',rating:4.7,reviews:1456,isLive:true},
     {name:'Conestoga Golf Club',city:'Mesquite',rating:4.5,reviews:867,isLive:true},
   ],
+  'south-carolina': [
+    // NAMES MUST MATCH the `course` field in /api/tee-times-sc responses.
+    // ── Pawleys Island cluster (Founders Group) ───────────────────────────────
+    {name:'Pawleys Plantation Golf & CC',city:'Pawleys Island',rating:4.5,reviews:1234,isLive:true},
+    {name:'Caledonia Golf & Fish Club',city:'Pawleys Island',rating:4.8,reviews:2156,isLive:true},
+    {name:'True Blue Golf Club',city:'Pawleys Island',rating:4.7,reviews:1845,isLive:true},
+    {name:'The Tradition Club',city:'Pawleys Island',rating:4.3,reviews:723,isLive:true},
+    {name:'Founders Club at Pawleys Island',city:'Pawleys Island',rating:4.4,reviews:892,isLive:true},
+    {name:'Litchfield Country Club',city:'Pawleys Island',rating:4.2,reviews:567,isLive:true},
+    {name:'River Club at Pawleys Island',city:'Pawleys Island',rating:4.3,reviews:734,isLive:true},
+    // ── Myrtle Beach Strand ──────────────────────────────────────────────────
+    {name:'Tidewater Plantation',city:'North Myrtle Beach',rating:4.6,reviews:1567,isLive:true},
+    {name:'Pine Lakes Country Club',city:'Myrtle Beach',rating:4.5,reviews:1289,isLive:true},
+    {name:'Grande Dunes Resort Course',city:'Myrtle Beach',rating:4.5,reviews:1456,isLive:true},
+    {name:'Long Bay Club',city:'Longs',rating:4.3,reviews:823,isLive:true},
+    {name:'Aberdeen Country Club',city:'Longs',rating:4.2,reviews:612,isLive:true},
+    {name:'Diamondback Golf Club',city:'Loris',rating:4.1,reviews:445,isLive:true},
+    {name:'River Hills Country Club',city:'Little River',rating:4.2,reviews:578,isLive:true},
+    {name:'Glen Dornoch Waterway Golf Links',city:'Little River',rating:4.3,reviews:712,isLive:true},
+    // ── Charleston area ──────────────────────────────────────────────────────
+    {name:'Dunes West Golf Club',city:'Mount Pleasant',rating:4.3,reviews:689,isLive:true},
+  ],
   texas: [
     // TODO: backfill rating/reviews from Google Maps; renderer skips rating UI if absent.
     // NAMES MUST MATCH the `course` field returned by /api/tee-times-tx — the
@@ -1479,7 +1524,7 @@ function setActiveState(state,btn){
   document.getElementById('favTab').classList.remove('active');
   document.querySelectorAll('.state-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada'};
+  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina'};
   document.getElementById('resultsTitle').textContent=names[state]+' Courses';
   populateCityFilter(state);
   document.getElementById('cityFilter').value='';
@@ -1666,6 +1711,7 @@ async function _doRender(){
     const needsCalifornia = livePool.some(c => courses.california.some(cc => cc.name === c.name && cc.isLive));
     const needsTexas = livePool.some(c => courses.texas.some(tc => tc.name === c.name && tc.isLive));
     const needsNevada = livePool.some(c => courses.nevada.some(nc => nc.name === c.name && nc.isLive));
+    const needsSouthCarolina = livePool.some(c => courses['south-carolina'].some(sc => sc.name === c.name && sc.isLive));
 
     if (needsUtah) {
       fetches.push(fetchAllUtahTimes(date, players || 1));
@@ -1682,6 +1728,9 @@ async function _doRender(){
     }
     if (needsNevada) {
       fetches.push(fetchAllNevadaTimes(date, players || 1));
+    }
+    if (needsSouthCarolina) {
+      fetches.push(fetchAllSouthCarolinaTimes(date, players || 1));
     }
 
     await Promise.all(fetches);
@@ -1940,7 +1989,7 @@ let acHighlight = -1;
 function getAllCourses() {
   const all = [];
   for (const [state, list] of Object.entries(courses)) {
-    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : 'UT';
+    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : state === 'south-carolina' ? 'SC' : 'UT';
     list.forEach(c => all.push({ name: c.name, city: c.city, state: stLabel }));
   }
   return all.sort((a, b) => a.name.localeCompare(b.name));
