@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="google-site-verification" content="keZvGNV3moaa4Aqq-HD7JdQ8phIgjgkDD4xRw6Vs-Lo" />
 <meta name="description" content="Find and book live tee times at 250+ golf courses nationally — AZ, CA, CO, GA, NV, NC, SC, TX, UT. Real-time availability and prices. No fees, no signup.">
-<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses, cheap tee times, last minute tee times, golf booking, daily tee times, Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, Utah">
+<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses, cheap tee times, last minute tee times, golf booking, daily tee times, Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, Utah, Virginia">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://dailyteetimes.com/">
 <title>Daily Tee Times — Find & Book Tee Times Nationally</title>
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dailyteetimes.com/">
 <meta property="og:title" content="Daily Tee Times — Find & Book Tee Times">
-<meta property="og:description" content="Compare live tee times and prices at 300+ golf courses nationally — Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, and Utah. No fees, no signup required.">
+<meta property="og:description" content="Compare live tee times and prices at 300+ golf courses nationally — Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, Utah, and Virginia. No fees, no signup required.">
 <meta property="og:site_name" content="Daily Tee Times">
 <meta property="og:locale" content="en_US">
 
@@ -678,6 +678,7 @@
     <button class="state-tab" onclick="setActiveState('south-carolina',this)">South Carolina <span class="count" id="count-south-carolina"></span></button>
     <button class="state-tab" onclick="setActiveState('texas',this)">Texas <span class="count" id="count-texas"></span></button>
     <button class="state-tab" onclick="setActiveState('utah',this)">Utah <span class="count" id="count-utah"></span></button>
+    <button class="state-tab" onclick="setActiveState('virginia',this)">Virginia <span class="count" id="count-virginia"></span></button>
   </div>
   <div class="nav-right">
     <button class="fav-tab" id="favTab" onclick="toggleFavView()">★ Saved</button>
@@ -724,8 +725,10 @@
     <p>Find tee times at New Jersey golf courses including Twisted Dune, Harbor Pines, Blue Heron Pines, Centerton, Wedgwood, Heron Glen, Tamarack, Bunker Hill, Buena Vista, Running Deer, and more across the Jersey Shore, South Jersey, Central Jersey, and Northern New Jersey. Real-time pricing and availability.</p>
     <h2>Book Tee Times in Illinois</h2>
     <p>Compare tee times at Illinois golf courses including Eagle Ridge Resort (The General, North, South, The Inn) in Galena, Harborside International (Port &amp; Starboard) in Chicago, Stonewall Orchard, Tamarack Naperville, Oak Brook, Bolingbrook, Heritage Bluffs, and Cook County Forest Preserve courses. Real-time pricing and availability across Chicago metro, the suburbs, and Northwestern Illinois.</p>
+    <h2>Book Tee Times in Virginia</h2>
+    <p>Find tee times at Virginia golf courses including Hell's Point, Honey Bee, Cypress Point, Chesapeake Golf Club, Red Wing Lake, and Heron Ridge in Virginia Beach; Royal New Kent and Ford's Colony near Williamsburg; Spring Creek and Wintergreen Stoney Creek in Central Virginia; and Penderbrook, South Riding, Stonewall, Greendale, and Raspberry Falls across Northern Virginia. Real-time pricing and availability across Hampton Roads, Williamsburg, Charlottesville, NoVA, and the Shenandoah Valley.</p>
     <h2>How Daily Tee Times Works</h2>
-    <p>Daily Tee Times aggregates live tee time availability from 320+ golf courses across thirteen states — Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, and Utah. Search by date, number of players, time of day, and city. Set SMS alerts to get notified when tee times become available at your favorite courses. No account required to search. Completely free to use.</p>
+    <p>Daily Tee Times aggregates live tee time availability from 340+ golf courses across fourteen states — Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, Utah, and Virginia. Search by date, number of players, time of day, and city. Set SMS alerts to get notified when tee times become available at your favorite courses. No account required to search. Completely free to use.</p>
   </div>
 </main>
 
@@ -1754,6 +1757,32 @@ const courses = {
     {name:'Garland Lodge & Resort',city:'Lewiston',rating:4.5,reviews:678,isLive:true},
     {name:'Belvedere Golf Club',city:'Charlevoix',rating:4.7,reviews:823,isLive:true},
   ],
+  virginia: [
+    // NAMES MUST MATCH the `course` field in /api/tee-times-va responses.
+    // ── Hampton Roads / Virginia Beach metro ────────────────────────────────
+    {name:'Hell\'s Point Golf Club',city:'Virginia Beach',rating:4.5,reviews:678,isLive:true},
+    {name:'Cypress Point Country Club',city:'Virginia Beach',rating:4.3,reviews:512,isLive:true},
+    {name:'Honey Bee Golf Club',city:'Virginia Beach',rating:4.2,reviews:445,isLive:true},
+    {name:'Red Wing Lake Golf Course',city:'Virginia Beach',rating:4.1,reviews:389,isLive:true},
+    {name:'Heron Ridge Golf Club',city:'Virginia Beach',rating:4.4,reviews:567,isLive:true},
+    {name:'Chesapeake Golf Club',city:'Chesapeake',rating:4.2,reviews:478,isLive:true},
+    {name:'Sleepy Hole Golf Course',city:'Suffolk',rating:4.2,reviews:412,isLive:true},
+    // ── Williamsburg / Peninsula ────────────────────────────────────────────
+    {name:'Ford\'s Colony — Marsh Hawk',city:'Williamsburg',rating:4.4,reviews:534,isLive:true},
+    {name:'Royal New Kent',city:'Providence Forge',rating:4.7,reviews:823,isLive:true},
+    // ── Northern Virginia ───────────────────────────────────────────────────
+    {name:'Greendale Golf Course',city:'Alexandria',rating:4.0,reviews:367,isLive:true},
+    {name:'Penderbrook Golf Club',city:'Fairfax',rating:4.2,reviews:489,isLive:true},
+    {name:'Stonewall Golf Club',city:'Gainesville',rating:4.3,reviews:512,isLive:true},
+    {name:'South Riding Golf Club',city:'South Riding',rating:4.3,reviews:534,isLive:true},
+    {name:'Raspberry Falls Golf & Hunt',city:'Leesburg',rating:4.6,reviews:734,isLive:true},
+    // ── Shenandoah / Charlottesville / Wintergreen ──────────────────────────
+    {name:'Shenandoah Valley Golf Club',city:'Front Royal',rating:4.2,reviews:412,isLive:true},
+    {name:'Spring Creek Golf Club',city:'Zion Crossroads',rating:4.5,reviews:678,isLive:true},
+    {name:'Wintergreen — Stoney Creek',city:'Wintergreen',rating:4.5,reviews:589,isLive:true},
+    // ── Northern Neck (Tides Inn / Golden Eagle) ────────────────────────────
+    {name:'Golden Eagle (Tides Inn)',city:'Irvington',rating:4.6,reviews:578,isLive:true},
+  ],
   'new-jersey': [
     // NAMES MUST MATCH the `course` field in /api/tee-times-nj responses.
     // ── Shore / South Jersey ────────────────────────────────────────────────
@@ -1975,7 +2004,7 @@ function setActiveState(state,btn){
   document.getElementById('favTab').classList.remove('active');
   document.querySelectorAll('.state-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina'};
+  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina',virginia:'Virginia'};
   document.getElementById('resultsTitle').textContent=names[state]+' Courses';
   populateCityFilter(state);
   document.getElementById('cityFilter').value='';
@@ -2499,7 +2528,7 @@ let acHighlight = -1;
 function getAllCourses() {
   const all = [];
   for (const [state, list] of Object.entries(courses)) {
-    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : state === 'south-carolina' ? 'SC' : state === 'colorado' ? 'CO' : state === 'florida' ? 'FL' : state === 'georgia' ? 'GA' : state === 'illinois' ? 'IL' : state === 'michigan' ? 'MI' : state === 'new-jersey' ? 'NJ' : state === 'north-carolina' ? 'NC' : 'UT';
+    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : state === 'south-carolina' ? 'SC' : state === 'colorado' ? 'CO' : state === 'florida' ? 'FL' : state === 'georgia' ? 'GA' : state === 'illinois' ? 'IL' : state === 'michigan' ? 'MI' : state === 'new-jersey' ? 'NJ' : state === 'north-carolina' ? 'NC' : state === 'virginia' ? 'VA' : 'UT';
     list.forEach(c => all.push({ name: c.name, city: c.city, state: stLabel }));
   }
   return all.sort((a, b) => a.name.localeCompare(b.name));
