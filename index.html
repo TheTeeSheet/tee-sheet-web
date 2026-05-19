@@ -238,6 +238,19 @@
   .results-count { font-size: 13px; color: var(--gray-dark); }
 
   /* ── CARDS ── */
+  /*
+   * #courseCards as a flex column lets us reorder cards visually with CSS
+   * `order` based on availability tier (has-times → top, loading →
+   * middle, no-times → bottom) WITHOUT moving the DOM nodes. Moving DOM
+   * nodes would invalidate the IntersectionObserver tracking the lazy
+   * load. has-times cards stay alphabetical within their tier because
+   * they all share order: 0 / 1 / 2 and flex sorts by source order
+   * within a given `order` value.
+   */
+  #courseCards { display: flex; flex-direction: column; }
+  .course-card { order: 1; } /* default: loading / unknown */
+  .course-card.has-times { order: 0; } /* found tee times → top */
+  .course-card.no-times-final { order: 2; } /* fetch complete, empty → bottom */
   .course-card {
     background: var(--white); border-radius: 12px;
     border: 1px solid rgba(0,0,0,0.06);
@@ -1935,6 +1948,16 @@ async function _doRender(){
     card.className='course-card';
     card.dataset.courseName=c.name; // used by the IntersectionObserver lazy-loader
     card.style.animationDelay=`${idx*40}ms`;
+    // Initial tier for CSS-order sort. Static / cache-hit cards land in
+    // their final tier immediately; live cards still fetching stay in
+    // the middle "loading" tier and get re-tiered by updateCardLiveData.
+    if (times === null) {
+      /* loading — no tier class, default order: 1 */
+    } else if (!times.length && c.isLive) {
+      card.classList.add('no-times-final');
+    } else if (times.length || !c.isLive) {
+      card.classList.add('has-times');
+    }
     card.innerHTML=`
       <div class="card-header">
         <div class="card-left">
@@ -2061,6 +2084,8 @@ function updateCardLiveData(cardEl, c, date, players) {
   if (cached === null || cached === undefined) {
     grid.innerHTML = `<span class="no-times" style="color:var(--green-accent)">⏳ Loading times...</span>`;
     if (countEl) { countEl.textContent = 'Loading…'; countEl.classList.add('loading'); countEl.classList.remove('empty'); }
+    // Clear tier classes — card hasn't settled yet, stays in the middle.
+    cardEl.classList.remove('has-times', 'no-times-final');
     return;
   }
 
@@ -2077,6 +2102,10 @@ function updateCardLiveData(cardEl, c, date, players) {
     });
   }
   if (players && filtered.length) filtered = filtered.filter(t => (t.players||t.spots||t.maxPlayers||4) >= players);
+
+  // Tier the card visually via CSS order (preserves DOM, observer-safe).
+  cardEl.classList.toggle('has-times', filtered.length > 0);
+  cardEl.classList.toggle('no-times-final', filtered.length === 0);
 
   const bookUrl = buildBookingUrl(c.name, date, players||1);
   let timesHtml;
