@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="google-site-verification" content="keZvGNV3moaa4Aqq-HD7JdQ8phIgjgkDD4xRw6Vs-Lo" />
 <meta name="description" content="Find and book live tee times at 250+ golf courses nationally — AZ, CA, CO, GA, NV, NC, SC, TX, UT. Real-time availability and prices. No fees, no signup.">
-<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses, cheap tee times, last minute tee times, golf booking, daily tee times, Arizona, California, Colorado, Florida, Georgia, Michigan, Nevada, North Carolina, South Carolina, Texas, Utah">
+<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses, cheap tee times, last minute tee times, golf booking, daily tee times, Arizona, California, Colorado, Florida, Georgia, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, Utah">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://dailyteetimes.com/">
 <title>Daily Tee Times — Find & Book Tee Times Nationally</title>
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dailyteetimes.com/">
 <meta property="og:title" content="Daily Tee Times — Find & Book Tee Times">
-<meta property="og:description" content="Compare live tee times and prices at 250+ golf courses nationally — Arizona, California, Colorado, Florida, Georgia, Michigan, Nevada, North Carolina, South Carolina, Texas, and Utah. No fees, no signup required.">
+<meta property="og:description" content="Compare live tee times and prices at 300+ golf courses nationally — Arizona, California, Colorado, Florida, Georgia, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, and Utah. No fees, no signup required.">
 <meta property="og:site_name" content="Daily Tee Times">
 <meta property="og:locale" content="en_US">
 
@@ -662,6 +662,7 @@
     <button class="state-tab" onclick="setActiveState('georgia',this)">Georgia <span class="count" id="count-georgia"></span></button>
     <button class="state-tab" onclick="setActiveState('michigan',this)">Michigan <span class="count" id="count-michigan"></span></button>
     <button class="state-tab" onclick="setActiveState('nevada',this)">Nevada <span class="count" id="count-nevada"></span></button>
+    <button class="state-tab" onclick="setActiveState('new-jersey',this)">New Jersey <span class="count" id="count-new-jersey"></span></button>
     <button class="state-tab" onclick="setActiveState('north-carolina',this)">North Carolina <span class="count" id="count-north-carolina"></span></button>
     <button class="state-tab" onclick="setActiveState('south-carolina',this)">South Carolina <span class="count" id="count-south-carolina"></span></button>
     <button class="state-tab" onclick="setActiveState('texas',this)">Texas <span class="count" id="count-texas"></span></button>
@@ -708,8 +709,10 @@
     <p>Compare tee times at Florida golf courses including TPC Sawgrass, TPC Tampa Bay, Shingle Creek, Falcon's Fire, Celebration, Wekiva, Atlantis Country Club, Sandestin Burnt Pine, and more across Orlando, Tampa Bay, Jacksonville, Palm Beach, Sarasota, and the Panhandle. Real-time pricing and availability.</p>
     <h2>Book Tee Times in Michigan</h2>
     <p>Compare tee times at Michigan golf courses including Forest Dunes, Shanty Creek (The Legend, Schuss Mountain, Cedar River), Forest Akers East &amp; West at MSU, Pine Knob, Stonebridge, Otsego Resort, Fox Hills, Cascades, Belvedere, Stoatin Brae, and more across Detroit metro, Ann Arbor, Lansing, Grand Rapids, Traverse City, and Northern Michigan. Real-time pricing and availability.</p>
+    <h2>Book Tee Times in New Jersey</h2>
+    <p>Find tee times at New Jersey golf courses including Twisted Dune, Harbor Pines, Blue Heron Pines, Centerton, Wedgwood, Heron Glen, Tamarack, Bunker Hill, Buena Vista, Running Deer, and more across the Jersey Shore, South Jersey, Central Jersey, and Northern New Jersey. Real-time pricing and availability.</p>
     <h2>How Daily Tee Times Works</h2>
-    <p>Daily Tee Times aggregates live tee time availability from 280+ golf courses across eleven states — Arizona, California, Colorado, Florida, Georgia, Michigan, Nevada, North Carolina, South Carolina, Texas, and Utah. Search by date, number of players, time of day, and city. Set SMS alerts to get notified when tee times become available at your favorite courses. No account required to search. Completely free to use.</p>
+    <p>Daily Tee Times aggregates live tee time availability from 300+ golf courses across twelve states — Arizona, California, Colorado, Florida, Georgia, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, and Utah. Search by date, number of players, time of day, and city. Set SMS alerts to get notified when tee times become available at your favorite courses. No account required to search. Completely free to use.</p>
   </div>
 </main>
 
@@ -952,6 +955,28 @@ async function fetchAllNorthCarolinaTimes(date, players) {
       teeTimeCache[key] = times;
     });
   } catch(e) { console.error('North Carolina bulk fetch failed:', e); }
+}
+
+async function fetchAllNewJerseyTimes(date, players) {
+  try {
+    const url = `https://tee-sheet-api-production.up.railway.app/api/tee-times-nj?date=${date}&players=${players}`;
+    const res = await fetch(url);
+    if (!res.ok) return;
+    const data = await res.json();
+    Object.entries(data).forEach(([slug, courseData]) => {
+      const name = courseData.course;
+      const key = `${name}|${date}|${players}`;
+      const times = (courseData.teeTimes || []).map(t => {
+        const sp = parseSpots(t);
+        return {
+          time: t.time, spots: sp, maxPlayers: sp,
+          price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
+        };
+      });
+      if (courseData.error && times.length === 0) return;
+      teeTimeCache[key] = times;
+    });
+  } catch(e) { console.error('NJ bulk fetch failed:', e); }
 }
 
 async function fetchAllMichiganTimes(date, players) {
@@ -1664,6 +1689,27 @@ const courses = {
     {name:'Garland Lodge & Resort',city:'Lewiston',rating:4.5,reviews:678,isLive:true},
     {name:'Belvedere Golf Club',city:'Charlevoix',rating:4.7,reviews:823,isLive:true},
   ],
+  'new-jersey': [
+    // NAMES MUST MATCH the `course` field in /api/tee-times-nj responses.
+    // ── Shore / South Jersey ────────────────────────────────────────────────
+    {name:'Blue Heron Pines',city:'Cologne',rating:4.4,reviews:578,isLive:true},
+    {name:'Harbor Pines Golf Club',city:'Egg Harbor Township',rating:4.5,reviews:678,isLive:true},
+    {name:'Twisted Dune Golf Club',city:'Egg Harbor Township',rating:4.5,reviews:589,isLive:true},
+    {name:'Centerton Golf Club',city:'Elmer',rating:4.3,reviews:445,isLive:true},
+    {name:'Eagle Ridge Golf Club',city:'Lakewood',rating:4.3,reviews:412,isLive:true},
+    {name:'Ocean City Golf Club',city:'Ocean City',rating:4.1,reviews:367,isLive:true},
+    {name:'Ramblewood Country Club',city:'Mount Laurel',rating:4.2,reviews:489,isLive:true},
+    {name:'Wedgwood Country Club',city:'Turnersville',rating:4.3,reviews:512,isLive:true},
+    {name:'Buena Vista Country Club',city:'Buena',rating:4.2,reviews:445,isLive:true},
+    {name:'Running Deer Golf Club',city:'Pittsgrove',rating:4.3,reviews:489,isLive:true},
+    // ── Central Jersey ──────────────────────────────────────────────────────
+    {name:'Heron Glen Golf Course',city:'Ringoes',rating:4.5,reviews:567,isLive:true},
+    {name:'Bunker Hill Golf Course',city:'Princeton',rating:4.1,reviews:389,isLive:true},
+    {name:'Quail Brook Golf Course',city:'Somerset',rating:4.0,reviews:312,isLive:true},
+    {name:'Tamarack Golf Course',city:'East Brunswick',rating:4.2,reviews:478,isLive:true},
+    // ── North Jersey ────────────────────────────────────────────────────────
+    {name:'Berkshire Valley Golf Course',city:'Jefferson Township',rating:4.3,reviews:456,isLive:true},
+  ],
   'north-carolina': [
     // NAMES MUST MATCH the `course` field in /api/tee-times-nc responses.
     // ── Pinehurst / Sandhills ────────────────────────────────────────────────
@@ -1864,7 +1910,7 @@ function setActiveState(state,btn){
   document.getElementById('favTab').classList.remove('active');
   document.querySelectorAll('.state-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',michigan:'Michigan','north-carolina':'North Carolina'};
+  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina'};
   document.getElementById('resultsTitle').textContent=names[state]+' Courses';
   populateCityFilter(state);
   document.getElementById('cityFilter').value='';
@@ -2388,7 +2434,7 @@ let acHighlight = -1;
 function getAllCourses() {
   const all = [];
   for (const [state, list] of Object.entries(courses)) {
-    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : state === 'south-carolina' ? 'SC' : state === 'colorado' ? 'CO' : state === 'florida' ? 'FL' : state === 'georgia' ? 'GA' : state === 'michigan' ? 'MI' : state === 'north-carolina' ? 'NC' : 'UT';
+    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : state === 'south-carolina' ? 'SC' : state === 'colorado' ? 'CO' : state === 'florida' ? 'FL' : state === 'georgia' ? 'GA' : state === 'michigan' ? 'MI' : state === 'new-jersey' ? 'NJ' : state === 'north-carolina' ? 'NC' : 'UT';
     list.forEach(c => all.push({ name: c.name, city: c.city, state: stLabel }));
   }
   return all.sort((a, b) => a.name.localeCompare(b.name));
