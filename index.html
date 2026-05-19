@@ -239,18 +239,19 @@
 
   /* ── CARDS ── */
   /*
-   * #courseCards as a flex column lets us reorder cards visually with CSS
-   * `order` based on availability tier (has-times → top, loading →
-   * middle, no-times → bottom) WITHOUT moving the DOM nodes. Moving DOM
-   * nodes would invalidate the IntersectionObserver tracking the lazy
-   * load. has-times cards stay alphabetical within their tier because
-   * they all share order: 0 / 1 / 2 and flex sorts by source order
-   * within a given `order` value.
+   * #courseCards as a flex column lets us push cards that came back with
+   * NO available tee times to the bottom via CSS `order`, without moving
+   * DOM nodes (DOM moves would invalidate the IntersectionObserver
+   * powering the lazy-load).
+   *
+   * Just one tier rule: any card that completes its fetch empty gets
+   * order:2 (bottom). Everything else keeps the default order:0 and
+   * stays in its alphabetical position — including cards still loading
+   * and cards with tee times. That minimizes layout jumping: as data
+   * lands, populated/loading cards don't move, only empty cards sink.
    */
   #courseCards { display: flex; flex-direction: column; }
-  .course-card { order: 1; } /* default: loading / unknown */
-  .course-card.has-times { order: 0; } /* found tee times → top */
-  .course-card.no-times-final { order: 2; } /* fetch complete, empty → bottom */
+  .course-card.no-times-final { order: 2; }
   .course-card {
     background: var(--white); border-radius: 12px;
     border: 1px solid rgba(0,0,0,0.06);
