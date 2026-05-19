@@ -1091,6 +1091,47 @@ function msMinutesToTime12h(minutes) {
   return h12 + ':' + String(m).padStart(2, '0') + ' ' + ampm;
 }
 
+// Fetch live tee times for a single course via the backend's per-course
+// endpoint. Used by the IntersectionObserver lazy-load (cards fire this
+// when they scroll into view, not upfront in a bulk fetch). Backend
+// supports both `slug` and `name` as the path param.
+async function fetchSingleCourseLive(name, date, players) {
+  const key = `${name}|${date}|${players}`;
+  if (teeTimeCache[key] !== undefined) return;
+  teeTimeCache[key] = null; // sentinel: in-flight (cards show "Loading…")
+  try {
+    const url = `https://tee-sheet-api-production.up.railway.app/api/tee-times/${encodeURIComponent(name)}?date=${date}&players=${players}`;
+    const res = await fetch(url);
+    if (!res.ok) { teeTimeCache[key] = []; return; }
+    const data = await res.json();
+    const times = (data.teeTimes || []).map(t => {
+      const sp = parseSpots(t);
+      return {
+        time: t.time, spots: sp, maxPlayers: sp,
+        price: t.price, priceStr: t.priceStr || t.price, bookingUrl: t.bookingUrl,
+      };
+    });
+    if (data.error && times.length === 0) {
+      teeTimeCache[key] = [];
+    } else {
+      teeTimeCache[key] = times;
+    }
+  } catch(e) {
+    teeTimeCache[key] = [];
+    console.error('Single-course fetch failed for', name, e);
+  }
+}
+
+// Dispatch a per-course fetch to the right backend. MemberSports courses
+// (Utah, mostly) call MemberSports' API directly from the client; everyone
+// else routes through our /api/tee-times/:slug Railway endpoint.
+async function fetchCourseLive(name, date, players) {
+  if (MEMBERSPORTS_IDS[name]) {
+    return fetchMemberSportsTimesForCourse(name, date, players);
+  }
+  return fetchSingleCourseLive(name, date, players);
+}
+
 async function fetchMemberSportsTimesForCourse(name, date, players) {
   const entry = MEMBERSPORTS_IDS[name];
   if (!entry) return;
@@ -1892,6 +1933,7 @@ async function _doRender(){
 
     const card=document.createElement('div');
     card.className='course-card';
+    card.dataset.courseName=c.name; // used by the IntersectionObserver lazy-loader
     card.style.animationDelay=`${idx*40}ms`;
     card.innerHTML=`
       <div class="card-header">
@@ -1923,128 +1965,154 @@ async function _doRender(){
     container.appendChild(card);
   });
 
-  // Fetch live data based on which state has live courses showing
+  // Lazy-load live tee times via IntersectionObserver. Cards render first
+  // with a "Loading…" state; tee-time fetches fire only when each card
+  // scrolls near the viewport. Massive win for state tabs with 30-60
+  // courses — first cards populate in <1s instead of waiting for the
+  // whole bulk fetch to complete (~5s), and we avoid scraping courses the
+  // user never even sees.
   const livePool = pool.filter(c => c.isLive);
-  if (livePool.length) {
-    const fetches = [];
+  setupLazyLoadObserver(container, livePool, date, players);
+  // (No more re-sort by availability — with lazy load, cards populate
+  // progressively. Sorting them after-the-fact would jump layout AND
+  // move not-yet-observed cards out of the observer's view, defeating
+  // the lazy-load. Cards stay in alphabetical order.)
+}
 
-    // Determine which bulk fetches we need
-    const needsUtah = livePool.some(c => courses.utah.some(uc => uc.name === c.name));
-    const needsArizona = livePool.some(c => courses.arizona.some(ac => ac.name === c.name && ac.isLive));
-    const needsCalifornia = livePool.some(c => courses.california.some(cc => cc.name === c.name && cc.isLive));
-    const needsTexas = livePool.some(c => courses.texas.some(tc => tc.name === c.name && tc.isLive));
-    const needsNevada = livePool.some(c => courses.nevada.some(nc => nc.name === c.name && nc.isLive));
-    const needsSouthCarolina = livePool.some(c => courses['south-carolina'].some(sc => sc.name === c.name && sc.isLive));
-    const needsColorado = livePool.some(c => courses.colorado.some(cc => cc.name === c.name && cc.isLive));
-    const needsGeorgia = livePool.some(c => courses.georgia.some(gc => gc.name === c.name && gc.isLive));
-    const needsNorthCarolina = livePool.some(c => courses['north-carolina'].some(nc => nc.name === c.name && nc.isLive));
-    const needsFlorida = livePool.some(c => courses.florida.some(fc => fc.name === c.name && fc.isLive));
+// ── LAZY-LOAD VIA INTERSECTION OBSERVER ───────────────────────────────────────
+// Watches each live course card and fires its tee-time fetch only when it
+// scrolls within rootMargin of the viewport. Concurrency-limited so a fast
+// scroll doesn't fire 50 fetches at once.
 
-    if (needsUtah) {
-      fetches.push(fetchAllUtahTimes(date, players || 1));
-      fetches.push(fetchAllMemberSportsTimes(date, players || 1));
-    }
-    if (needsArizona) {
-      fetches.push(fetchAllArizonaTimes(date, players || 1));
-    }
-    if (needsCalifornia) {
-      fetches.push(fetchAllCaliforniaTimes(date, players || 1));
-    }
-    if (needsTexas) {
-      fetches.push(fetchAllTexasTimes(date, players || 1));
-    }
-    if (needsNevada) {
-      fetches.push(fetchAllNevadaTimes(date, players || 1));
-    }
-    if (needsSouthCarolina) {
-      fetches.push(fetchAllSouthCarolinaTimes(date, players || 1));
-    }
-    if (needsColorado) {
-      fetches.push(fetchAllColoradoTimes(date, players || 1));
-    }
-    if (needsGeorgia) {
-      fetches.push(fetchAllGeorgiaTimes(date, players || 1));
-    }
-    if (needsNorthCarolina) {
-      fetches.push(fetchAllNorthCarolinaTimes(date, players || 1));
-    }
-    if (needsFlorida) {
-      fetches.push(fetchAllFloridaTimes(date, players || 1));
-    }
+let _lazyObserver = null;
+const _lazyInFlight = new Set();
+const _lazyQueue = [];
+const LAZY_MAX_CONCURRENT = 4;
 
-    await Promise.all(fetches);
+function _runLazyQueue() {
+  while (_lazyInFlight.size < LAZY_MAX_CONCURRENT && _lazyQueue.length) {
+    const job = _lazyQueue.shift();
+    if (job.cancelled) continue;
+    const { course, cardEl, date, players } = job;
+    const key = `${course.name}|${date}|${players||1}`;
+    _lazyInFlight.add(key);
+    fetchCourseLive(course.name, date, players||1)
+      .catch(e => console.error('lazy fetch failed:', course.name, e))
+      .finally(() => {
+        _lazyInFlight.delete(key);
+        // Only update the card if it's still in the live DOM (state tab
+        // changes wipe the container, leaving us with stale references).
+        if (cardEl.isConnected) updateCardLiveData(cardEl, course, date, players);
+        _runLazyQueue();
+      });
+  }
+}
 
-    // Update all live cards with fetched data
-    livePool.forEach(c => {
-      const allCards = container.querySelectorAll('.course-card');
-      const cardEl = [...allCards].find(el => el.querySelector('.card-name')?.textContent.includes(c.name));
-      if (!cardEl) return;
-      const key = `${c.name}|${date}|${players||1}`;
-      const times = teeTimeCache[key] || [];
-      const tod = document.getElementById('timeFilter').value;
-      let filtered = [...times];
-      if (tod) {
-        filtered = filtered.filter(t => {
-          const h = parseHour(typeof t==='object' ? t.time : t);
-          if (tod==='morning') return h < 11;
-          if (tod==='midday') return h >= 11 && h < 14;
-          if (tod==='afternoon') return h >= 14 && h < 17;
-          if (tod==='twilight') return h >= 17;
-          return true;
-        });
-      }
-      if (players && filtered.length) filtered = filtered.filter(t => (t.players||t.spots||t.maxPlayers||4) >= players);
-      const bookUrl = buildBookingUrl(c.name, date, players||1);
-      let timesHtml;
-      if (!filtered.length) {
-        timesHtml = `<span class="no-times">No available times — try a different date or player count</span>`;
+function setupLazyLoadObserver(container, livePool, date, players) {
+  // Disconnect any previous observer + cancel any queued (but not yet
+  // started) jobs so an old state's pending fetches don't burn credits.
+  if (_lazyObserver) { _lazyObserver.disconnect(); _lazyObserver = null; }
+  _lazyQueue.forEach(j => { j.cancelled = true; });
+  _lazyQueue.length = 0;
+
+  if (!livePool.length) return;
+  const liveByName = Object.create(null);
+  for (const c of livePool) liveByName[c.name] = c;
+
+  _lazyObserver = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      const cardEl = e.target;
+      const courseName = cardEl.dataset.courseName;
+      const course = liveByName[courseName];
+      if (!course) continue;
+      _lazyObserver.unobserve(cardEl); // one-shot — never re-trigger this card
+      const key = `${course.name}|${date}|${players||1}`;
+      const cached = teeTimeCache[key];
+      if (Array.isArray(cached)) {
+        // Already cached from a prior render — update from cache, no fetch.
+        updateCardLiveData(cardEl, course, date, players);
       } else {
-        timesHtml = filtered.map(t => {
-          const rawTime = typeof t==='object' ? t.time : t;
-          const time = formatTime24(rawTime);
-          const rawPrice = typeof t==='object' ? (t.priceStr||t.price||t.greenFee||'—') : c.staticPrice;
-          const price = String(rawPrice).startsWith('$') ? rawPrice : `$${rawPrice}`;
-          const plrs = typeof t==='object' ? (t.players||t.spots||t.maxPlayers||4) : 4;
-          const href = (typeof t==='object' && t.bookingUrl) || bookUrl;
-          return `<a href="${href}" target="_blank" class="tee-time-btn">
-            <span class="t-time">${time}</span>
-            <span class="t-price">${price}</span>
-            <span class="t-players">${plrs} ${plrs===1?'player':'players'}</span>
-          </a>`;
-        }).join('');
+        _lazyQueue.push({ course, cardEl, date, players, cancelled: false });
+        _runLazyQueue();
       }
-      const nameEl = cardEl.querySelector('.card-name');
-      if (nameEl && !nameEl.querySelector('.live-badge') && filtered.length) {
-        nameEl.innerHTML += ` <span class="live-badge">● LIVE</span>`;
-      }
-      cardEl.querySelector('.tee-times-grid').innerHTML = timesHtml;
-      const countEl = cardEl.querySelector('.tee-time-count');
-      if (countEl) {
-        const n = filtered.length;
-        countEl.classList.remove('loading');
-        if (n > 0) {
-          countEl.textContent = n + (n === 1 ? ' time' : ' times');
-          countEl.classList.remove('empty');
-        } else {
-          countEl.textContent = 'No times';
-          countEl.classList.add('empty');
-        }
-      }
-    });
+    }
+  }, { rootMargin: '300px 0px' }); // start fetching 300px before card enters viewport
 
-    // Re-sort: live times first, then check-avail, then no times
-    const sortedCards = [...container.querySelectorAll(".course-card")];
-    sortedCards.sort((a, b) => {
-      const rank = el => {
-        const grid = el.querySelector(".tee-times-grid");
-        if (!grid) return 2;
-        if (grid.querySelector(".tee-time-btn")) return 0;
-        if (grid.querySelector(".check-avail-btn")) return 1;
-        return 2;
-      };
-      return rank(a) - rank(b);
+  // Observe every live card. Static cards (isLive=false) are skipped so
+  // they keep showing their static placeholder times unchanged.
+  for (const cardEl of container.querySelectorAll('.course-card')) {
+    const name = cardEl.dataset.courseName;
+    if (name && liveByName[name]) _lazyObserver.observe(cardEl);
+  }
+}
+
+// Update a single card's tee-times grid + LIVE badge + count, applying the
+// current time-of-day and player filters. Extracted from the old bulk-fetch
+// update loop so the lazy observer can call it per-card.
+function updateCardLiveData(cardEl, c, date, players) {
+  const key = `${c.name}|${date}|${players||1}`;
+  const cached = teeTimeCache[key];
+  const grid = cardEl.querySelector('.tee-times-grid');
+  const countEl = cardEl.querySelector('.tee-time-count');
+  if (!grid) return;
+
+  // Still in-flight? Keep the loading state.
+  if (cached === null || cached === undefined) {
+    grid.innerHTML = `<span class="no-times" style="color:var(--green-accent)">⏳ Loading times...</span>`;
+    if (countEl) { countEl.textContent = 'Loading…'; countEl.classList.add('loading'); countEl.classList.remove('empty'); }
+    return;
+  }
+
+  const tod = document.getElementById('timeFilter').value;
+  let filtered = [...cached];
+  if (tod) {
+    filtered = filtered.filter(t => {
+      const h = parseHour(typeof t==='object' ? t.time : t);
+      if (tod==='morning') return h < 11;
+      if (tod==='midday') return h >= 11 && h < 14;
+      if (tod==='afternoon') return h >= 14 && h < 17;
+      if (tod==='twilight') return h >= 17;
+      return true;
     });
-    sortedCards.forEach(card => container.appendChild(card));
+  }
+  if (players && filtered.length) filtered = filtered.filter(t => (t.players||t.spots||t.maxPlayers||4) >= players);
+
+  const bookUrl = buildBookingUrl(c.name, date, players||1);
+  let timesHtml;
+  if (!filtered.length) {
+    timesHtml = `<span class="no-times">No available times — try a different date or player count</span>`;
+  } else {
+    timesHtml = filtered.map(t => {
+      const rawTime = typeof t==='object' ? t.time : t;
+      const time = formatTime24(rawTime);
+      const rawPrice = typeof t==='object' ? (t.priceStr||t.price||t.greenFee||'—') : c.staticPrice;
+      const price = String(rawPrice).startsWith('$') ? rawPrice : `$${rawPrice}`;
+      const plrs = typeof t==='object' ? (t.players||t.spots||t.maxPlayers||4) : 4;
+      const href = (typeof t==='object' && t.bookingUrl) || bookUrl;
+      return `<a href="${href}" target="_blank" class="tee-time-btn">
+        <span class="t-time">${time}</span>
+        <span class="t-price">${price}</span>
+        <span class="t-players">${plrs} ${plrs===1?'player':'players'}</span>
+      </a>`;
+    }).join('');
+  }
+  grid.innerHTML = timesHtml;
+
+  const nameEl = cardEl.querySelector('.card-name');
+  if (nameEl && !nameEl.querySelector('.live-badge') && filtered.length) {
+    nameEl.innerHTML += ` <span class="live-badge">● LIVE</span>`;
+  }
+  if (countEl) {
+    const n = filtered.length;
+    countEl.classList.remove('loading');
+    if (n > 0) {
+      countEl.textContent = n + (n === 1 ? ' time' : ' times');
+      countEl.classList.remove('empty');
+    } else {
+      countEl.textContent = 'No times';
+      countEl.classList.add('empty');
+    }
   }
 }
 
