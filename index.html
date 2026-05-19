@@ -182,16 +182,26 @@
     position: sticky; top: 68px; z-index: 90; background: var(--white);
     border-bottom: 1px solid rgba(0,0,0,0.08);
     box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-    display: flex; align-items: stretch; overflow-x: auto; gap: 0;
-    justify-content: center;
+    display: flex; align-items: stretch; gap: 0;
+    justify-content: center; flex-wrap: wrap;
   }
-  .state-tabs { display: flex; flex-shrink: 0; }
+  /* State-tab strip wraps to multi-row instead of horizontal-scroll, so all
+   * states are visible at once and the bar scales as we add more states. */
+  .state-tabs { display: flex; flex-wrap: wrap; justify-content: center; }
   .state-tab {
     padding: 14px 20px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--gray-dark); cursor: pointer;
     border-bottom: 2.5px solid transparent; border-top: none; border-left: none; border-right: none;
     transition: all 0.2s; background: none; font-family: 'Inter', sans-serif;
     text-align: center; white-space: nowrap;
+  }
+  /* Tighter spacing on small screens so 2-3 rows fit without dominating the
+   * viewport. The sticky nav stacks above the search/favorites controls. */
+  @media (max-width: 720px) {
+    .sticky-nav { flex-direction: column; align-items: stretch; }
+    .state-tabs { width: 100%; padding: 4px 0; }
+    .state-tab { padding: 9px 12px; font-size: 11px; letter-spacing: 0.06em; }
+    .state-tab .count { font-size: 9px; padding: 1px 6px; margin-left: 4px; }
   }
   .state-tab .count {
     background: var(--gray-light); color: var(--gray-dark);
