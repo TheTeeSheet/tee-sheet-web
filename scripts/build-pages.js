@@ -430,7 +430,7 @@ function buildFAQs(course, state, stateName, stateCode) {
     { q: `Is ${course.name} open to the public?`,
       a: `Yes. ${course.name} accepts public tee-time bookings. You can book directly through the course or via the Daily Tee Times homepage, where availability and pricing are surfaced in real time.` },
     { q: `How do I book a tee time at ${course.name}?`,
-      a: `Use the live availability widget above to see today's open tee times at ${course.name} with current pricing. Click any time slot to be taken straight to the course's booking page — there are no fees or signup requirements.` },
+      a: `Use the live availability widget above to see today's open tee times at ${course.name} with current pricing. Click any time slot to be taken straight to the course's booking page.` },
     { q: `Where is ${course.name} located?`,
       a: cityContext(course.city)
         ? `${course.name} is in ${course.city}, ${stateName} — in the ${cityContext(course.city)}.`
@@ -486,7 +486,7 @@ function renderOgImage({ title, subtitle, rating, kicker }) {
   ${t2 ? `<text x="80" y="${t1y + 86}" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="76" fill="#ffffff" font-weight="800">${svgEscape(t2)}</text>` : ''}
   <text x="80" y="${t2 ? 410 : 350}" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="34" fill="rgba(255,255,255,0.85)">${svgEscape(subtitle)}</text>
   ${rating ? `<text x="80" y="${t2 ? 470 : 410}" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="26" fill="#7eb085" font-weight="700">★ ${rating} rating</text>` : ''}
-  <text x="80" y="555" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" fill="rgba(255,255,255,0.55)">Live tee times · No fees · No signup</text>
+  <text x="80" y="555" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" fill="rgba(255,255,255,0.55)">Live tee times · 340+ courses · 14 states</text>
 </svg>
 `;
 }
@@ -597,7 +597,7 @@ function renderCoursePage(course, state) {
   const intro2 = course.rating
     ? `With a ${course.rating}/5 rating from ${(course.reviews || 0).toLocaleString()} golfer reviews, it's earned a strong reputation among players in the ${course.city} area and across ${stateName}.`
     : `${course.city} is one of ${stateName}'s notable golf destinations, and ${course.name} is a regular pick for locals and travelers alike.`;
-  const intro3 = `Daily Tee Times pulls real-time availability and pricing from ${course.name}'s booking system every 10 minutes. Today's open tee times are listed below — click any slot to book directly with the course. No fees, no signup required.`;
+  const intro3 = `Daily Tee Times pulls real-time availability and pricing from ${course.name}'s booking system every 10 minutes. Today's open tee times are listed below — click any slot to book directly with the course.`;
 
   const faqs = buildFAQs(course, state, stateName, stateCode);
   const faqSchema = {
@@ -636,7 +636,7 @@ function renderCoursePage(course, state) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${htmlEscape(course.name)} Tee Times — ${htmlEscape(course.city)}, ${stateCode} | Daily Tee Times</title>
-<meta name="description" content="Live tee times and prices at ${htmlEscape(course.name)} in ${htmlEscape(course.city)}, ${stateName}. Real-time availability, no fees, no signup. Book directly with the course.">
+<meta name="description" content="Live tee times and prices at ${htmlEscape(course.name)} in ${htmlEscape(course.city)}, ${stateName}. Real-time availability, refreshed every 10 minutes. Book directly with the course.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="${courseUrl}">
 ${PRECONNECT}
@@ -695,7 +695,7 @@ ${PRECONNECT}
     <ol class="how-list">
       <li>Check today's live availability above (or use the <a href="/">homepage</a> to pick a different date).</li>
       <li>Click the tee time and price that fits your group's plan — you'll be taken directly to ${htmlEscape(course.name)}'s booking page.</li>
-      <li>Complete checkout with the course. Daily Tee Times charges no fees and requires no signup.</li>
+      <li>Complete checkout with the course.</li>
       <li>(Optional) <a href="/">Set an alert on the homepage</a> to get notified when a tee time opens up at ${htmlEscape(course.name)}.</li>
     </ol>
   </section>
@@ -775,7 +775,7 @@ function renderCityPage(state, city, list) {
   const ogUrl = `${SITE_URL}/og/${state}/${citySlug}.svg`;
   const ctx = cityContext(city);
   const coords = cityCoords(state, city);
-  const description = `Live tee times and prices at ${list.length} ${city}, ${stateCode} golf course${list.length === 1 ? '' : 's'}. Real-time availability, no fees, no signup.`;
+  const description = `Live tee times and prices at ${list.length} ${city}, ${stateCode} golf course${list.length === 1 ? '' : 's'}. Real-time availability, refreshed every 10 minutes.`;
   const hasBestOf = list.length >= 4;
 
   const placeSchema = {
@@ -877,7 +877,7 @@ function renderStatePage(state) {
   const totalCount = list.length;
   const regionBlurb = STATE_REGIONS[state] || '';
   const cityListInline = citiesSorted.slice(0, 12).join(', ');
-  const description = `Live tee times and prices at ${totalCount} ${stateName} golf courses across ${citiesSorted.length} cities including ${cityListInline}. Real-time availability, no fees, no signup.`;
+  const description = `Live tee times and prices at ${totalCount} ${stateName} golf courses across ${citiesSorted.length} cities including ${cityListInline}. Real-time availability, refreshed every 10 minutes.`;
   const coords = STATE_COORDS[state];
 
   const placeSchema = {
@@ -907,7 +907,7 @@ ${PRECONNECT}
 <meta property="og:type" content="website">
 <meta property="og:url" content="${stateUrl}">
 <meta property="og:title" content="${stateName} Golf Tee Times — ${totalCount} Courses">
-<meta property="og:description" content="Live tee times at ${totalCount} ${stateName} golf courses. Real-time availability, no fees, no signup.">
+<meta property="og:description" content="Live tee times at ${totalCount} ${stateName} golf courses. Real-time availability.">
 <meta property="og:image" content="${ogUrl}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -934,7 +934,7 @@ ${PRECONNECT}
   <div class="location">${totalCount} courses across ${citiesSorted.length} ${citiesSorted.length === 1 ? 'city' : 'cities'}</div>
 
   <section class="intro" style="margin-top:24px">
-    <p>Daily Tee Times aggregates live availability and pricing at <strong>${totalCount} ${stateName} golf courses</strong>${regionBlurb ? ` across ${regionBlurb}` : ''}. From ${citiesSorted[0]} to ${citiesSorted[citiesSorted.length - 1]}, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
+    <p>Daily Tee Times aggregates live availability and pricing at <strong>${totalCount} ${stateName} golf courses</strong>${regionBlurb ? ` across ${regionBlurb}` : ''}. From ${citiesSorted[0]} to ${citiesSorted[citiesSorted.length - 1]}, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes.</p>
     <p>Click any course or city below to see its current availability and pricing — or use the <a href="/">homepage</a> to filter all ${totalCount} ${stateName} courses by date, players, and time of day.</p>
   </section>
 
@@ -1066,7 +1066,7 @@ ${PRECONNECT}
   <div class="location">Top ${cap} public courses ranked by golfer rating</div>
 
   <section class="intro" style="margin-top:24px">
-    <p>These are the <strong>${cap} highest-rated public-access golf courses</strong> in ${scope}, ranked by aggregated golfer reviews. Daily Tee Times pulls live availability and pricing from each course's booking system every 10 minutes — click any course below to see today's open tee times and book directly. No fees, no signup.</p>
+    <p>These are the <strong>${cap} highest-rated public-access golf courses</strong> in ${scope}, ranked by aggregated golfer reviews. Daily Tee Times pulls live availability and pricing from each course's booking system every 10 minutes — click any course below to see today's open tee times and book directly.</p>
     <p>Rankings reflect average golfer rating (weighted by review count). Most ${city ? 'in town' : 'across the state'} accept tee-time reservations 7-14 days in advance via their direct booking system.</p>
   </section>
 
