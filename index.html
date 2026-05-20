@@ -1172,11 +1172,19 @@ async function fetchAllTexasTimes(date, players) {
 
 // ── MEMBERSPORTS CLIENT-SIDE FETCH ───────────────────────────────────────────
 const MEMBERSPORTS_IDS = {
+  // ── Utah ─────────────────────────────────────────────────────────────────
   'Fox Hollow Golf Club':    { clubId: 15396, courseId: 18907, bookClubId: 15396, bookCourseId: 18907 },
   'Cedar Hills Golf Club':   { clubId: 15381, courseId: 18891, bookClubId: 15381, bookCourseId: 18891 },
   'Eaglewood Golf Course':   { clubId: 15391, courseId: 18901, bookClubId: 15391, bookCourseId: 18901 },
   'Talons Cove Golf Club':   { clubId: 9967,  courseId: 12286, bookClubId: 9967,  bookCourseId: 12286 },
   'Green Spring Golf Course': { clubId: 15402, courseId: 18913, bookClubId: 15402, bookCourseId: 18913 },
+  // ── Denver Golf (City + County of Denver, 6 munis under parent 3660/4711) ─
+  'City Park Golf Course':     { clubId: 3660, courseId: 4711,  bookClubId: 3660, bookCourseId: 4711 },
+  'Wellshire Golf Course':     { clubId: 3831, courseId: 4928,  bookClubId: 3660, bookCourseId: 4711 },
+  'Willis Case Golf Course':   { clubId: 3833, courseId: 4932,  bookClubId: 3660, bookCourseId: 4711 },
+  'Overland Park Golf Course': { clubId: 3755, courseId: 4827,  bookClubId: 3660, bookCourseId: 4711 },
+  'Kennedy Golf Course':       { clubId: 3629, courseId: 20573, bookClubId: 3660, bookCourseId: 4711 },
+  'Harvard Gulch Par 3':       { clubId: 3713, courseId: 4781,  bookClubId: 3660, bookCourseId: 4711 },
 };
 
 function msMinutesToTime12h(minutes) {
@@ -1617,6 +1625,13 @@ const courses = {
     {name:'Riverdale Dunes',city:'Brighton',rating:4.4,reviews:734,isLive:true},
     {name:'Riverdale Knolls',city:'Brighton',rating:4.2,reviews:512,isLive:true},
     {name:'Thorncreek Golf Course',city:'Thornton',rating:4.1,reviews:489,isLive:true},
+    // ── Denver Golf munis (City + County of Denver, MemberSports) ────────────
+    {name:'City Park Golf Course',city:'Denver',rating:4.2,reviews:678,isLive:true},
+    {name:'Wellshire Golf Course',city:'Denver',rating:4.3,reviews:823,isLive:true},
+    {name:'Willis Case Golf Course',city:'Denver',rating:4.1,reviews:512,isLive:true},
+    {name:'Overland Park Golf Course',city:'Denver',rating:4.0,reviews:445,isLive:true},
+    {name:'Kennedy Golf Course',city:'Denver',rating:4.2,reviews:589,isLive:true},
+    {name:'Harvard Gulch Par 3',city:'Denver',rating:3.9,reviews:267,isLive:true},
   ],
   georgia: [
     // NAMES MUST MATCH the `course` field in /api/tee-times-ga responses.
