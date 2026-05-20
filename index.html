@@ -174,6 +174,8 @@
     font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 6px;
   }
   .hero-state-chip:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+  .hero-state-chip.active { background: var(--gold); color: var(--green-deep); border-color: var(--gold); font-weight: 700; }
+  .hero-state-chip.active .chip-count { background: rgba(15,46,26,0.18); color: var(--green-deep); }
   .hero-state-chip .chip-count {
     background: rgba(255,255,255,0.15); padding: 1px 7px; border-radius: 999px;
     font-size: 11px; font-weight: 700; color: var(--gold);
@@ -710,43 +712,27 @@
     </div>
 
     <div class="hero-state-chips" id="heroStateChips">
-      <button class="hero-state-chip" onclick="heroJumpToState('arizona')">Arizona <span class="chip-count" id="hcount-arizona"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('california')">California <span class="chip-count" id="hcount-california"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('colorado')">Colorado <span class="chip-count" id="hcount-colorado"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('florida')">Florida <span class="chip-count" id="hcount-florida"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('georgia')">Georgia <span class="chip-count" id="hcount-georgia"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('illinois')">Illinois <span class="chip-count" id="hcount-illinois"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('michigan')">Michigan <span class="chip-count" id="hcount-michigan"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('nevada')">Nevada <span class="chip-count" id="hcount-nevada"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('new-jersey')">New Jersey <span class="chip-count" id="hcount-new-jersey"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('north-carolina')">North Carolina <span class="chip-count" id="hcount-north-carolina"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('south-carolina')">South Carolina <span class="chip-count" id="hcount-south-carolina"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('texas')">Texas <span class="chip-count" id="hcount-texas"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('utah')">Utah <span class="chip-count" id="hcount-utah"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('virginia')">Virginia <span class="chip-count" id="hcount-virginia"></span></button>
+      <button class="hero-state-chip active" onclick="heroJumpToState('arizona',this)" data-state="arizona">Arizona <span class="chip-count" id="hcount-arizona"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('california',this)" data-state="california">California <span class="chip-count" id="hcount-california"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('colorado',this)" data-state="colorado">Colorado <span class="chip-count" id="hcount-colorado"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('florida',this)" data-state="florida">Florida <span class="chip-count" id="hcount-florida"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('georgia',this)" data-state="georgia">Georgia <span class="chip-count" id="hcount-georgia"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('illinois',this)" data-state="illinois">Illinois <span class="chip-count" id="hcount-illinois"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('michigan',this)" data-state="michigan">Michigan <span class="chip-count" id="hcount-michigan"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('nevada',this)" data-state="nevada">Nevada <span class="chip-count" id="hcount-nevada"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('new-jersey',this)" data-state="new-jersey">New Jersey <span class="chip-count" id="hcount-new-jersey"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('north-carolina',this)" data-state="north-carolina">North Carolina <span class="chip-count" id="hcount-north-carolina"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('south-carolina',this)" data-state="south-carolina">South Carolina <span class="chip-count" id="hcount-south-carolina"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('texas',this)" data-state="texas">Texas <span class="chip-count" id="hcount-texas"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('utah',this)" data-state="utah">Utah <span class="chip-count" id="hcount-utah"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('virginia',this)" data-state="virginia">Virginia <span class="chip-count" id="hcount-virginia"></span></button>
     </div>
 
   </div>
 </div>
 
-<!-- STICKY NAV -->
-<nav class="sticky-nav" aria-label="State navigation">
-  <div class="state-tabs">
-    <button class="state-tab active" onclick="setActiveState('arizona',this)">Arizona <span class="count" id="count-arizona"></span></button>
-    <button class="state-tab" onclick="setActiveState('california',this)">California <span class="count" id="count-california"></span></button>
-    <button class="state-tab" onclick="setActiveState('colorado',this)">Colorado <span class="count" id="count-colorado"></span></button>
-    <button class="state-tab" onclick="setActiveState('florida',this)">Florida <span class="count" id="count-florida"></span></button>
-    <button class="state-tab" onclick="setActiveState('georgia',this)">Georgia <span class="count" id="count-georgia"></span></button>
-    <button class="state-tab" onclick="setActiveState('illinois',this)">Illinois <span class="count" id="count-illinois"></span></button>
-    <button class="state-tab" onclick="setActiveState('michigan',this)">Michigan <span class="count" id="count-michigan"></span></button>
-    <button class="state-tab" onclick="setActiveState('nevada',this)">Nevada <span class="count" id="count-nevada"></span></button>
-    <button class="state-tab" onclick="setActiveState('new-jersey',this)">New Jersey <span class="count" id="count-new-jersey"></span></button>
-    <button class="state-tab" onclick="setActiveState('north-carolina',this)">North Carolina <span class="count" id="count-north-carolina"></span></button>
-    <button class="state-tab" onclick="setActiveState('south-carolina',this)">South Carolina <span class="count" id="count-south-carolina"></span></button>
-    <button class="state-tab" onclick="setActiveState('texas',this)">Texas <span class="count" id="count-texas"></span></button>
-    <button class="state-tab" onclick="setActiveState('utah',this)">Utah <span class="count" id="count-utah"></span></button>
-    <button class="state-tab" onclick="setActiveState('virginia',this)">Virginia <span class="count" id="count-virginia"></span></button>
-  </div>
+<!-- STICKY NAV (Favorites + course search; state nav is in the hero chips above) -->
+<nav class="sticky-nav" aria-label="Course search">
   <div class="nav-right">
     <button class="fav-tab" id="favTab" onclick="toggleFavView()">★ Saved</button>
     <div class="course-search-wrap">
@@ -2082,12 +2068,9 @@ function updateStateCounts(){
     if(chip) chip.textContent=courses[s].length;
   });
 }
-function heroJumpToState(state){
-  // Click the matching state-tab in the sticky nav (which runs setActiveState)
-  // and scroll to the results so the user sees the courses immediately.
-  const tab=document.querySelector(`.state-tab[onclick*="'${state}'"]`);
-  if(tab) tab.click();
-  // Smooth-scroll to the results section
+function heroJumpToState(state,btn){
+  setActiveState(state,btn);
+  // Smooth-scroll to the results so user sees the new state's courses
   const results=document.getElementById('resultsTitle');
   if(results) results.scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -2132,8 +2115,13 @@ function courseSeoUrl(name) {
 function setActiveState(state,btn){
   activeState=state; showingFavs=false; clearSearch();
   document.getElementById('favTab').classList.remove('active');
-  document.querySelectorAll('.state-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('.hero-state-chip').forEach(t=>t.classList.remove('active'));
+  // btn may be a chip directly, or null if called programmatically — fall back
+  // to the matching chip by data-state attribute.
+  const target = (btn && btn.classList.contains('hero-state-chip'))
+    ? btn
+    : document.querySelector(`.hero-state-chip[data-state="${state}"]`);
+  if (target) target.classList.add('active');
   const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina',virginia:'Virginia'};
   document.getElementById('resultsTitle').textContent=names[state]+' Courses';
   const hubLink = document.getElementById('stateHubLink');
@@ -2144,9 +2132,10 @@ function setActiveState(state,btn){
 function toggleFavView(){
   showingFavs=!showingFavs;
   document.getElementById('favTab').classList.toggle('active',showingFavs);
-  document.querySelectorAll('.state-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.hero-state-chip').forEach(t=>t.classList.remove('active'));
   if(!showingFavs){
-    document.querySelector(`.state-tab[onclick*="${activeState}"]`).classList.add('active');
+    const chip=document.querySelector(`.hero-state-chip[data-state="${activeState}"]`);
+    if(chip) chip.classList.add('active');
     document.getElementById('resultsTitle').textContent=(activeState.charAt(0).toUpperCase()+activeState.slice(1))+' Courses';
     const hubLink=document.getElementById('stateHubLink');
     if (hubLink) hubLink.style.display='';
