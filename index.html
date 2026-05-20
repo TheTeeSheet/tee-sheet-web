@@ -688,6 +688,7 @@
   <div class="results-header">
     <h2 class="results-title" id="resultsTitle">Arizona Courses</h2>
     <span class="results-count" id="resultsCount"></span>
+    <a id="stateHubLink" href="/arizona/" style="margin-left:auto;font-size:13px;color:var(--green-accent);text-decoration:none">Browse all Arizona courses →</a>
   </div>
   <div id="courseCards"></div>
 
@@ -2017,6 +2018,32 @@ function onSearchInput(v){
 }
 function clearSearch(){document.getElementById('courseSearch').value='';onSearchInput('');}
 
+// ── SEO course-page slug + state lookup ───────────────────────────────────────
+// Mirror of scripts/build-pages.js slugify(). Used to link course cards to
+// their generated /<state>/<slug>/ static pages.
+function courseSlug(name) {
+  return String(name).toLowerCase()
+    .replace(/['`’]/g, '')
+    .replace(/[—–]/g, '-')
+    .replace(/&/g, 'and')
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+const _courseToState = (() => {
+  const m = {};
+  for (const [state, list] of Object.entries(courses)) {
+    for (const c of list) m[c.name] = state;
+  }
+  return m;
+})();
+function courseSeoUrl(name) {
+  const st = _courseToState[name];
+  if (!st) return null;
+  return `/${st}/${courseSlug(name)}/`;
+}
+
 // ── NAV ───────────────────────────────────────────────────────────────────────
 function setActiveState(state,btn){
   activeState=state; showingFavs=false; clearSearch();
@@ -2025,6 +2052,8 @@ function setActiveState(state,btn){
   btn.classList.add('active');
   const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina',virginia:'Virginia'};
   document.getElementById('resultsTitle').textContent=names[state]+' Courses';
+  const hubLink = document.getElementById('stateHubLink');
+  if (hubLink) { hubLink.href = `/${state}/`; hubLink.textContent = `Browse all ${names[state]} courses →`; hubLink.style.display = ''; }
   renderCards();
 }
 
@@ -2035,8 +2064,12 @@ function toggleFavView(){
   if(!showingFavs){
     document.querySelector(`.state-tab[onclick*="${activeState}"]`).classList.add('active');
     document.getElementById('resultsTitle').textContent=(activeState.charAt(0).toUpperCase()+activeState.slice(1))+' Courses';
+    const hubLink=document.getElementById('stateHubLink');
+    if (hubLink) hubLink.style.display='';
   } else {
     document.getElementById('resultsTitle').textContent='My Favorites';
+    const hubLink=document.getElementById('stateHubLink');
+    if (hubLink) hubLink.style.display='none';
   }
   renderCards();
 }
@@ -2181,7 +2214,7 @@ async function _doRender(){
         <div class="card-left">
           <button class="fav-btn ${isFav?'active':''}" onclick="toggleFav('${c.name.replace(/'/g,"\\'")}',this)">${isFav?'★':'☆'}</button>
           <div class="card-meta">
-            <div class="card-name">${c.name}${isLiveData ? ` <span class="live-badge">● LIVE</span>` : ''}</div>
+            <div class="card-name">${(() => { const u = courseSeoUrl(c.name); return u ? `<a href="${u}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none" title="View course details">${c.name}</a>` : c.name; })()}${isLiveData ? ` <span class="live-badge">● LIVE</span>` : ''}</div>
             ${hasRating ? `<div class="card-rating">
               <span class="stars">${stars}</span>
               <span class="rating-num">${c.rating.toFixed(1)}</span>
