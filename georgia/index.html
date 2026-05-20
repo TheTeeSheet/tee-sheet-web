@@ -29,13 +29,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -43,20 +43,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -77,87 +93,87 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="location">21 courses across 16 cities</div>
 
   <section class="intro" style="margin-top:24px">
-    <p>Daily Tee Times aggregates live availability and pricing at <strong>21 Georgia golf courses</strong>. From Acworth to Waleska, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
-    <p>Click any course below to see its current availability, pricing, and book directly. Or use the homepage to filter all 21 Georgia courses by date, players, and time of day.</p>
+    <p>Daily Tee Times aggregates live availability and pricing at <strong>21 Georgia golf courses</strong> across metro Atlanta and the I-85 corridor. From Acworth to Waleska, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
+    <p>Click any course or city below to see its current availability and pricing — or use the <a href="/">homepage</a> to filter all 21 Georgia courses by date, players, and time of day.</p>
   </section>
 
   
-    <h2 class="city-header">Acworth (1)</h2>
+    <h2 class="city-header"><span>Acworth (1)</span><a href="/georgia/acworth/">View Acworth →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/cobblestone-golf-course/"><div class="nm">Cobblestone Golf Course</div><div class="ct">★ 4.3 · 567 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Atlanta (4)</h2>
+    <h2 class="city-header"><span>Atlanta (4)</span><a href="/georgia/atlanta/">View Atlanta →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/bobby-jones-golf-course/"><div class="nm">Bobby Jones Golf Course</div><div class="ct">★ 4.2 · 734 reviews</div></a></div><div class="state-course"><a href="/georgia/browns-mill-golf-course/"><div class="nm">Brown&#39;s Mill Golf Course</div><div class="ct">★ 4 · 589 reviews</div></a></div><div class="state-course"><a href="/georgia/charlie-yates-golf-course/"><div class="nm">Charlie Yates Golf Course</div><div class="ct">★ 4 · 412 reviews</div></a></div><div class="state-course"><a href="/georgia/wolf-creek-golf-course/"><div class="nm">Wolf Creek Golf Course</div><div class="ct">★ 4.1 · 512 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Braselton (3)</h2>
+    <h2 class="city-header"><span>Braselton (3)</span><a href="/georgia/braselton/">View Braselton →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/chateau-elan-9-hole-par-3/"><div class="nm">Chateau Elan — 9 Hole Par 3</div><div class="ct">★ 4 · 312 reviews</div></a></div><div class="state-course"><a href="/georgia/chateau-elan-chateau-course/"><div class="nm">Chateau Elan — Chateau Course</div><div class="ct">★ 4.5 · 923 reviews</div></a></div><div class="state-course"><a href="/georgia/chateau-elan-woodlands-course/"><div class="nm">Chateau Elan — Woodlands Course</div><div class="ct">★ 4.4 · 867 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Buford (1)</h2>
+    <h2 class="city-header"><span>Buford (1)</span><a href="/georgia/buford/">View Buford →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/lanier-islands-legacy/"><div class="nm">Lanier Islands Legacy</div><div class="ct">★ 4.5 · 823 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Canton (1)</h2>
+    <h2 class="city-header"><span>Canton (1)</span><a href="/georgia/canton/">View Canton →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/bridgemill-athletic-club/"><div class="nm">Bridgemill Athletic Club</div><div class="ct">★ 4.3 · 678 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Conyers (1)</h2>
+    <h2 class="city-header"><span>Conyers (1)</span><a href="/georgia/conyers/">View Conyers →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/cherokee-run-golf-club/"><div class="nm">Cherokee Run Golf Club</div><div class="ct">★ 4.2 · 512 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Dacula (1)</h2>
+    <h2 class="city-header"><span>Dacula (1)</span><a href="/georgia/dacula/">View Dacula →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/trophy-club-of-apalachee/"><div class="nm">Trophy Club of Apalachee</div><div class="ct">★ 4.4 · 589 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Duluth (1)</h2>
+    <h2 class="city-header"><span>Duluth (1)</span><a href="/georgia/duluth/">View Duluth →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/st-marlo-country-club/"><div class="nm">St Marlo Country Club</div><div class="ct">★ 4.3 · 567 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Hoschton (1)</h2>
+    <h2 class="city-header"><span>Hoschton (1)</span><a href="/georgia/hoschton/">View Hoschton →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/reunion-country-club/"><div class="nm">Reunion Country Club</div><div class="ct">★ 4.3 · 489 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Jonesboro (1)</h2>
+    <h2 class="city-header"><span>Jonesboro (1)</span><a href="/georgia/jonesboro/">View Jonesboro →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/lake-spivey-golf-course/"><div class="nm">Lake Spivey Golf Course</div><div class="ct">★ 4.2 · 456 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Rome (1)</h2>
+    <h2 class="city-header"><span>Rome (1)</span><a href="/georgia/rome/">View Rome →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/stonebridge-golf-club/"><div class="nm">Stonebridge Golf Club</div><div class="ct">★ 4.1 · 389 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Savannah (1)</h2>
+    <h2 class="city-header"><span>Savannah (1)</span><a href="/georgia/savannah/">View Savannah →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/crosswinds-golf-club/"><div class="nm">Crosswinds Golf Club</div><div class="ct">★ 4.2 · 489 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Stone Mountain (1)</h2>
+    <h2 class="city-header"><span>Stone Mountain (1)</span><a href="/georgia/stone-mountain/">View Stone Mountain →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/stone-mountain-golf-club/"><div class="nm">Stone Mountain Golf Club</div><div class="ct">★ 4.3 · 856 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Suwanee (1)</h2>
+    <h2 class="city-header"><span>Suwanee (1)</span><a href="/georgia/suwanee/">View Suwanee →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/bears-best-atlanta/"><div class="nm">Bear&#39;s Best Atlanta</div><div class="ct">★ 4.5 · 1,234 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Tucker (1)</h2>
+    <h2 class="city-header"><span>Tucker (1)</span><a href="/georgia/tucker/">View Tucker →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/heritage-golf-links/"><div class="nm">Heritage Golf Links</div><div class="ct">★ 4.2 · 678 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Waleska (1)</h2>
+    <h2 class="city-header"><span>Waleska (1)</span><a href="/georgia/waleska/">View Waleska →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/georgia/lake-arrowhead-golf-club/"><div class="nm">Lake Arrowhead Golf Club</div><div class="ct">★ 4.3 · 445 reviews</div></a></div>
     </div>

@@ -29,13 +29,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -43,20 +43,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -77,147 +93,147 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="location">47 courses across 28 cities</div>
 
   <section class="intro" style="margin-top:24px">
-    <p>Daily Tee Times aggregates live availability and pricing at <strong>47 Texas golf courses</strong>. From Arlington to Weatherford, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
-    <p>Click any course below to see its current availability, pricing, and book directly. Or use the homepage to filter all 47 Texas courses by date, players, and time of day.</p>
+    <p>Daily Tee Times aggregates live availability and pricing at <strong>47 Texas golf courses</strong> across DFW, Houston, Austin, and the Hill Country. From Arlington to Weatherford, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
+    <p>Click any course or city below to see its current availability and pricing — or use the <a href="/">homepage</a> to filter all 47 Texas courses by date, players, and time of day.</p>
   </section>
 
   
-    <h2 class="city-header">Arlington (4)</h2>
+    <h2 class="city-header"><span>Arlington (4)</span><a href="/texas/arlington/">View Arlington →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/lake-arlington-golf-course/"><div class="nm">Lake Arlington Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/meadowbrook-park-golf-course/"><div class="nm">Meadowbrook Park Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/texas-rangers-golf-club/"><div class="nm">Texas Rangers Golf Club</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/tierra-verde-golf-club/"><div class="nm">Tierra Verde Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Austin (7)</h2>
+    <h2 class="city-header"><span>Austin (7)</span><a href="/texas/austin/">View Austin →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/avery-ranch-golf-club/"><div class="nm">Avery Ranch Golf Club</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/grey-rock-golf-course/"><div class="nm">Grey Rock Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/hancock-golf-course/"><div class="nm">Hancock Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/jimmy-clay-golf-course/"><div class="nm">Jimmy Clay Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/lions-municipal-golf-course/"><div class="nm">Lions Municipal Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/morris-williams-golf-course/"><div class="nm">Morris Williams Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/roy-kizer-golf-course/"><div class="nm">Roy Kizer Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Bandera (1)</h2>
+    <h2 class="city-header"><span>Bandera (1)</span><a href="/texas/bandera/">View Bandera →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/flying-l-ranch-golf-course/"><div class="nm">Flying L Ranch Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Beaumont (1)</h2>
+    <h2 class="city-header"><span>Beaumont (1)</span><a href="/texas/beaumont/">View Beaumont →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/pine-ridge-golf-course/"><div class="nm">Pine Ridge Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Bee Cave (1)</h2>
+    <h2 class="city-header"><span>Bee Cave (1)</span><a href="/texas/bee-cave/">View Bee Cave →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/falconhead-golf-club/"><div class="nm">Falconhead Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Brookeland (1)</h2>
+    <h2 class="city-header"><span>Brookeland (1)</span><a href="/texas/brookeland/">View Brookeland →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/rayburn-resort/"><div class="nm">Rayburn Resort</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Burnet (1)</h2>
+    <h2 class="city-header"><span>Burnet (1)</span><a href="/texas/burnet/">View Burnet →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/delaware-springs-golf-course/"><div class="nm">Delaware Springs Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Caldwell (1)</h2>
+    <h2 class="city-header"><span>Caldwell (1)</span><a href="/texas/caldwell/">View Caldwell →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/copperas-hollow-country-club/"><div class="nm">Copperas Hollow Country Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Cedar Hill (1)</h2>
+    <h2 class="city-header"><span>Cedar Hill (1)</span><a href="/texas/cedar-hill/">View Cedar Hill →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/tangle-ridge-golf-club/"><div class="nm">Tangle Ridge Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">College Station (1)</h2>
+    <h2 class="city-header"><span>College Station (1)</span><a href="/texas/college-station/">View College Station →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/texas-aandm-campus-course/"><div class="nm">Texas A&amp;M Campus Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Dallas (1)</h2>
+    <h2 class="city-header"><span>Dallas (1)</span><a href="/texas/dallas/">View Dallas →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/the-golf-club-of-dallas/"><div class="nm">The Golf Club of Dallas</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Flower Mound (2)</h2>
+    <h2 class="city-header"><span>Flower Mound (2)</span><a href="/texas/flower-mound/">View Flower Mound →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/bridlewood-golf-club/"><div class="nm">Bridlewood Golf Club</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/tour-18-dallas/"><div class="nm">Tour 18 Dallas</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Fort Worth (4)</h2>
+    <h2 class="city-header"><span>Fort Worth (4)</span><a href="/texas/fort-worth/">View Fort Worth →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/meadowbrook-golf-course/"><div class="nm">Meadowbrook Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/pecan-valley-hills/"><div class="nm">Pecan Valley Hills</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/pecan-valley-river/"><div class="nm">Pecan Valley River</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/rockwood-park-golf-course/"><div class="nm">Rockwood Park Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Frisco (1)</h2>
+    <h2 class="city-header"><span>Frisco (1)</span><a href="/texas/frisco/">View Frisco →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/frisco-lakes-golf-club/"><div class="nm">Frisco Lakes Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Grapevine (1)</h2>
+    <h2 class="city-header"><span>Grapevine (1)</span><a href="/texas/grapevine/">View Grapevine →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/cowboys-golf-club/"><div class="nm">Cowboys Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Heath (1)</h2>
+    <h2 class="city-header"><span>Heath (1)</span><a href="/texas/heath/">View Heath →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/buffalo-creek-golf-club/"><div class="nm">Buffalo Creek Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Houston (5)</h2>
+    <h2 class="city-header"><span>Houston (5)</span><a href="/texas/houston/">View Houston →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/golf-club-of-houston/"><div class="nm">Golf Club of Houston</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/grand-oaks-golf-club/"><div class="nm">Grand Oaks Golf Club</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/hermann-park-golf-course/"><div class="nm">Hermann Park Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/wildcat-golf-club-highlands/"><div class="nm">Wildcat Golf Club - Highlands</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/wildcat-golf-club-lakes/"><div class="nm">Wildcat Golf Club - Lakes</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Mart (1)</h2>
+    <h2 class="city-header"><span>Mart (1)</span><a href="/texas/mart/">View Mart →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/battle-lake-golf-course/"><div class="nm">Battle Lake Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">McKinney (2)</h2>
+    <h2 class="city-header"><span>McKinney (2)</span><a href="/texas/mckinney/">View McKinney →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/oak-hollow-golf-course/"><div class="nm">Oak Hollow Golf Course</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/westridge-golf-course/"><div class="nm">Westridge Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Mercedes (1)</h2>
+    <h2 class="city-header"><span>Mercedes (1)</span><a href="/texas/mercedes/">View Mercedes →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/llano-grande-golf-course/"><div class="nm">Llano Grande Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">North Richland Hills (1)</h2>
+    <h2 class="city-header"><span>North Richland Hills (1)</span><a href="/texas/north-richland-hills/">View North Richland Hills →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/iron-horse-golf-course/"><div class="nm">Iron Horse Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Olney (1)</h2>
+    <h2 class="city-header"><span>Olney (1)</span><a href="/texas/olney/">View Olney →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/olney-country-club/"><div class="nm">Olney Country Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Pecos (1)</h2>
+    <h2 class="city-header"><span>Pecos (1)</span><a href="/texas/pecos/">View Pecos →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/reeves-county-golf-course/"><div class="nm">Reeves County Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Richardson (1)</h2>
+    <h2 class="city-header"><span>Richardson (1)</span><a href="/texas/richardson/">View Richardson →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/sherrill-park-golf-club/"><div class="nm">Sherrill Park Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Round Rock (1)</h2>
+    <h2 class="city-header"><span>Round Rock (1)</span><a href="/texas/round-rock/">View Round Rock →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/forest-creek-golf-club/"><div class="nm">Forest Creek Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">San Antonio (1)</h2>
+    <h2 class="city-header"><span>San Antonio (1)</span><a href="/texas/san-antonio/">View San Antonio →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/hyatt-hill-country-resort/"><div class="nm">Hyatt Hill Country Resort</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Spring (2)</h2>
+    <h2 class="city-header"><span>Spring (2)</span><a href="/texas/spring/">View Spring →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/gleannloch-pines-golf-club/"><div class="nm">Gleannloch Pines Golf Club</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/texas/willow-creek-golf-club/"><div class="nm">Willow Creek Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Weatherford (1)</h2>
+    <h2 class="city-header"><span>Weatherford (1)</span><a href="/texas/weatherford/">View Weatherford →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/texas/canyon-west-golf-course/"><div class="nm">Canyon West Golf Course</div><div class="ct">View tee times</div></a></div>
     </div>

@@ -16,6 +16,8 @@
 <meta property="og:locale" content="en_US">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Tucson City Golf","address":{"@type":"PostalAddress","addressLocality":"Tucson","addressRegion":"AZ","addressCountry":"US"},"url":"https://dailyteetimes.com/arizona/tucson-city-golf/","aggregateRating":{"@type":"AggregateRating","ratingValue":4,"reviewCount":312,"bestRating":5,"worstRating":1}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where is Tucson City Golf located?","acceptedAnswer":{"@type":"Answer","text":"Tucson City Golf is in Tucson, Arizona — in the southern Arizona Sonoran desert."}},{"@type":"Question","name":"Does Tucson City Golf offer twilight rates?","acceptedAnswer":{"@type":"Answer","text":"Most public courses, including Tucson City Golf, offer discounted twilight rates for tee times within ~2 hours of sunset. These show up automatically in the live pricing above; sort by the Time of Day filter on the homepage to find them quickly."}},{"@type":"Question","name":"What other courses are near Tucson City Golf?","acceptedAnswer":{"@type":"Answer","text":"Several other Arizona courses are within a short drive of Tucson City Golf. See the \"More Courses Near Tucson\" section below — Daily Tee Times aggregates live availability across all of them."}},{"@type":"Question","name":"How do I book a tee time at Tucson City Golf?","acceptedAnswer":{"@type":"Answer","text":"Use the live availability widget above to see today's open tee times at Tucson City Golf with current pricing. Click any time slot to be taken straight to the course's booking page — there are no fees or signup requirements."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dailyteetimes.com/"},{"@type":"ListItem","position":2,"name":"Arizona","item":"https://dailyteetimes.com/arizona/"},{"@type":"ListItem","position":3,"name":"Tucson","item":"https://dailyteetimes.com/arizona/tucson/"},{"@type":"ListItem","position":4,"name":"Tucson City Golf","item":"https://dailyteetimes.com/arizona/tucson-city-golf/"}]}</script>
 
 <style>
 :root{--green-deep:#2e5031;--green-accent:#4a7c50;--green-light:#7eb085;--white:#fff;--bg:#f7faf7;--text:#1a2a1c;--muted:#5e6b60;--border:#d8e1da;--card:#fff}
@@ -30,13 +32,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -44,20 +46,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -68,10 +86,10 @@ footer a{color:rgba(255,255,255,0.82)}
 
 <header class="header">
   <a class="logo" href="/">Daily Tee Times</a>
-  <nav><a href="/arizona/">Arizona</a><a href="/">All States</a></nav>
+  <nav><a href="https://dailyteetimes.com/arizona/tucson/">Tucson</a><a href="/arizona/">Arizona</a></nav>
 </header>
 
-<nav class="crumb"><a href="/">Home</a> &rsaquo; <a href="/arizona/">Arizona</a> &rsaquo; Tucson City Golf</nav>
+<nav class="crumb"><a href="/">Home</a> &rsaquo; <a href="/arizona/">Arizona</a> &rsaquo; <a href="https://dailyteetimes.com/arizona/tucson/">Tucson</a> &rsaquo; Tucson City Golf</nav>
 
 <main class="main">
   <h1>Tucson City Golf</h1>
@@ -79,27 +97,52 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="rating">★ 4 · 312 reviews</div>
 
   <section class="intro">
-    <p>Tucson City Golf is a well-regarded public golf course in Tucson, Arizona.</p>
+    <p>Tucson City Golf is a popular public golf course in Tucson, Arizona.</p>
     <p>With a 4/5 rating from 312 golfer reviews, it's earned a strong reputation among players in the Tucson area and across Arizona.</p>
-    <p>Daily Tee Times aggregates real-time availability so you can see today's open tee times and pricing at Tucson City Golf at a glance. Click any time slot below to book directly with the course — no fees, no signup required.</p>
+    <p>Daily Tee Times pulls real-time availability and pricing from Tucson City Golf's booking system every 10 minutes. Today's open tee times are listed below — click any slot to book directly with the course. No fees, no signup required.</p>
   </section>
 
-  <section class="tee-times-section">
+  <section class="block">
     <h2>Today's Tee Times at Tucson City Golf</h2>
     <div class="tee-times-meta" id="teeDate"></div>
     <div class="tee-times-grid" id="teeTimesGrid"><span class="loading">⏳ Loading live availability...</span></div>
   </section>
 
+  <section class="block">
+    <h2>About Tucson Golf</h2>
+    <p>Tucson sits in southern Arizona Sonoran desert. Tucson City Golf is one of the area's public-access options, alongside 4 other courses in town. Daily Tee Times tracks live availability at every Tucson course so you can compare options at a glance.</p>
+  </section>
+
+  <section class="block">
+    <h2>How to Book a Tee Time at Tucson City Golf</h2>
+    <ol class="how-list">
+      <li>Check today's live availability above (or use the <a href="/">homepage</a> to pick a different date).</li>
+      <li>Click the tee time and price that fits your group's plan — you'll be taken directly to Tucson City Golf's booking page.</li>
+      <li>Complete checkout with the course. Daily Tee Times charges no fees and requires no signup.</li>
+      <li>(Optional) <a href="/">Set an alert on the homepage</a> to get notified when a tee time opens up at Tucson City Golf.</li>
+    </ol>
+  </section>
+
+  <section class="block faq">
+    <h2>Frequently Asked Questions</h2>
+    <details><summary>Where is Tucson City Golf located?</summary><p>Tucson City Golf is in Tucson, Arizona — in the southern Arizona Sonoran desert.</p></details><details><summary>Does Tucson City Golf offer twilight rates?</summary><p>Most public courses, including Tucson City Golf, offer discounted twilight rates for tee times within ~2 hours of sunset. These show up automatically in the live pricing above; sort by the Time of Day filter on the homepage to find them quickly.</p></details><details><summary>What other courses are near Tucson City Golf?</summary><p>Several other Arizona courses are within a short drive of Tucson City Golf. See the &quot;More Courses Near Tucson&quot; section below — Daily Tee Times aggregates live availability across all of them.</p></details><details><summary>How do I book a tee time at Tucson City Golf?</summary><p>Use the live availability widget above to see today&#39;s open tee times at Tucson City Golf with current pricing. Click any time slot to be taken straight to the course&#39;s booking page — there are no fees or signup requirements.</p></details>
+  </section>
+
+  <section class="sister">
+    <h2>Other Courses in Tucson</h2>
+    <div class="sister-grid"><div class="sister-card"><a href="/arizona/arizona-national-golf-club/"><div class="nm">Arizona National Golf Club</div><div class="ct">Tucson, AZ</div></a></div><div class="sister-card"><a href="/arizona/the-club-at-starr-pass/"><div class="nm">The Club at Starr Pass</div><div class="ct">Tucson, AZ</div></a></div><div class="sister-card"><a href="/arizona/el-conquistador-golf-club/"><div class="nm">El Conquistador Golf Club</div><div class="ct">Tucson, AZ</div></a></div><div class="sister-card"><a href="/arizona/saddlebrooke-two/"><div class="nm">SaddleBrooke Two</div><div class="ct">Tucson, AZ</div></a></div></div>
+  </section>
+
   <section class="nearby">
-    <h2>More Courses Near Tucson, Arizona</h2>
-    <div class="nearby-grid"><div class="nearby-card"><a href="/arizona/arizona-national-golf-club/"><div class="nm">Arizona National Golf Club</div><div class="ct">Tucson, AZ</div></a></div><div class="nearby-card"><a href="/arizona/the-club-at-starr-pass/"><div class="nm">The Club at Starr Pass</div><div class="ct">Tucson, AZ</div></a></div><div class="nearby-card"><a href="/arizona/el-conquistador-golf-club/"><div class="nm">El Conquistador Golf Club</div><div class="ct">Tucson, AZ</div></a></div><div class="nearby-card"><a href="/arizona/saddlebrooke-two/"><div class="nm">SaddleBrooke Two</div><div class="ct">Tucson, AZ</div></a></div><div class="nearby-card"><a href="/arizona/ak-chin-southern-dunes-golf-club/"><div class="nm">Ak-Chin Southern Dunes Golf Club</div><div class="ct">Maricopa, AZ</div></a></div></div>
+    <h2>More Arizona Courses</h2>
+    <div class="nearby-grid"><div class="nearby-card"><a href="/arizona/troon-north-golf-club/"><div class="nm">Troon North Golf Club</div><div class="ct">Scottsdale, AZ</div></a></div><div class="nearby-card"><a href="/arizona/quintero-golf-club/"><div class="nm">Quintero Golf Club</div><div class="ct">Peoria, AZ</div></a></div></div>
   </section>
 </main>
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
   <div>Find and book tee times at 340+ golf courses nationally.</div>
-  <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="/arizona/">Arizona courses</a></div>
+  <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="https://dailyteetimes.com/arizona/tucson/">Tucson</a> &middot; <a href="/arizona/">Arizona</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
 

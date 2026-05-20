@@ -29,13 +29,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -43,20 +43,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -77,102 +93,102 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="location">24 courses across 19 cities</div>
 
   <section class="intro" style="margin-top:24px">
-    <p>Daily Tee Times aggregates live availability and pricing at <strong>24 Virginia golf courses</strong>. From Alexandria to Zion Crossroads, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
-    <p>Click any course below to see its current availability, pricing, and book directly. Or use the homepage to filter all 24 Virginia courses by date, players, and time of day.</p>
+    <p>Daily Tee Times aggregates live availability and pricing at <strong>24 Virginia golf courses</strong> across Hampton Roads, NoVA, Williamsburg, Wintergreen, and the Shenandoah. From Alexandria to Zion Crossroads, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
+    <p>Click any course or city below to see its current availability and pricing — or use the <a href="/">homepage</a> to filter all 24 Virginia courses by date, players, and time of day.</p>
   </section>
 
   
-    <h2 class="city-header">Alexandria (1)</h2>
+    <h2 class="city-header"><span>Alexandria (1)</span><a href="/virginia/alexandria/">View Alexandria →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/greendale-golf-course/"><div class="nm">Greendale Golf Course</div><div class="ct">★ 4 · 367 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Ashburn (1)</h2>
+    <h2 class="city-header"><span>Ashburn (1)</span><a href="/virginia/ashburn/">View Ashburn →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/brambleton-golf-course/"><div class="nm">Brambleton Golf Course</div><div class="ct">★ 4.2 · 512 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Chesapeake (1)</h2>
+    <h2 class="city-header"><span>Chesapeake (1)</span><a href="/virginia/chesapeake/">View Chesapeake →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/chesapeake-golf-club/"><div class="nm">Chesapeake Golf Club</div><div class="ct">★ 4.2 · 478 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Fairfax (1)</h2>
+    <h2 class="city-header"><span>Fairfax (1)</span><a href="/virginia/fairfax/">View Fairfax →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/penderbrook-golf-club/"><div class="nm">Penderbrook Golf Club</div><div class="ct">★ 4.2 · 489 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Fredericksburg (1)</h2>
+    <h2 class="city-header"><span>Fredericksburg (1)</span><a href="/virginia/fredericksburg/">View Fredericksburg →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/the-gauntlet-golf-club/"><div class="nm">The Gauntlet Golf Club</div><div class="ct">★ 4.4 · 567 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Front Royal (1)</h2>
+    <h2 class="city-header"><span>Front Royal (1)</span><a href="/virginia/front-royal/">View Front Royal →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/shenandoah-valley-golf-club/"><div class="nm">Shenandoah Valley Golf Club</div><div class="ct">★ 4.2 · 412 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Gainesville (1)</h2>
+    <h2 class="city-header"><span>Gainesville (1)</span><a href="/virginia/gainesville/">View Gainesville →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/stonewall-golf-club/"><div class="nm">Stonewall Golf Club</div><div class="ct">★ 4.3 · 512 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Harrisonburg (1)</h2>
+    <h2 class="city-header"><span>Harrisonburg (1)</span><a href="/virginia/harrisonburg/">View Harrisonburg →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/heritage-oaks-golf-course/"><div class="nm">Heritage Oaks Golf Course</div><div class="ct">★ 4.2 · 478 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Irvington (1)</h2>
+    <h2 class="city-header"><span>Irvington (1)</span><a href="/virginia/irvington/">View Irvington →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/golden-eagle-tides-inn/"><div class="nm">Golden Eagle (Tides Inn)</div><div class="ct">★ 4.6 · 578 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Leesburg (1)</h2>
+    <h2 class="city-header"><span>Leesburg (1)</span><a href="/virginia/leesburg/">View Leesburg →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/raspberry-falls-golf-and-hunt/"><div class="nm">Raspberry Falls Golf &amp; Hunt</div><div class="ct">★ 4.6 · 734 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Lorton (1)</h2>
+    <h2 class="city-header"><span>Lorton (1)</span><a href="/virginia/lorton/">View Lorton →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/pohick-bay-golf-course/"><div class="nm">Pohick Bay Golf Course</div><div class="ct">★ 4 · 378 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Providence Forge (1)</h2>
+    <h2 class="city-header"><span>Providence Forge (1)</span><a href="/virginia/providence-forge/">View Providence Forge →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/royal-new-kent/"><div class="nm">Royal New Kent</div><div class="ct">★ 4.7 · 823 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">South Riding (1)</h2>
+    <h2 class="city-header"><span>South Riding (1)</span><a href="/virginia/south-riding/">View South Riding →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/south-riding-golf-club/"><div class="nm">South Riding Golf Club</div><div class="ct">★ 4.3 · 534 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Sterling (1)</h2>
+    <h2 class="city-header"><span>Sterling (1)</span><a href="/virginia/sterling/">View Sterling →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/algonkian-golf-course/"><div class="nm">Algonkian Golf Course</div><div class="ct">★ 4.1 · 445 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Suffolk (1)</h2>
+    <h2 class="city-header"><span>Suffolk (1)</span><a href="/virginia/suffolk/">View Suffolk →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/sleepy-hole-golf-course/"><div class="nm">Sleepy Hole Golf Course</div><div class="ct">★ 4.2 · 412 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Virginia Beach (5)</h2>
+    <h2 class="city-header"><span>Virginia Beach (5)</span><a href="/virginia/virginia-beach/">View Virginia Beach →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/cypress-point-country-club/"><div class="nm">Cypress Point Country Club</div><div class="ct">★ 4.3 · 512 reviews</div></a></div><div class="state-course"><a href="/virginia/hells-point-golf-club/"><div class="nm">Hell&#39;s Point Golf Club</div><div class="ct">★ 4.5 · 678 reviews</div></a></div><div class="state-course"><a href="/virginia/heron-ridge-golf-club/"><div class="nm">Heron Ridge Golf Club</div><div class="ct">★ 4.4 · 567 reviews</div></a></div><div class="state-course"><a href="/virginia/honey-bee-golf-club/"><div class="nm">Honey Bee Golf Club</div><div class="ct">★ 4.2 · 445 reviews</div></a></div><div class="state-course"><a href="/virginia/red-wing-lake-golf-course/"><div class="nm">Red Wing Lake Golf Course</div><div class="ct">★ 4.1 · 389 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Williamsburg (2)</h2>
+    <h2 class="city-header"><span>Williamsburg (2)</span><a href="/virginia/williamsburg/">View Williamsburg →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/colonial-heritage-golf-club/"><div class="nm">Colonial Heritage Golf Club</div><div class="ct">★ 4.4 · 489 reviews</div></a></div><div class="state-course"><a href="/virginia/fords-colony-marsh-hawk/"><div class="nm">Ford&#39;s Colony — Marsh Hawk</div><div class="ct">★ 4.4 · 534 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Wintergreen (1)</h2>
+    <h2 class="city-header"><span>Wintergreen (1)</span><a href="/virginia/wintergreen/">View Wintergreen →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/wintergreen-stoney-creek/"><div class="nm">Wintergreen — Stoney Creek</div><div class="ct">★ 4.5 · 589 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Zion Crossroads (1)</h2>
+    <h2 class="city-header"><span>Zion Crossroads (1)</span><a href="/virginia/zion-crossroads/">View Zion Crossroads →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/virginia/spring-creek-golf-club/"><div class="nm">Spring Creek Golf Club</div><div class="ct">★ 4.5 · 678 reviews</div></a></div>
     </div>

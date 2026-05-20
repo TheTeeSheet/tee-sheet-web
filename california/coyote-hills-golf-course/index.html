@@ -16,6 +16,8 @@
 <meta property="og:locale" content="en_US">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Coyote Hills Golf Course","address":{"@type":"PostalAddress","addressLocality":"Fullerton","addressRegion":"CA","addressCountry":"US"},"url":"https://dailyteetimes.com/california/coyote-hills-golf-course/","aggregateRating":{"@type":"AggregateRating","ratingValue":4.2,"reviewCount":734,"bestRating":5,"worstRating":1}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Coyote Hills Golf Course offer twilight rates?","acceptedAnswer":{"@type":"Answer","text":"Most public courses, including Coyote Hills Golf Course, offer discounted twilight rates for tee times within ~2 hours of sunset. These show up automatically in the live pricing above; sort by the Time of Day filter on the homepage to find them quickly."}},{"@type":"Question","name":"Is Coyote Hills Golf Course open to the public?","acceptedAnswer":{"@type":"Answer","text":"Yes. Coyote Hills Golf Course accepts public tee-time bookings. You can book directly through the course or via the Daily Tee Times homepage, where availability and pricing are surfaced in real time."}},{"@type":"Question","name":"Where is Coyote Hills Golf Course located?","acceptedAnswer":{"@type":"Answer","text":"Coyote Hills Golf Course is located in Fullerton, California."}},{"@type":"Question","name":"Can I walk Coyote Hills Golf Course, or are carts required?","acceptedAnswer":{"@type":"Answer","text":"Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most California courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dailyteetimes.com/"},{"@type":"ListItem","position":2,"name":"California","item":"https://dailyteetimes.com/california/"},{"@type":"ListItem","position":3,"name":"Fullerton","item":"https://dailyteetimes.com/california/fullerton/"},{"@type":"ListItem","position":4,"name":"Coyote Hills Golf Course","item":"https://dailyteetimes.com/california/coyote-hills-golf-course/"}]}</script>
 
 <style>
 :root{--green-deep:#2e5031;--green-accent:#4a7c50;--green-light:#7eb085;--white:#fff;--bg:#f7faf7;--text:#1a2a1c;--muted:#5e6b60;--border:#d8e1da;--card:#fff}
@@ -30,13 +32,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -44,20 +46,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -68,10 +86,10 @@ footer a{color:rgba(255,255,255,0.82)}
 
 <header class="header">
   <a class="logo" href="/">Daily Tee Times</a>
-  <nav><a href="/california/">California</a><a href="/">All States</a></nav>
+  <nav><a href="https://dailyteetimes.com/california/fullerton/">Fullerton</a><a href="/california/">California</a></nav>
 </header>
 
-<nav class="crumb"><a href="/">Home</a> &rsaquo; <a href="/california/">California</a> &rsaquo; Coyote Hills Golf Course</nav>
+<nav class="crumb"><a href="/">Home</a> &rsaquo; <a href="/california/">California</a> &rsaquo; <a href="https://dailyteetimes.com/california/fullerton/">Fullerton</a> &rsaquo; Coyote Hills Golf Course</nav>
 
 <main class="main">
   <h1>Coyote Hills Golf Course</h1>
@@ -79,27 +97,46 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="rating">★ 4.2 · 734 reviews</div>
 
   <section class="intro">
-    <p>Coyote Hills Golf Course is a well-regarded public golf course in Fullerton, California.</p>
+    <p>Coyote Hills Golf Course ranks among Fullerton's solid golf courses.</p>
     <p>With a 4.2/5 rating from 734 golfer reviews, it's earned a strong reputation among players in the Fullerton area and across California.</p>
-    <p>Daily Tee Times aggregates real-time availability so you can see today's open tee times and pricing at Coyote Hills Golf Course at a glance. Click any time slot below to book directly with the course — no fees, no signup required.</p>
+    <p>Daily Tee Times pulls real-time availability and pricing from Coyote Hills Golf Course's booking system every 10 minutes. Today's open tee times are listed below — click any slot to book directly with the course. No fees, no signup required.</p>
   </section>
 
-  <section class="tee-times-section">
+  <section class="block">
     <h2>Today's Tee Times at Coyote Hills Golf Course</h2>
     <div class="tee-times-meta" id="teeDate"></div>
     <div class="tee-times-grid" id="teeTimesGrid"><span class="loading">⏳ Loading live availability...</span></div>
   </section>
 
+  
+
+  <section class="block">
+    <h2>How to Book a Tee Time at Coyote Hills Golf Course</h2>
+    <ol class="how-list">
+      <li>Check today's live availability above (or use the <a href="/">homepage</a> to pick a different date).</li>
+      <li>Click the tee time and price that fits your group's plan — you'll be taken directly to Coyote Hills Golf Course's booking page.</li>
+      <li>Complete checkout with the course. Daily Tee Times charges no fees and requires no signup.</li>
+      <li>(Optional) <a href="/">Set an alert on the homepage</a> to get notified when a tee time opens up at Coyote Hills Golf Course.</li>
+    </ol>
+  </section>
+
+  <section class="block faq">
+    <h2>Frequently Asked Questions</h2>
+    <details><summary>Does Coyote Hills Golf Course offer twilight rates?</summary><p>Most public courses, including Coyote Hills Golf Course, offer discounted twilight rates for tee times within ~2 hours of sunset. These show up automatically in the live pricing above; sort by the Time of Day filter on the homepage to find them quickly.</p></details><details><summary>Is Coyote Hills Golf Course open to the public?</summary><p>Yes. Coyote Hills Golf Course accepts public tee-time bookings. You can book directly through the course or via the Daily Tee Times homepage, where availability and pricing are surfaced in real time.</p></details><details><summary>Where is Coyote Hills Golf Course located?</summary><p>Coyote Hills Golf Course is located in Fullerton, California.</p></details><details><summary>Can I walk Coyote Hills Golf Course, or are carts required?</summary><p>Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most California courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time.</p></details>
+  </section>
+
+  
+
   <section class="nearby">
-    <h2>More Courses Near Fullerton, California</h2>
-    <div class="nearby-grid"><div class="nearby-card"><a href="/california/tijeras-creek-golf-club/"><div class="nm">Tijeras Creek Golf Club</div><div class="ct">Rancho Santa Margarita, CA</div></a></div><div class="nearby-card"><a href="/california/the-lakes-at-el-segundo/"><div class="nm">The Lakes at El Segundo</div><div class="ct">El Segundo, CA</div></a></div><div class="nearby-card"><a href="/california/the-golf-club-at-moffett-field/"><div class="nm">The Golf Club at Moffett Field</div><div class="ct">Mountain View, CA</div></a></div><div class="nearby-card"><a href="/california/tustin-ranch-golf-club/"><div class="nm">Tustin Ranch Golf Club</div><div class="ct">Tustin, CA</div></a></div><div class="nearby-card"><a href="/california/the-ridge-golf-and-event-center/"><div class="nm">The Ridge Golf and Event Center</div><div class="ct">Auburn, CA</div></a></div></div>
+    <h2>More California Courses</h2>
+    <div class="nearby-grid"><div class="nearby-card"><a href="/california/aviara-golf-club/"><div class="nm">Aviara Golf Club</div><div class="ct">Carlsbad, CA</div></a></div><div class="nearby-card"><a href="/california/monarch-beach-golf-links/"><div class="nm">Monarch Beach Golf Links</div><div class="ct">Dana Point, CA</div></a></div><div class="nearby-card"><a href="/california/indian-wells-golf-resort/"><div class="nm">Indian Wells Golf Resort</div><div class="ct">Indian Wells, CA</div></a></div><div class="nearby-card"><a href="/california/brookside-golf-club-cw-koiner/"><div class="nm">Brookside Golf Club — C.W. Koiner</div><div class="ct">Pasadena, CA</div></a></div><div class="nearby-card"><a href="/california/brookside-golf-club-eo-nay/"><div class="nm">Brookside Golf Club — E.O. Nay</div><div class="ct">Pasadena, CA</div></a></div></div>
   </section>
 </main>
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
   <div>Find and book tee times at 340+ golf courses nationally.</div>
-  <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="/california/">California courses</a></div>
+  <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="https://dailyteetimes.com/california/fullerton/">Fullerton</a> &middot; <a href="/california/">California</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
 

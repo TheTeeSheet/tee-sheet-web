@@ -29,13 +29,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -43,20 +43,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -77,107 +93,107 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="location">28 courses across 20 cities</div>
 
   <section class="intro" style="margin-top:24px">
-    <p>Daily Tee Times aggregates live availability and pricing at <strong>28 Michigan golf courses</strong>. From Ann Arbor to South Lyon, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
-    <p>Click any course below to see its current availability, pricing, and book directly. Or use the homepage to filter all 28 Michigan courses by date, players, and time of day.</p>
+    <p>Daily Tee Times aggregates live availability and pricing at <strong>28 Michigan golf courses</strong> across Northern Michigan, Detroit metro, and West Michigan. From Ann Arbor to South Lyon, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
+    <p>Click any course or city below to see its current availability and pricing — or use the <a href="/">homepage</a> to filter all 28 Michigan courses by date, players, and time of day.</p>
   </section>
 
   
-    <h2 class="city-header">Ann Arbor (1)</h2>
+    <h2 class="city-header"><span>Ann Arbor (1)</span><a href="/michigan/ann-arbor/">View Ann Arbor →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/stonebridge-golf-club/"><div class="nm">Stonebridge Golf Club</div><div class="ct">★ 4.3 · 578 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Augusta (1)</h2>
+    <h2 class="city-header"><span>Augusta (1)</span><a href="/michigan/augusta/">View Augusta →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/stoatin-brae/"><div class="nm">Stoatin Brae</div><div class="ct">★ 4.6 · 734 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Bellaire (5)</h2>
+    <h2 class="city-header"><span>Bellaire (5)</span><a href="/michigan/bellaire/">View Bellaire →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/glacier-club/"><div class="nm">Glacier Club</div><div class="ct">★ 4.2 · 445 reviews</div></a></div><div class="state-course"><a href="/michigan/shanty-creek-cedar-river/"><div class="nm">Shanty Creek — Cedar River</div><div class="ct">★ 4.5 · 578 reviews</div></a></div><div class="state-course"><a href="/michigan/shanty-creek-schuss-mountain/"><div class="nm">Shanty Creek — Schuss Mountain</div><div class="ct">★ 4.4 · 612 reviews</div></a></div><div class="state-course"><a href="/michigan/shanty-creek-summit/"><div class="nm">Shanty Creek — Summit</div><div class="ct">★ 4.2 · 389 reviews</div></a></div><div class="state-course"><a href="/michigan/shanty-creek-the-legend/"><div class="nm">Shanty Creek — The Legend</div><div class="ct">★ 4.6 · 823 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Charlevoix (1)</h2>
+    <h2 class="city-header"><span>Charlevoix (1)</span><a href="/michigan/charlevoix/">View Charlevoix →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/belvedere-golf-club/"><div class="nm">Belvedere Golf Club</div><div class="ct">★ 4.7 · 823 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Clarkston (1)</h2>
+    <h2 class="city-header"><span>Clarkston (1)</span><a href="/michigan/clarkston/">View Clarkston →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/pine-knob-golf-club/"><div class="nm">Pine Knob Golf Club</div><div class="ct">★ 4.2 · 612 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">East Lansing (2)</h2>
+    <h2 class="city-header"><span>East Lansing (2)</span><a href="/michigan/east-lansing/">View East Lansing →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/forest-akers-east-msu/"><div class="nm">Forest Akers — East (MSU)</div><div class="ct">★ 4.5 · 823 reviews</div></a></div><div class="state-course"><a href="/michigan/forest-akers-west-msu/"><div class="nm">Forest Akers — West (MSU)</div><div class="ct">★ 4.2 · 534 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Gaylord (2)</h2>
+    <h2 class="city-header"><span>Gaylord (2)</span><a href="/michigan/gaylord/">View Gaylord →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/otsego-resort-classic/"><div class="nm">Otsego Resort — Classic</div><div class="ct">★ 4.3 · 445 reviews</div></a></div><div class="state-course"><a href="/michigan/otsego-resort-tribute/"><div class="nm">Otsego Resort — Tribute</div><div class="ct">★ 4.5 · 567 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Grand Rapids (1)</h2>
+    <h2 class="city-header"><span>Grand Rapids (1)</span><a href="/michigan/grand-rapids/">View Grand Rapids →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/indian-trails-golf-course/"><div class="nm">Indian Trails Golf Course</div><div class="ct">★ 4.1 · 412 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Hamilton (1)</h2>
+    <h2 class="city-header"><span>Hamilton (1)</span><a href="/michigan/hamilton/">View Hamilton →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/diamond-springs-golf-course/"><div class="nm">Diamond Springs Golf Course</div><div class="ct">★ 4.4 · 589 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Jackson (1)</h2>
+    <h2 class="city-header"><span>Jackson (1)</span><a href="/michigan/jackson/">View Jackson →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/cascades-golf-course/"><div class="nm">Cascades Golf Course</div><div class="ct">★ 4.2 · 456 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Kewadin (1)</h2>
+    <h2 class="city-header"><span>Kewadin (1)</span><a href="/michigan/kewadin/">View Kewadin →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/a-ga-ming-golf-resort/"><div class="nm">A-Ga-Ming Golf Resort</div><div class="ct">★ 4.3 · 534 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Lewiston (1)</h2>
+    <h2 class="city-header"><span>Lewiston (1)</span><a href="/michigan/lewiston/">View Lewiston →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/garland-lodge-and-resort/"><div class="nm">Garland Lodge &amp; Resort</div><div class="ct">★ 4.5 · 678 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Milford (1)</h2>
+    <h2 class="city-header"><span>Milford (1)</span><a href="/michigan/milford/">View Milford →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/kensington-metropark-golf/"><div class="nm">Kensington Metropark Golf</div><div class="ct">★ 4 · 423 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Mt. Pleasant (1)</h2>
+    <h2 class="city-header"><span>Mt. Pleasant (1)</span><a href="/michigan/mt-pleasant/">View Mt. Pleasant →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/pohlcat-golf-course/"><div class="nm">Pohlcat Golf Course</div><div class="ct">★ 4.3 · 478 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">New Hudson (1)</h2>
+    <h2 class="city-header"><span>New Hudson (1)</span><a href="/michigan/new-hudson/">View New Hudson →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/coyote-golf-club/"><div class="nm">Coyote Golf Club</div><div class="ct">★ 4.3 · 489 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Onaway (1)</h2>
+    <h2 class="city-header"><span>Onaway (1)</span><a href="/michigan/onaway/">View Onaway →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/black-lake-golf-club/"><div class="nm">Black Lake Golf Club</div><div class="ct">★ 4.5 · 678 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Plymouth (3)</h2>
+    <h2 class="city-header"><span>Plymouth (3)</span><a href="/michigan/plymouth/">View Plymouth →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/fox-hills-golden-fox/"><div class="nm">Fox Hills — Golden Fox</div><div class="ct">★ 4.3 · 512 reviews</div></a></div><div class="state-course"><a href="/michigan/fox-hills-hillsheritage/"><div class="nm">Fox Hills — Hills/Heritage</div><div class="ct">★ 4.1 · 389 reviews</div></a></div><div class="state-course"><a href="/michigan/fox-hills-strategic-fox/"><div class="nm">Fox Hills — Strategic Fox</div><div class="ct">★ 4.2 · 445 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Roscommon (1)</h2>
+    <h2 class="city-header"><span>Roscommon (1)</span><a href="/michigan/roscommon/">View Roscommon →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/forest-dunes-golf-club/"><div class="nm">Forest Dunes Golf Club</div><div class="ct">★ 4.8 · 1,234 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Shelby Twp (1)</h2>
+    <h2 class="city-header"><span>Shelby Twp (1)</span><a href="/michigan/shelby-twp/">View Shelby Twp →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/stony-creek-metropark-golf/"><div class="nm">Stony Creek Metropark Golf</div><div class="ct">★ 4.1 · 534 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">South Lyon (1)</h2>
+    <h2 class="city-header"><span>South Lyon (1)</span><a href="/michigan/south-lyon/">View South Lyon →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/michigan/cattails-golf-club/"><div class="nm">Cattails Golf Club</div><div class="ct">★ 4.1 · 367 reviews</div></a></div>
     </div>

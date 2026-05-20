@@ -29,13 +29,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -43,20 +43,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -77,42 +93,42 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="location">15 courses across 7 cities</div>
 
   <section class="intro" style="margin-top:24px">
-    <p>Daily Tee Times aggregates live availability and pricing at <strong>15 Nevada golf courses</strong>. From Coyote Springs to Sparks, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
-    <p>Click any course below to see its current availability, pricing, and book directly. Or use the homepage to filter all 15 Nevada courses by date, players, and time of day.</p>
+    <p>Daily Tee Times aggregates live availability and pricing at <strong>15 Nevada golf courses</strong> across Las Vegas, Mesquite, Reno, and the Mojave. From Coyote Springs to Sparks, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
+    <p>Click any course or city below to see its current availability and pricing — or use the <a href="/">homepage</a> to filter all 15 Nevada courses by date, players, and time of day.</p>
   </section>
 
   
-    <h2 class="city-header">Coyote Springs (1)</h2>
+    <h2 class="city-header"><span>Coyote Springs (1)</span><a href="/nevada/coyote-springs/">View Coyote Springs →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/nevada/coyote-springs-golf-club/"><div class="nm">Coyote Springs Golf Club</div><div class="ct">★ 4.5 · 512 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Henderson (3)</h2>
+    <h2 class="city-header"><span>Henderson (3)</span><a href="/nevada/henderson/">View Henderson →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/nevada/reflection-bay-golf-club/"><div class="nm">Reflection Bay Golf Club</div><div class="ct">★ 4.6 · 1,234 reviews</div></a></div><div class="state-course"><a href="/nevada/the-legacy-golf-club/"><div class="nm">The Legacy Golf Club</div><div class="ct">★ 4.3 · 889 reviews</div></a></div><div class="state-course"><a href="/nevada/wildhorse-golf-club/"><div class="nm">Wildhorse Golf Club</div><div class="ct">★ 4.1 · 634 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Las Vegas (6)</h2>
+    <h2 class="city-header"><span>Las Vegas (6)</span><a href="/nevada/las-vegas/">View Las Vegas →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/nevada/angel-park-golf-club/"><div class="nm">Angel Park Golf Club</div><div class="ct">★ 4.4 · 1,456 reviews</div></a></div><div class="state-course"><a href="/nevada/bali-hai-golf-club/"><div class="nm">Bali Hai Golf Club</div><div class="ct">★ 4.4 · 1,567 reviews</div></a></div><div class="state-course"><a href="/nevada/las-vegas-national-golf-club/"><div class="nm">Las Vegas National Golf Club</div><div class="ct">★ 4.1 · 912 reviews</div></a></div><div class="state-course"><a href="/nevada/siena-golf-club/"><div class="nm">Siena Golf Club</div><div class="ct">★ 4.2 · 823 reviews</div></a></div><div class="state-course"><a href="/nevada/stallion-mountain-gc/"><div class="nm">Stallion Mountain GC</div><div class="ct">★ 4 · 678 reviews</div></a></div><div class="state-course"><a href="/nevada/tpc-las-vegas/"><div class="nm">TPC Las Vegas</div><div class="ct">★ 4.5 · 1,289 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Mesquite (1)</h2>
+    <h2 class="city-header"><span>Mesquite (1)</span><a href="/nevada/mesquite/">View Mesquite →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/nevada/conestoga-golf-club/"><div class="nm">Conestoga Golf Club</div><div class="ct">★ 4.5 · 867 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">North Las Vegas (1)</h2>
+    <h2 class="city-header"><span>North Las Vegas (1)</span><a href="/nevada/north-las-vegas/">View North Las Vegas →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/nevada/aliante-golf-club/"><div class="nm">Aliante Golf Club</div><div class="ct">★ 4.2 · 756 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Reno (2)</h2>
+    <h2 class="city-header"><span>Reno (2)</span><a href="/nevada/reno/">View Reno →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/nevada/lakeridge-golf-course/"><div class="nm">LakeRidge Golf Course</div><div class="ct">★ 4.1 · 512 reviews</div></a></div><div class="state-course"><a href="/nevada/wolf-run-golf-club/"><div class="nm">Wolf Run Golf Club</div><div class="ct">★ 4.2 · 423 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Sparks (1)</h2>
+    <h2 class="city-header"><span>Sparks (1)</span><a href="/nevada/sparks/">View Sparks →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/nevada/red-hawk-golf-club/"><div class="nm">Red Hawk Golf Club</div><div class="ct">★ 4.3 · 589 reviews</div></a></div>
     </div>

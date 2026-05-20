@@ -29,13 +29,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -43,20 +43,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -77,102 +93,102 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="location">37 courses across 19 cities</div>
 
   <section class="intro" style="margin-top:24px">
-    <p>Daily Tee Times aggregates live availability and pricing at <strong>37 Arizona golf courses</strong>. From Buckeye to Tucson, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
-    <p>Click any course below to see its current availability, pricing, and book directly. Or use the homepage to filter all 37 Arizona courses by date, players, and time of day.</p>
+    <p>Daily Tee Times aggregates live availability and pricing at <strong>37 Arizona golf courses</strong> across Valley of the Sun, Tucson, Sedona, and surrounding desert. From Buckeye to Tucson, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
+    <p>Click any course or city below to see its current availability and pricing — or use the <a href="/">homepage</a> to filter all 37 Arizona courses by date, players, and time of day.</p>
   </section>
 
   
-    <h2 class="city-header">Buckeye (1)</h2>
+    <h2 class="city-header"><span>Buckeye (1)</span><a href="/arizona/buckeye/">View Buckeye →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/copper-canyon-golf-club/"><div class="nm">Copper Canyon Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Cave Creek (2)</h2>
+    <h2 class="city-header"><span>Cave Creek (2)</span><a href="/arizona/cave-creek/">View Cave Creek →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/dove-valley-ranch-golf-club/"><div class="nm">Dove Valley Ranch Golf Club</div><div class="ct">★ 4.2 · 489 reviews</div></a></div><div class="state-course"><a href="/arizona/rancho-manana-golf-club/"><div class="nm">Rancho Manana Golf Club</div><div class="ct">★ 4.3 · 412 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Coyote Springs (1)</h2>
+    <h2 class="city-header"><span>Coyote Springs (1)</span><a href="/arizona/coyote-springs/">View Coyote Springs →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/coyote-springs-golf-club/"><div class="nm">Coyote Springs Golf Club</div><div class="ct">★ 4.2 · 312 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Fountain Hills (2)</h2>
+    <h2 class="city-header"><span>Fountain Hills (2)</span><a href="/arizona/fountain-hills/">View Fountain Hills →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/eagle-mountain-golf-club/"><div class="nm">Eagle Mountain Golf Club</div><div class="ct">★ 4.4 · 534 reviews</div></a></div><div class="state-course"><a href="/arizona/sunridge-canyon-golf-club/"><div class="nm">SunRidge Canyon Golf Club</div><div class="ct">★ 4.4 · 567 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Gilbert (2)</h2>
+    <h2 class="city-header"><span>Gilbert (2)</span><a href="/arizona/gilbert/">View Gilbert →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/power-ranch-golf-club/"><div class="nm">Power Ranch Golf Club</div><div class="ct">★ 4.2 · 445 reviews</div></a></div><div class="state-course"><a href="/arizona/western-skies-golf-club/"><div class="nm">Western Skies Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Gold Canyon (1)</h2>
+    <h2 class="city-header"><span>Gold Canyon (1)</span><a href="/arizona/gold-canyon/">View Gold Canyon →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/gold-canyon-golf-resort/"><div class="nm">Gold Canyon Golf Resort</div><div class="ct">★ 4.5 · 689 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Goodyear (1)</h2>
+    <h2 class="city-header"><span>Goodyear (1)</span><a href="/arizona/goodyear/">View Goodyear →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/golf-club-of-estrella/"><div class="nm">Golf Club of Estrella</div><div class="ct">★ 4.3 · 534 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Maricopa (1)</h2>
+    <h2 class="city-header"><span>Maricopa (1)</span><a href="/arizona/maricopa/">View Maricopa →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/ak-chin-southern-dunes-golf-club/"><div class="nm">Ak-Chin Southern Dunes Golf Club</div><div class="ct">★ 4.6 · 789 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Mesa (4)</h2>
+    <h2 class="city-header"><span>Mesa (4)</span><a href="/arizona/mesa/">View Mesa →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/augusta-ranch-golf-club/"><div class="nm">Augusta Ranch Golf Club</div><div class="ct">★ 4.1 · 345 reviews</div></a></div><div class="state-course"><a href="/arizona/dobson-ranch-golf-course/"><div class="nm">Dobson Ranch Golf Course</div><div class="ct">★ 4 · 312 reviews</div></a></div><div class="state-course"><a href="/arizona/longbow-golf-club/"><div class="nm">Longbow Golf Club</div><div class="ct">★ 4.3 · 612 reviews</div></a></div><div class="state-course"><a href="/arizona/toka-sticks-golf-club/"><div class="nm">Toka Sticks Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Peoria (1)</h2>
+    <h2 class="city-header"><span>Peoria (1)</span><a href="/arizona/peoria/">View Peoria →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/quintero-golf-club/"><div class="nm">Quintero Golf Club</div><div class="ct">★ 4.5 · 641 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Phoenix (3)</h2>
+    <h2 class="city-header"><span>Phoenix (3)</span><a href="/arizona/phoenix/">View Phoenix →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/arizona-biltmore-golf-club/"><div class="nm">Arizona Biltmore Golf Club</div><div class="ct">★ 4.3 · 689 reviews</div></a></div><div class="state-course"><a href="/arizona/lookout-mountain-golf-club/"><div class="nm">Lookout Mountain Golf Club</div><div class="ct">★ 4.1 · 423 reviews</div></a></div><div class="state-course"><a href="/arizona/papago-golf-club/"><div class="nm">Papago Golf Club</div><div class="ct">View tee times</div></a></div>
     </div>
   
-    <h2 class="city-header">Prescott (1)</h2>
+    <h2 class="city-header"><span>Prescott (1)</span><a href="/arizona/prescott/">View Prescott →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/antelope-hills-golf-course/"><div class="nm">Antelope Hills Golf Course</div><div class="ct">★ 4.1 · 334 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Queen Creek (1)</h2>
+    <h2 class="city-header"><span>Queen Creek (1)</span><a href="/arizona/queen-creek/">View Queen Creek →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/las-colinas-golf-club/"><div class="nm">Las Colinas Golf Club</div><div class="ct">★ 4.2 · 378 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Scottsdale (6)</h2>
+    <h2 class="city-header"><span>Scottsdale (6)</span><a href="/arizona/scottsdale/">View Scottsdale →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/boulders-resort-and-spa-scottsdale/"><div class="nm">Boulders Resort &amp; Spa Scottsdale</div><div class="ct">★ 4.6 · 892 reviews</div></a></div><div class="state-course"><a href="/arizona/grayhawk-golf-club/"><div class="nm">Grayhawk Golf Club</div><div class="ct">★ 4.6 · 1,234 reviews</div></a></div><div class="state-course"><a href="/arizona/mccormick-ranch-golf-club/"><div class="nm">McCormick Ranch Golf Club</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/arizona/the-phoenician/"><div class="nm">The Phoenician</div><div class="ct">★ 4.5 · 734 reviews</div></a></div><div class="state-course"><a href="/arizona/the-westin-kierland-golf-club/"><div class="nm">The Westin Kierland Golf Club</div><div class="ct">★ 4.5 · 1,034 reviews</div></a></div><div class="state-course"><a href="/arizona/troon-north-golf-club/"><div class="nm">Troon North Golf Club</div><div class="ct">★ 4.7 · 1,842 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Sedona (2)</h2>
+    <h2 class="city-header"><span>Sedona (2)</span><a href="/arizona/sedona/">View Sedona →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/oakcreek-country-club/"><div class="nm">Oakcreek Country Club</div><div class="ct">View tee times</div></a></div><div class="state-course"><a href="/arizona/sedona-golf-resort/"><div class="nm">Sedona Golf Resort</div><div class="ct">★ 4.5 · 789 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Surprise (1)</h2>
+    <h2 class="city-header"><span>Surprise (1)</span><a href="/arizona/surprise/">View Surprise →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/sterling-grove-golf-country-club/"><div class="nm">Sterling Grove Golf + Country Club</div><div class="ct">★ 4.4 · 489 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Tempe (1)</h2>
+    <h2 class="city-header"><span>Tempe (1)</span><a href="/arizona/tempe/">View Tempe →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/grass-clippings-rolling-hills/"><div class="nm">Grass Clippings Rolling Hills</div><div class="ct">★ 4 · 234 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Tubac (1)</h2>
+    <h2 class="city-header"><span>Tubac (1)</span><a href="/arizona/tubac/">View Tubac →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/tubac-golf-resort-and-spa/"><div class="nm">Tubac Golf Resort &amp; Spa</div><div class="ct">★ 4.3 · 389 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Tucson (5)</h2>
+    <h2 class="city-header"><span>Tucson (5)</span><a href="/arizona/tucson/">View Tucson →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/arizona/arizona-national-golf-club/"><div class="nm">Arizona National Golf Club</div><div class="ct">★ 4.3 · 445 reviews</div></a></div><div class="state-course"><a href="/arizona/el-conquistador-golf-club/"><div class="nm">El Conquistador Golf Club</div><div class="ct">★ 4.2 · 445 reviews</div></a></div><div class="state-course"><a href="/arizona/saddlebrooke-two/"><div class="nm">SaddleBrooke Two</div><div class="ct">★ 4.3 · 289 reviews</div></a></div><div class="state-course"><a href="/arizona/the-club-at-starr-pass/"><div class="nm">The Club at Starr Pass</div><div class="ct">★ 4.4 · 567 reviews</div></a></div><div class="state-course"><a href="/arizona/tucson-city-golf/"><div class="nm">Tucson City Golf</div><div class="ct">★ 4 · 312 reviews</div></a></div>
     </div>

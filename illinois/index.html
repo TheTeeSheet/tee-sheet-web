@@ -29,13 +29,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -43,20 +43,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -77,72 +93,72 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="location">23 courses across 13 cities</div>
 
   <section class="intro" style="margin-top:24px">
-    <p>Daily Tee Times aggregates live availability and pricing at <strong>23 Illinois golf courses</strong>. From Bolingbrook to Westmont, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
-    <p>Click any course below to see its current availability, pricing, and book directly. Or use the homepage to filter all 23 Illinois courses by date, players, and time of day.</p>
+    <p>Daily Tee Times aggregates live availability and pricing at <strong>23 Illinois golf courses</strong> across Chicago metro, the suburbs, and Northwest Illinois. From Bolingbrook to Westmont, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes, no fees, no signup required.</p>
+    <p>Click any course or city below to see its current availability and pricing — or use the <a href="/">homepage</a> to filter all 23 Illinois courses by date, players, and time of day.</p>
   </section>
 
   
-    <h2 class="city-header">Bolingbrook (1)</h2>
+    <h2 class="city-header"><span>Bolingbrook (1)</span><a href="/illinois/bolingbrook/">View Bolingbrook →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/bolingbrook-golf-club/"><div class="nm">Bolingbrook Golf Club</div><div class="ct">★ 4.3 · 478 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Buffalo Grove (1)</h2>
+    <h2 class="city-header"><span>Buffalo Grove (1)</span><a href="/illinois/buffalo-grove/">View Buffalo Grove →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/buffalo-grove-golf-course/"><div class="nm">Buffalo Grove Golf Course</div><div class="ct">★ 4 · 367 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Channahon (1)</h2>
+    <h2 class="city-header"><span>Channahon (1)</span><a href="/illinois/channahon/">View Channahon →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/heritage-bluffs-public-golf/"><div class="nm">Heritage Bluffs Public Golf</div><div class="ct">★ 4.4 · 445 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Chicago (5)</h2>
+    <h2 class="city-header"><span>Chicago (5)</span><a href="/illinois/chicago/">View Chicago →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/edgebrook-golf-course/"><div class="nm">Edgebrook Golf Course</div><div class="ct">★ 4 · 389 reviews</div></a></div><div class="state-course"><a href="/illinois/harborside-international-port/"><div class="nm">Harborside International — Port</div><div class="ct">★ 4.5 · 823 reviews</div></a></div><div class="state-course"><a href="/illinois/harborside-international-starboard/"><div class="nm">Harborside International — Starboard</div><div class="ct">★ 4.5 · 734 reviews</div></a></div><div class="state-course"><a href="/illinois/indian-boundary-golf-course/"><div class="nm">Indian Boundary Golf Course</div><div class="ct">★ 3.9 · 312 reviews</div></a></div><div class="state-course"><a href="/illinois/sydney-r-marovitz-waveland/"><div class="nm">Sydney R. Marovitz (Waveland)</div><div class="ct">★ 4.2 · 512 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Galena (4)</h2>
+    <h2 class="city-header"><span>Galena (4)</span><a href="/illinois/galena/">View Galena →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/eagle-ridge-north/"><div class="nm">Eagle Ridge — North</div><div class="ct">★ 4.4 · 589 reviews</div></a></div><div class="state-course"><a href="/illinois/eagle-ridge-south/"><div class="nm">Eagle Ridge — South</div><div class="ct">★ 4.5 · 634 reviews</div></a></div><div class="state-course"><a href="/illinois/eagle-ridge-the-general/"><div class="nm">Eagle Ridge — The General</div><div class="ct">★ 4.7 · 912 reviews</div></a></div><div class="state-course"><a href="/illinois/eagle-ridge-the-inn/"><div class="nm">Eagle Ridge — The Inn</div><div class="ct">★ 4.1 · 312 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Grayslake (1)</h2>
+    <h2 class="city-header"><span>Grayslake (1)</span><a href="/illinois/grayslake/">View Grayslake →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/stonewall-orchard-golf-club/"><div class="nm">Stonewall Orchard Golf Club</div><div class="ct">★ 4.5 · 678 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Lemont (4)</h2>
+    <h2 class="city-header"><span>Lemont (4)</span><a href="/illinois/lemont/">View Lemont →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/cog-hill-no-1/"><div class="nm">Cog Hill — No. 1</div><div class="ct">★ 4.3 · 534 reviews</div></a></div><div class="state-course"><a href="/illinois/cog-hill-no-2-ravines/"><div class="nm">Cog Hill — No. 2 (Ravines)</div><div class="ct">★ 4.4 · 589 reviews</div></a></div><div class="state-course"><a href="/illinois/cog-hill-no-3/"><div class="nm">Cog Hill — No. 3</div><div class="ct">★ 4.5 · 678 reviews</div></a></div><div class="state-course"><a href="/illinois/cog-hill-no-4-dubsdread/"><div class="nm">Cog Hill — No. 4 Dubsdread</div><div class="ct">★ 4.8 · 1,234 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Lockport (1)</h2>
+    <h2 class="city-header"><span>Lockport (1)</span><a href="/illinois/lockport/">View Lockport →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/big-run-golf-club/"><div class="nm">Big Run Golf Club</div><div class="ct">★ 4.2 · 412 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Marengo (1)</h2>
+    <h2 class="city-header"><span>Marengo (1)</span><a href="/illinois/marengo/">View Marengo →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/marengo-ridge-golf-club/"><div class="nm">Marengo Ridge Golf Club</div><div class="ct">★ 4.2 · 412 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Naperville (1)</h2>
+    <h2 class="city-header"><span>Naperville (1)</span><a href="/illinois/naperville/">View Naperville →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/tamarack-golf-club/"><div class="nm">Tamarack Golf Club</div><div class="ct">★ 4.3 · 534 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Oak Brook (1)</h2>
+    <h2 class="city-header"><span>Oak Brook (1)</span><a href="/illinois/oak-brook/">View Oak Brook →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/oak-brook-golf-club/"><div class="nm">Oak Brook Golf Club</div><div class="ct">★ 4.2 · 456 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Waukegan (1)</h2>
+    <h2 class="city-header"><span>Waukegan (1)</span><a href="/illinois/waukegan/">View Waukegan →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/bonnie-brook-golf-course/"><div class="nm">Bonnie Brook Golf Course</div><div class="ct">★ 4 · 367 reviews</div></a></div>
     </div>
   
-    <h2 class="city-header">Westmont (1)</h2>
+    <h2 class="city-header"><span>Westmont (1)</span><a href="/illinois/westmont/">View Westmont →</a></h2>
     <div class="state-courses">
       <div class="state-course"><a href="/illinois/green-meadows-golf-course/"><div class="nm">Green Meadows Golf Course</div><div class="ct">★ 3.9 · 298 reviews</div></a></div>
     </div>

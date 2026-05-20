@@ -16,6 +16,8 @@
 <meta property="og:locale" content="en_US">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Sand Hollow — Links","address":{"@type":"PostalAddress","addressLocality":"Hurricane","addressRegion":"UT","addressCountry":"US"},"url":"https://dailyteetimes.com/utah/sand-hollow-links/","aggregateRating":{"@type":"AggregateRating","ratingValue":4.5,"reviewCount":789,"bestRating":5,"worstRating":1}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Sand Hollow — Links offer twilight rates?","acceptedAnswer":{"@type":"Answer","text":"Most public courses, including Sand Hollow — Links, offer discounted twilight rates for tee times within ~2 hours of sunset. These show up automatically in the live pricing above; sort by the Time of Day filter on the homepage to find them quickly."}},{"@type":"Question","name":"Is Sand Hollow — Links open to the public?","acceptedAnswer":{"@type":"Answer","text":"Yes. Sand Hollow — Links accepts public tee-time bookings. You can book directly through the course or via the Daily Tee Times homepage, where availability and pricing are surfaced in real time."}},{"@type":"Question","name":"Where is Sand Hollow — Links located?","acceptedAnswer":{"@type":"Answer","text":"Sand Hollow — Links is located in Hurricane, Utah."}},{"@type":"Question","name":"Can I walk Sand Hollow — Links, or are carts required?","acceptedAnswer":{"@type":"Answer","text":"Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most Utah courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dailyteetimes.com/"},{"@type":"ListItem","position":2,"name":"Utah","item":"https://dailyteetimes.com/utah/"},{"@type":"ListItem","position":3,"name":"Hurricane","item":"https://dailyteetimes.com/utah/hurricane/"},{"@type":"ListItem","position":4,"name":"Sand Hollow — Links","item":"https://dailyteetimes.com/utah/sand-hollow-links/"}]}</script>
 
 <style>
 :root{--green-deep:#2e5031;--green-accent:#4a7c50;--green-light:#7eb085;--white:#fff;--bg:#f7faf7;--text:#1a2a1c;--muted:#5e6b60;--border:#d8e1da;--card:#fff}
@@ -30,13 +32,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -44,20 +46,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -68,10 +86,10 @@ footer a{color:rgba(255,255,255,0.82)}
 
 <header class="header">
   <a class="logo" href="/">Daily Tee Times</a>
-  <nav><a href="/utah/">Utah</a><a href="/">All States</a></nav>
+  <nav><a href="https://dailyteetimes.com/utah/hurricane/">Hurricane</a><a href="/utah/">Utah</a></nav>
 </header>
 
-<nav class="crumb"><a href="/">Home</a> &rsaquo; <a href="/utah/">Utah</a> &rsaquo; Sand Hollow — Links</nav>
+<nav class="crumb"><a href="/">Home</a> &rsaquo; <a href="/utah/">Utah</a> &rsaquo; <a href="https://dailyteetimes.com/utah/hurricane/">Hurricane</a> &rsaquo; Sand Hollow — Links</nav>
 
 <main class="main">
   <h1>Sand Hollow — Links</h1>
@@ -81,25 +99,47 @@ footer a{color:rgba(255,255,255,0.82)}
   <section class="intro">
     <p>Sand Hollow — Links is a top-rated public golf course in Hurricane, Utah.</p>
     <p>With a 4.5/5 rating from 789 golfer reviews, it's earned a strong reputation among players in the Hurricane area and across Utah.</p>
-    <p>Daily Tee Times aggregates real-time availability so you can see today's open tee times and pricing at Sand Hollow — Links at a glance. Click any time slot below to book directly with the course — no fees, no signup required.</p>
+    <p>Daily Tee Times pulls real-time availability and pricing from Sand Hollow — Links's booking system every 10 minutes. Today's open tee times are listed below — click any slot to book directly with the course. No fees, no signup required.</p>
   </section>
 
-  <section class="tee-times-section">
+  <section class="block">
     <h2>Today's Tee Times at Sand Hollow — Links</h2>
     <div class="tee-times-meta" id="teeDate"></div>
     <div class="tee-times-grid" id="teeTimesGrid"><span class="loading">⏳ Loading live availability...</span></div>
   </section>
 
+  
+
+  <section class="block">
+    <h2>How to Book a Tee Time at Sand Hollow — Links</h2>
+    <ol class="how-list">
+      <li>Check today's live availability above (or use the <a href="/">homepage</a> to pick a different date).</li>
+      <li>Click the tee time and price that fits your group's plan — you'll be taken directly to Sand Hollow — Links's booking page.</li>
+      <li>Complete checkout with the course. Daily Tee Times charges no fees and requires no signup.</li>
+      <li>(Optional) <a href="/">Set an alert on the homepage</a> to get notified when a tee time opens up at Sand Hollow — Links.</li>
+    </ol>
+  </section>
+
+  <section class="block faq">
+    <h2>Frequently Asked Questions</h2>
+    <details><summary>Does Sand Hollow — Links offer twilight rates?</summary><p>Most public courses, including Sand Hollow — Links, offer discounted twilight rates for tee times within ~2 hours of sunset. These show up automatically in the live pricing above; sort by the Time of Day filter on the homepage to find them quickly.</p></details><details><summary>Is Sand Hollow — Links open to the public?</summary><p>Yes. Sand Hollow — Links accepts public tee-time bookings. You can book directly through the course or via the Daily Tee Times homepage, where availability and pricing are surfaced in real time.</p></details><details><summary>Where is Sand Hollow — Links located?</summary><p>Sand Hollow — Links is located in Hurricane, Utah.</p></details><details><summary>Can I walk Sand Hollow — Links, or are carts required?</summary><p>Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most Utah courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time.</p></details>
+  </section>
+
+  <section class="sister">
+    <h2>Other Courses in Hurricane</h2>
+    <div class="sister-grid"><div class="sister-card"><a href="/utah/sand-hollow-championship/"><div class="nm">Sand Hollow — Championship</div><div class="ct">Hurricane, UT</div></a></div></div>
+  </section>
+
   <section class="nearby">
-    <h2>More Courses Near Hurricane, Utah</h2>
-    <div class="nearby-grid"><div class="nearby-card"><a href="/utah/sand-hollow-championship/"><div class="nm">Sand Hollow — Championship</div><div class="ct">Hurricane, UT</div></a></div><div class="nearby-card"><a href="/utah/bonneville-golf-course/"><div class="nm">Bonneville Golf Course</div><div class="ct">Salt Lake City, UT</div></a></div><div class="nearby-card"><a href="/utah/bountiful-ridge-golf-course/"><div class="nm">Bountiful Ridge Golf Course</div><div class="ct">Bountiful, UT</div></a></div><div class="nearby-card"><a href="/utah/black-desert-resort/"><div class="nm">Black Desert Resort</div><div class="ct">Ivins, UT</div></a></div><div class="nearby-card"><a href="/utah/copper-golf-club/"><div class="nm">Copper Golf Club</div><div class="ct">Magna, UT</div></a></div></div>
+    <h2>More Utah Courses</h2>
+    <div class="nearby-grid"><div class="nearby-card"><a href="/utah/bonneville-golf-course/"><div class="nm">Bonneville Golf Course</div><div class="ct">Salt Lake City, UT</div></a></div><div class="nearby-card"><a href="/utah/forest-dale-golf-course/"><div class="nm">Forest Dale Golf Course</div><div class="ct">Salt Lake City, UT</div></a></div><div class="nearby-card"><a href="/utah/glendale-golf-course/"><div class="nm">Glendale Golf Course</div><div class="ct">Salt Lake City, UT</div></a></div><div class="nearby-card"><a href="/utah/nibley-park-golf-course/"><div class="nm">Nibley Park Golf Course</div><div class="ct">Salt Lake City, UT</div></a></div><div class="nearby-card"><a href="/utah/rose-park-golf-course/"><div class="nm">Rose Park Golf Course</div><div class="ct">Salt Lake City, UT</div></a></div></div>
   </section>
 </main>
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
   <div>Find and book tee times at 340+ golf courses nationally.</div>
-  <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="/utah/">Utah courses</a></div>
+  <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="https://dailyteetimes.com/utah/hurricane/">Hurricane</a> &middot; <a href="/utah/">Utah</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
 

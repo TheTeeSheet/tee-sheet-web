@@ -16,6 +16,8 @@
 <meta property="og:locale" content="en_US">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Indian Boundary Golf Course","address":{"@type":"PostalAddress","addressLocality":"Chicago","addressRegion":"IL","addressCountry":"US"},"url":"https://dailyteetimes.com/illinois/indian-boundary-golf-course/","aggregateRating":{"@type":"AggregateRating","ratingValue":3.9,"reviewCount":312,"bestRating":5,"worstRating":1}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Indian Boundary Golf Course offer twilight rates?","acceptedAnswer":{"@type":"Answer","text":"Most public courses, including Indian Boundary Golf Course, offer discounted twilight rates for tee times within ~2 hours of sunset. These show up automatically in the live pricing above; sort by the Time of Day filter on the homepage to find them quickly."}},{"@type":"Question","name":"Is Indian Boundary Golf Course open to the public?","acceptedAnswer":{"@type":"Answer","text":"Yes. Indian Boundary Golf Course accepts public tee-time bookings. You can book directly through the course or via the Daily Tee Times homepage, where availability and pricing are surfaced in real time."}},{"@type":"Question","name":"Where is Indian Boundary Golf Course located?","acceptedAnswer":{"@type":"Answer","text":"Indian Boundary Golf Course is in Chicago, Illinois — in the Lake Michigan metro."}},{"@type":"Question","name":"Can I walk Indian Boundary Golf Course, or are carts required?","acceptedAnswer":{"@type":"Answer","text":"Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most Illinois courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dailyteetimes.com/"},{"@type":"ListItem","position":2,"name":"Illinois","item":"https://dailyteetimes.com/illinois/"},{"@type":"ListItem","position":3,"name":"Chicago","item":"https://dailyteetimes.com/illinois/chicago/"},{"@type":"ListItem","position":4,"name":"Indian Boundary Golf Course","item":"https://dailyteetimes.com/illinois/indian-boundary-golf-course/"}]}</script>
 
 <style>
 :root{--green-deep:#2e5031;--green-accent:#4a7c50;--green-light:#7eb085;--white:#fff;--bg:#f7faf7;--text:#1a2a1c;--muted:#5e6b60;--border:#d8e1da;--card:#fff}
@@ -30,13 +32,13 @@ a:hover{text-decoration:underline}
 .header nav a:hover{color:var(--white);text-decoration:none}
 .crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
 .crumb a{color:var(--green-accent)}
-.main{max-width:880px;margin:0 auto;padding:32px;}
+.main{max-width:880px;margin:0 auto;padding:32px}
 .main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
 .location{color:var(--muted);font-size:15px;margin-bottom:6px}
 .rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
 .intro p{margin:0 0 14px;color:var(--text);font-size:16px}
-.tee-times-section{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
-.tee-times-section h2{font-size:20px;margin-bottom:14px;font-weight:700}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
 .tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
 .tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
@@ -44,20 +46,36 @@ a:hover{text-decoration:underline}
 .tee-time-btn .t-time{font-weight:700;font-size:14px}
 .tee-time-btn .t-price{font-weight:600;font-size:13px}
 .loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
-.nearby h2{font-size:18px;margin:32px 0 12px;font-weight:700}
-.nearby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.nearby-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
-.nearby-card:hover{border-color:var(--green-accent)}
-.nearby-card a{display:block;color:var(--text)}
-.nearby-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
-.nearby-card .ct{color:var(--muted);font-size:12px}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
 .state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
 .state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
 .state-course:hover{border-color:var(--green-accent)}
 .state-course a{display:block;color:var(--text)}
 .state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
 .state-course .ct{color:var(--muted);font-size:13px}
-.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
@@ -68,10 +86,10 @@ footer a{color:rgba(255,255,255,0.82)}
 
 <header class="header">
   <a class="logo" href="/">Daily Tee Times</a>
-  <nav><a href="/illinois/">Illinois</a><a href="/">All States</a></nav>
+  <nav><a href="https://dailyteetimes.com/illinois/chicago/">Chicago</a><a href="/illinois/">Illinois</a></nav>
 </header>
 
-<nav class="crumb"><a href="/">Home</a> &rsaquo; <a href="/illinois/">Illinois</a> &rsaquo; Indian Boundary Golf Course</nav>
+<nav class="crumb"><a href="/">Home</a> &rsaquo; <a href="/illinois/">Illinois</a> &rsaquo; <a href="https://dailyteetimes.com/illinois/chicago/">Chicago</a> &rsaquo; Indian Boundary Golf Course</nav>
 
 <main class="main">
   <h1>Indian Boundary Golf Course</h1>
@@ -79,27 +97,52 @@ footer a{color:rgba(255,255,255,0.82)}
   <div class="rating">★ 3.9 · 312 reviews</div>
 
   <section class="intro">
-    <p>Indian Boundary Golf Course is a popular public golf course in Chicago, Illinois.</p>
+    <p>Indian Boundary Golf Course ranks among Chicago's local-favorite golf courses in the Lake Michigan metro.</p>
     <p>With a 3.9/5 rating from 312 golfer reviews, it's earned a strong reputation among players in the Chicago area and across Illinois.</p>
-    <p>Daily Tee Times aggregates real-time availability so you can see today's open tee times and pricing at Indian Boundary Golf Course at a glance. Click any time slot below to book directly with the course — no fees, no signup required.</p>
+    <p>Daily Tee Times pulls real-time availability and pricing from Indian Boundary Golf Course's booking system every 10 minutes. Today's open tee times are listed below — click any slot to book directly with the course. No fees, no signup required.</p>
   </section>
 
-  <section class="tee-times-section">
+  <section class="block">
     <h2>Today's Tee Times at Indian Boundary Golf Course</h2>
     <div class="tee-times-meta" id="teeDate"></div>
     <div class="tee-times-grid" id="teeTimesGrid"><span class="loading">⏳ Loading live availability...</span></div>
   </section>
 
+  <section class="block">
+    <h2>About Chicago Golf</h2>
+    <p>Chicago sits in Lake Michigan metro. Indian Boundary Golf Course is one of the area's public-access options, alongside 4 other courses in town. Daily Tee Times tracks live availability at every Chicago course so you can compare options at a glance.</p>
+  </section>
+
+  <section class="block">
+    <h2>How to Book a Tee Time at Indian Boundary Golf Course</h2>
+    <ol class="how-list">
+      <li>Check today's live availability above (or use the <a href="/">homepage</a> to pick a different date).</li>
+      <li>Click the tee time and price that fits your group's plan — you'll be taken directly to Indian Boundary Golf Course's booking page.</li>
+      <li>Complete checkout with the course. Daily Tee Times charges no fees and requires no signup.</li>
+      <li>(Optional) <a href="/">Set an alert on the homepage</a> to get notified when a tee time opens up at Indian Boundary Golf Course.</li>
+    </ol>
+  </section>
+
+  <section class="block faq">
+    <h2>Frequently Asked Questions</h2>
+    <details><summary>Does Indian Boundary Golf Course offer twilight rates?</summary><p>Most public courses, including Indian Boundary Golf Course, offer discounted twilight rates for tee times within ~2 hours of sunset. These show up automatically in the live pricing above; sort by the Time of Day filter on the homepage to find them quickly.</p></details><details><summary>Is Indian Boundary Golf Course open to the public?</summary><p>Yes. Indian Boundary Golf Course accepts public tee-time bookings. You can book directly through the course or via the Daily Tee Times homepage, where availability and pricing are surfaced in real time.</p></details><details><summary>Where is Indian Boundary Golf Course located?</summary><p>Indian Boundary Golf Course is in Chicago, Illinois — in the Lake Michigan metro.</p></details><details><summary>Can I walk Indian Boundary Golf Course, or are carts required?</summary><p>Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most Illinois courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time.</p></details>
+  </section>
+
+  <section class="sister">
+    <h2>Other Courses in Chicago</h2>
+    <div class="sister-grid"><div class="sister-card"><a href="/illinois/sydney-r-marovitz-waveland/"><div class="nm">Sydney R. Marovitz (Waveland)</div><div class="ct">Chicago, IL</div></a></div><div class="sister-card"><a href="/illinois/edgebrook-golf-course/"><div class="nm">Edgebrook Golf Course</div><div class="ct">Chicago, IL</div></a></div><div class="sister-card"><a href="/illinois/harborside-international-port/"><div class="nm">Harborside International — Port</div><div class="ct">Chicago, IL</div></a></div><div class="sister-card"><a href="/illinois/harborside-international-starboard/"><div class="nm">Harborside International — Starboard</div><div class="ct">Chicago, IL</div></a></div></div>
+  </section>
+
   <section class="nearby">
-    <h2>More Courses Near Chicago, Illinois</h2>
-    <div class="nearby-grid"><div class="nearby-card"><a href="/illinois/sydney-r-marovitz-waveland/"><div class="nm">Sydney R. Marovitz (Waveland)</div><div class="ct">Chicago, IL</div></a></div><div class="nearby-card"><a href="/illinois/edgebrook-golf-course/"><div class="nm">Edgebrook Golf Course</div><div class="ct">Chicago, IL</div></a></div><div class="nearby-card"><a href="/illinois/harborside-international-port/"><div class="nm">Harborside International — Port</div><div class="ct">Chicago, IL</div></a></div><div class="nearby-card"><a href="/illinois/harborside-international-starboard/"><div class="nm">Harborside International — Starboard</div><div class="ct">Chicago, IL</div></a></div><div class="nearby-card"><a href="/illinois/marengo-ridge-golf-club/"><div class="nm">Marengo Ridge Golf Club</div><div class="ct">Marengo, IL</div></a></div></div>
+    <h2>More Illinois Courses</h2>
+    <div class="nearby-grid"><div class="nearby-card"><a href="/illinois/oak-brook-golf-club/"><div class="nm">Oak Brook Golf Club</div><div class="ct">Oak Brook, IL</div></a></div><div class="nearby-card"><a href="/illinois/buffalo-grove-golf-course/"><div class="nm">Buffalo Grove Golf Course</div><div class="ct">Buffalo Grove, IL</div></a></div></div>
   </section>
 </main>
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
   <div>Find and book tee times at 340+ golf courses nationally.</div>
-  <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="/illinois/">Illinois courses</a></div>
+  <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="https://dailyteetimes.com/illinois/chicago/">Chicago</a> &middot; <a href="/illinois/">Illinois</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
 
