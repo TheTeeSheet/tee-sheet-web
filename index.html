@@ -650,12 +650,6 @@
             <option value="twilight">Twilight (After 5pm)</option>
           </select>
         </div>
-        <div class="field-group">
-          <label>City</label>
-          <select id="cityFilter">
-            <option value="">All Cities</option>
-          </select>
-        </div>
         <button class="search-btn" onclick="applyFilters()">Search</button>
       </div>
     </div>
@@ -1987,16 +1981,7 @@ function updateStateCounts(){
   });
 }
 updateStateCounts();
-populateCityFilter('arizona');
 renderCards();
-
-// ── CITY FILTER ───────────────────────────────────────────────────────────────
-function populateCityFilter(state) {
-  const sel=document.getElementById('cityFilter');
-  const cities=[...new Set(courses[state].map(c=>c.city))].sort();
-  sel.innerHTML='<option value="">All Cities</option>';
-  cities.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o); });
-}
 
 // ── SEARCH ────────────────────────────────────────────────────────────────────
 function onSearchInput(v){
@@ -2014,8 +1999,6 @@ function setActiveState(state,btn){
   btn.classList.add('active');
   const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina',virginia:'Virginia'};
   document.getElementById('resultsTitle').textContent=names[state]+' Courses';
-  populateCityFilter(state);
-  document.getElementById('cityFilter').value='';
   renderCards();
 }
 
@@ -2071,14 +2054,12 @@ async function _doRender(){
   const date=document.getElementById('dateFilter').value||getTodayStr();
   const players=parseInt(document.getElementById('playersFilter').value)||0;
   const tod=document.getElementById('timeFilter').value;
-  const cityVal=document.getElementById('cityFilter').value;
 
   let pool;
   if(showingFavs){
     pool=Object.values(courses).flat().filter(c=>favorites.has(c.name));
   } else {
     pool=[...courses[activeState]];
-    if(cityVal) pool=pool.filter(c=>c.city===cityVal);
   }
 
   if(searchQuery){
