@@ -7,15 +7,21 @@
 <meta name="description" content="Live tee times and prices at Brambleton Golf Course in Ashburn, Virginia. Real-time availability, no fees, no signup. Book directly with the course.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://dailyteetimes.com/virginia/brambleton-golf-course/">
+<link rel="preconnect" href="https://tee-sheet-api-production.up.railway.app"><link rel="preconnect" href="https://static.cloudflareinsights.com">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dailyteetimes.com/virginia/brambleton-golf-course/">
 <meta property="og:title" content="Brambleton Golf Course Tee Times — Ashburn, VA">
 <meta property="og:description" content="Live tee times at Brambleton Golf Course in Ashburn, Virginia. Real-time pricing and availability.">
+<meta property="og:image" content="https://dailyteetimes.com/og/virginia/brambleton-golf-course.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:site_name" content="Daily Tee Times">
 <meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dailyteetimes.com/og/virginia/brambleton-golf-course.svg">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Brambleton Golf Course","address":{"@type":"PostalAddress","addressLocality":"Ashburn","addressRegion":"VA","addressCountry":"US"},"url":"https://dailyteetimes.com/virginia/brambleton-golf-course/","aggregateRating":{"@type":"AggregateRating","ratingValue":4.2,"reviewCount":512,"bestRating":5,"worstRating":1}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Brambleton Golf Course","address":{"@type":"PostalAddress","addressLocality":"Ashburn","addressRegion":"VA","addressCountry":"US"},"url":"https://dailyteetimes.com/virginia/brambleton-golf-course/","image":"https://dailyteetimes.com/og/virginia/brambleton-golf-course.svg","aggregateRating":{"@type":"AggregateRating","ratingValue":4.2,"reviewCount":512,"bestRating":5,"worstRating":1},"geo":{"@type":"GeoCoordinates","latitude":39.0438,"longitude":-77.4874}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I walk Brambleton Golf Course, or are carts required?","acceptedAnswer":{"@type":"Answer","text":"Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most Virginia courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time."}},{"@type":"Question","name":"What other courses are near Brambleton Golf Course?","acceptedAnswer":{"@type":"Answer","text":"Several other Virginia courses are within a short drive of Brambleton Golf Course. See the \"More Courses Near Ashburn\" section below — Daily Tee Times aggregates live availability across all of them."}},{"@type":"Question","name":"How do I book a tee time at Brambleton Golf Course?","acceptedAnswer":{"@type":"Answer","text":"Use the live availability widget above to see today's open tee times at Brambleton Golf Course with current pricing. Click any time slot to be taken straight to the course's booking page — there are no fees or signup requirements."}},{"@type":"Question","name":"What's the green fee at Brambleton Golf Course?","acceptedAnswer":{"@type":"Answer","text":"Green fees at Brambleton Golf Course vary by day, time of day, and season. Live pricing is shown next to each available tee time above — Daily Tee Times pulls real-time pricing from the course's booking system every 10 minutes."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dailyteetimes.com/"},{"@type":"ListItem","position":2,"name":"Virginia","item":"https://dailyteetimes.com/virginia/"},{"@type":"ListItem","position":3,"name":"Ashburn","item":"https://dailyteetimes.com/virginia/ashburn/"},{"@type":"ListItem","position":4,"name":"Brambleton Golf Course","item":"https://dailyteetimes.com/virginia/brambleton-golf-course/"}]}</script>
 
@@ -76,10 +82,24 @@ section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .city-card a{display:block;color:var(--text)}
 .city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
 .city-card .ct{color:var(--muted);font-size:12px}
+.ranked-list{margin-top:20px;display:flex;flex-direction:column;gap:14px}
+.ranked-item{display:flex;gap:18px;align-items:flex-start;padding:18px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.rank{flex:0 0 48px;height:48px;border-radius:50%;background:var(--green-deep);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
+.ranked-item-body{flex:1}
+.ranked-item-body h3{font-size:17px;margin-bottom:2px}
+.ranked-item-body h3 a{color:var(--text)}
+.ranked-item-meta{font-size:13px;color:var(--muted);margin-bottom:6px}
+.ranked-item-rating{color:var(--green-accent);font-weight:700;font-size:14px;margin-bottom:6px}
+.ranked-item-desc{color:var(--text);font-size:14px}
+.cta-block{margin:32px 0;padding:24px;background:var(--green-deep);color:var(--white);border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.cta-block strong{font-size:18px;font-weight:700;display:block}
+.cta-block span{color:rgba(255,255,255,0.75);font-size:14px}
+.cta-btn{padding:12px 22px;background:var(--green-light);color:var(--green-deep)!important;border-radius:8px;font-weight:700;font-size:14px}
+.cta-btn:hover{background:var(--white);text-decoration:none}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
-@media(max-width:600px){.main{padding:20px 18px}.header,.crumb{padding-left:18px;padding-right:18px}}
+@media(max-width:600px){.main{padding:20px 18px}.header,.crumb{padding-left:18px;padding-right:18px}.cta-block{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -127,6 +147,11 @@ footer a{color:rgba(255,255,255,0.82)}
     <h2>Frequently Asked Questions</h2>
     <details><summary>Can I walk Brambleton Golf Course, or are carts required?</summary><p>Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most Virginia courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time.</p></details><details><summary>What other courses are near Brambleton Golf Course?</summary><p>Several other Virginia courses are within a short drive of Brambleton Golf Course. See the &quot;More Courses Near Ashburn&quot; section below — Daily Tee Times aggregates live availability across all of them.</p></details><details><summary>How do I book a tee time at Brambleton Golf Course?</summary><p>Use the live availability widget above to see today&#39;s open tee times at Brambleton Golf Course with current pricing. Click any time slot to be taken straight to the course&#39;s booking page — there are no fees or signup requirements.</p></details><details><summary>What&#39;s the green fee at Brambleton Golf Course?</summary><p>Green fees at Brambleton Golf Course vary by day, time of day, and season. Live pricing is shown next to each available tee time above — Daily Tee Times pulls real-time pricing from the course&#39;s booking system every 10 minutes.</p></details>
   </section>
+
+  <div class="cta-block">
+    <div><strong>Browse Virginia courses by rating</strong><span>See the highest-rated public courses in Virginia</span></div>
+    <a class="cta-btn" href="/virginia/best-golf-courses/">Best Virginia courses →</a>
+  </div>
 
   
 

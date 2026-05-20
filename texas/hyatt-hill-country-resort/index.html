@@ -7,15 +7,21 @@
 <meta name="description" content="Live tee times and prices at Hyatt Hill Country Resort in San Antonio, Texas. Real-time availability, no fees, no signup. Book directly with the course.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://dailyteetimes.com/texas/hyatt-hill-country-resort/">
+<link rel="preconnect" href="https://tee-sheet-api-production.up.railway.app"><link rel="preconnect" href="https://static.cloudflareinsights.com">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dailyteetimes.com/texas/hyatt-hill-country-resort/">
 <meta property="og:title" content="Hyatt Hill Country Resort Tee Times — San Antonio, TX">
 <meta property="og:description" content="Live tee times at Hyatt Hill Country Resort in San Antonio, Texas. Real-time pricing and availability.">
+<meta property="og:image" content="https://dailyteetimes.com/og/texas/hyatt-hill-country-resort.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:site_name" content="Daily Tee Times">
 <meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dailyteetimes.com/og/texas/hyatt-hill-country-resort.svg">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Hyatt Hill Country Resort","address":{"@type":"PostalAddress","addressLocality":"San Antonio","addressRegion":"TX","addressCountry":"US"},"url":"https://dailyteetimes.com/texas/hyatt-hill-country-resort/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Hyatt Hill Country Resort","address":{"@type":"PostalAddress","addressLocality":"San Antonio","addressRegion":"TX","addressCountry":"US"},"url":"https://dailyteetimes.com/texas/hyatt-hill-country-resort/","image":"https://dailyteetimes.com/og/texas/hyatt-hill-country-resort.svg","geo":{"@type":"GeoCoordinates","latitude":29.4241,"longitude":-98.4936}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What's the green fee at Hyatt Hill Country Resort?","acceptedAnswer":{"@type":"Answer","text":"Green fees at Hyatt Hill Country Resort vary by day, time of day, and season. Live pricing is shown next to each available tee time above — Daily Tee Times pulls real-time pricing from the course's booking system every 10 minutes."}},{"@type":"Question","name":"How far in advance can I book Hyatt Hill Country Resort?","acceptedAnswer":{"@type":"Answer","text":"Public tee times at Hyatt Hill Country Resort are typically bookable 7-14 days in advance, depending on the course. Live availability above reflects everything currently open for booking."}},{"@type":"Question","name":"Is Hyatt Hill Country Resort open to the public?","acceptedAnswer":{"@type":"Answer","text":"Yes. Hyatt Hill Country Resort accepts public tee-time bookings. You can book directly through the course or via the Daily Tee Times homepage, where availability and pricing are surfaced in real time."}},{"@type":"Question","name":"Where is Hyatt Hill Country Resort located?","acceptedAnswer":{"@type":"Answer","text":"Hyatt Hill Country Resort is in San Antonio, Texas — in the south Texas Hill Country."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dailyteetimes.com/"},{"@type":"ListItem","position":2,"name":"Texas","item":"https://dailyteetimes.com/texas/"},{"@type":"ListItem","position":3,"name":"San Antonio","item":"https://dailyteetimes.com/texas/san-antonio/"},{"@type":"ListItem","position":4,"name":"Hyatt Hill Country Resort","item":"https://dailyteetimes.com/texas/hyatt-hill-country-resort/"}]}</script>
 
@@ -76,10 +82,24 @@ section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .city-card a{display:block;color:var(--text)}
 .city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
 .city-card .ct{color:var(--muted);font-size:12px}
+.ranked-list{margin-top:20px;display:flex;flex-direction:column;gap:14px}
+.ranked-item{display:flex;gap:18px;align-items:flex-start;padding:18px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.rank{flex:0 0 48px;height:48px;border-radius:50%;background:var(--green-deep);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
+.ranked-item-body{flex:1}
+.ranked-item-body h3{font-size:17px;margin-bottom:2px}
+.ranked-item-body h3 a{color:var(--text)}
+.ranked-item-meta{font-size:13px;color:var(--muted);margin-bottom:6px}
+.ranked-item-rating{color:var(--green-accent);font-weight:700;font-size:14px;margin-bottom:6px}
+.ranked-item-desc{color:var(--text);font-size:14px}
+.cta-block{margin:32px 0;padding:24px;background:var(--green-deep);color:var(--white);border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.cta-block strong{font-size:18px;font-weight:700;display:block}
+.cta-block span{color:rgba(255,255,255,0.75);font-size:14px}
+.cta-btn{padding:12px 22px;background:var(--green-light);color:var(--green-deep)!important;border-radius:8px;font-weight:700;font-size:14px}
+.cta-btn:hover{background:var(--white);text-decoration:none}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
-@media(max-width:600px){.main{padding:20px 18px}.header,.crumb{padding-left:18px;padding-right:18px}}
+@media(max-width:600px){.main{padding:20px 18px}.header,.crumb{padding-left:18px;padding-right:18px}.cta-block{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -127,6 +147,11 @@ footer a{color:rgba(255,255,255,0.82)}
     <h2>Frequently Asked Questions</h2>
     <details><summary>What&#39;s the green fee at Hyatt Hill Country Resort?</summary><p>Green fees at Hyatt Hill Country Resort vary by day, time of day, and season. Live pricing is shown next to each available tee time above — Daily Tee Times pulls real-time pricing from the course&#39;s booking system every 10 minutes.</p></details><details><summary>How far in advance can I book Hyatt Hill Country Resort?</summary><p>Public tee times at Hyatt Hill Country Resort are typically bookable 7-14 days in advance, depending on the course. Live availability above reflects everything currently open for booking.</p></details><details><summary>Is Hyatt Hill Country Resort open to the public?</summary><p>Yes. Hyatt Hill Country Resort accepts public tee-time bookings. You can book directly through the course or via the Daily Tee Times homepage, where availability and pricing are surfaced in real time.</p></details><details><summary>Where is Hyatt Hill Country Resort located?</summary><p>Hyatt Hill Country Resort is in San Antonio, Texas — in the south Texas Hill Country.</p></details>
   </section>
+
+  <div class="cta-block">
+    <div><strong>Browse Texas courses by rating</strong><span>See the highest-rated public courses in Texas</span></div>
+    <a class="cta-btn" href="/texas/best-golf-courses/">Best Texas courses →</a>
+  </div>
 
   
 

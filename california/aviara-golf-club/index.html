@@ -7,15 +7,21 @@
 <meta name="description" content="Live tee times and prices at Aviara Golf Club in Carlsbad, California. Real-time availability, no fees, no signup. Book directly with the course.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://dailyteetimes.com/california/aviara-golf-club/">
+<link rel="preconnect" href="https://tee-sheet-api-production.up.railway.app"><link rel="preconnect" href="https://static.cloudflareinsights.com">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dailyteetimes.com/california/aviara-golf-club/">
 <meta property="og:title" content="Aviara Golf Club Tee Times — Carlsbad, CA">
 <meta property="og:description" content="Live tee times at Aviara Golf Club in Carlsbad, California. Real-time pricing and availability.">
+<meta property="og:image" content="https://dailyteetimes.com/og/california/aviara-golf-club.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:site_name" content="Daily Tee Times">
 <meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dailyteetimes.com/og/california/aviara-golf-club.svg">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Aviara Golf Club","address":{"@type":"PostalAddress","addressLocality":"Carlsbad","addressRegion":"CA","addressCountry":"US"},"url":"https://dailyteetimes.com/california/aviara-golf-club/","aggregateRating":{"@type":"AggregateRating","ratingValue":4.6,"reviewCount":1234,"bestRating":5,"worstRating":1}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GolfCourse","name":"Aviara Golf Club","address":{"@type":"PostalAddress","addressLocality":"Carlsbad","addressRegion":"CA","addressCountry":"US"},"url":"https://dailyteetimes.com/california/aviara-golf-club/","image":"https://dailyteetimes.com/og/california/aviara-golf-club.svg","aggregateRating":{"@type":"AggregateRating","ratingValue":4.6,"reviewCount":1234,"bestRating":5,"worstRating":1},"geo":{"@type":"GeoCoordinates","latitude":33.1581,"longitude":-117.3506}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What other courses are near Aviara Golf Club?","acceptedAnswer":{"@type":"Answer","text":"Several other California courses are within a short drive of Aviara Golf Club. See the \"More Courses Near Carlsbad\" section below — Daily Tee Times aggregates live availability across all of them."}},{"@type":"Question","name":"Where is Aviara Golf Club located?","acceptedAnswer":{"@type":"Answer","text":"Aviara Golf Club is located in Carlsbad, California."}},{"@type":"Question","name":"Can I walk Aviara Golf Club, or are carts required?","acceptedAnswer":{"@type":"Answer","text":"Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most California courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time."}},{"@type":"Question","name":"How far in advance can I book Aviara Golf Club?","acceptedAnswer":{"@type":"Answer","text":"Public tee times at Aviara Golf Club are typically bookable 7-14 days in advance, depending on the course. Live availability above reflects everything currently open for booking."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dailyteetimes.com/"},{"@type":"ListItem","position":2,"name":"California","item":"https://dailyteetimes.com/california/"},{"@type":"ListItem","position":3,"name":"Carlsbad","item":"https://dailyteetimes.com/california/carlsbad/"},{"@type":"ListItem","position":4,"name":"Aviara Golf Club","item":"https://dailyteetimes.com/california/aviara-golf-club/"}]}</script>
 
@@ -76,10 +82,24 @@ section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
 .city-card a{display:block;color:var(--text)}
 .city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
 .city-card .ct{color:var(--muted);font-size:12px}
+.ranked-list{margin-top:20px;display:flex;flex-direction:column;gap:14px}
+.ranked-item{display:flex;gap:18px;align-items:flex-start;padding:18px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.rank{flex:0 0 48px;height:48px;border-radius:50%;background:var(--green-deep);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
+.ranked-item-body{flex:1}
+.ranked-item-body h3{font-size:17px;margin-bottom:2px}
+.ranked-item-body h3 a{color:var(--text)}
+.ranked-item-meta{font-size:13px;color:var(--muted);margin-bottom:6px}
+.ranked-item-rating{color:var(--green-accent);font-weight:700;font-size:14px;margin-bottom:6px}
+.ranked-item-desc{color:var(--text);font-size:14px}
+.cta-block{margin:32px 0;padding:24px;background:var(--green-deep);color:var(--white);border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.cta-block strong{font-size:18px;font-weight:700;display:block}
+.cta-block span{color:rgba(255,255,255,0.75);font-size:14px}
+.cta-btn{padding:12px 22px;background:var(--green-light);color:var(--green-deep)!important;border-radius:8px;font-weight:700;font-size:14px}
+.cta-btn:hover{background:var(--white);text-decoration:none}
 footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
 footer a{color:rgba(255,255,255,0.82)}
 .footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
-@media(max-width:600px){.main{padding:20px 18px}.header,.crumb{padding-left:18px;padding-right:18px}}
+@media(max-width:600px){.main{padding:20px 18px}.header,.crumb{padding-left:18px;padding-right:18px}.cta-block{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -124,6 +144,11 @@ footer a{color:rgba(255,255,255,0.82)}
     <h2>Frequently Asked Questions</h2>
     <details><summary>What other courses are near Aviara Golf Club?</summary><p>Several other California courses are within a short drive of Aviara Golf Club. See the &quot;More Courses Near Carlsbad&quot; section below — Daily Tee Times aggregates live availability across all of them.</p></details><details><summary>Where is Aviara Golf Club located?</summary><p>Aviara Golf Club is located in Carlsbad, California.</p></details><details><summary>Can I walk Aviara Golf Club, or are carts required?</summary><p>Walking and cart policy varies by course and time of day — typically twilight tee times are walking-only at most California courses. Check the booking detail page on click-through for the specific cart/walking policy for your chosen tee time.</p></details><details><summary>How far in advance can I book Aviara Golf Club?</summary><p>Public tee times at Aviara Golf Club are typically bookable 7-14 days in advance, depending on the course. Live availability above reflects everything currently open for booking.</p></details>
   </section>
+
+  <div class="cta-block">
+    <div><strong>Browse California courses by rating</strong><span>See the highest-rated public courses in California</span></div>
+    <a class="cta-btn" href="/california/best-golf-courses/">Best California courses →</a>
+  </div>
 
   
 
