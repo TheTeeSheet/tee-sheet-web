@@ -40,6 +40,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Tee Times">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%230f2e1a'/%3E%3Ctext x='90' y='125' font-family='system-ui' font-weight='700' font-size='100' fill='%23f5c842' text-anchor='middle'%3E⛳%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f2e1a'/%3E%3Ccircle cx='32' cy='40' r='6' fill='%23f5c842'/%3E%3Cline x1='28' y1='40' x2='28' y2='14' stroke='%23ffffff' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M28 14 L48 18 L28 24 Z' fill='%23f5c842'/%3E%3C/svg%3E">
+<link rel="alternate icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f2e1a'/%3E%3Ccircle cx='32' cy='40' r='6' fill='%23f5c842'/%3E%3Cline x1='28' y1='40' x2='28' y2='14' stroke='%23ffffff' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M28 14 L48 18 L28 24 Z' fill='%23f5c842'/%3E%3C/svg%3E">
 
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -145,15 +147,56 @@
   }
   .hero-content { position: relative; z-index: 1; padding-bottom: 32px; }
   .hero-eyebrow {
-    font-size: 11px; font-weight: 500; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
   }
+  .hero-eyebrow .dot { opacity: 0.45; margin: 0 8px; }
   .hero-title {
-    font-size: 38px; font-weight: 700; line-height: 1.1; color: var(--white);
-    margin-bottom: 8px; letter-spacing: -0.02em;
+    font-size: clamp(34px, 5vw, 48px); font-weight: 700; line-height: 1.05; color: var(--white);
+    margin-bottom: 12px; letter-spacing: -0.025em;
   }
-  .hero-title em { color: var(--gold); font-style: normal; font-weight: 300; }
-  .hero-sub { color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 300; margin-bottom: 28px; }
+  .hero-title em { color: var(--gold); font-style: normal; font-weight: 700; }
+  .hero-sub {
+    color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 400;
+    margin-bottom: 22px; max-width: 640px; margin-left: auto; margin-right: auto;
+    line-height: 1.5;
+  }
+  .hero-sub strong { color: var(--gold); font-weight: 700; }
+  .hero-state-chips {
+    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+    margin-top: 20px; max-width: 900px; margin-left: auto; margin-right: auto;
+  }
+  .hero-state-chip {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+    color: var(--white); padding: 8px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .hero-state-chip:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+  .hero-state-chip .chip-count {
+    background: rgba(255,255,255,0.15); padding: 1px 7px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; color: var(--gold);
+  }
+  .hero-trust {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    margin-top: 24px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .trust-item {
+    color: rgba(255,255,255,0.78); font-size: 13px; display: flex; align-items: center; gap: 8px;
+  }
+  .trust-item strong { color: var(--white); font-weight: 700; }
+  .trust-item .trust-icon {
+    width: 22px; height: 22px; border-radius: 50%; background: var(--gold);
+    color: var(--green-deep); display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; flex-shrink: 0;
+  }
+  @media(max-width:600px){
+    .hero-trust { gap: 12px; }
+    .trust-item { font-size: 12px; }
+    .hero-state-chips { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding: 0 4px 4px; }
+    .hero-state-chip { flex-shrink: 0; }
+  }
   .search-wrap { display: flex; justify-content: center; }
   .search-bar {
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
@@ -625,9 +668,9 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-content">
-    <p class="hero-eyebrow">All Courses · One Place</p>
-    <h1 class="hero-title">Tee times, <em>simplified.</em></h1>
-    <p class="hero-sub">Your next round starts here.</p>
+    <p class="hero-eyebrow">340+ COURSES <span class="dot">·</span> 14 STATES <span class="dot">·</span> LIVE PRICING</p>
+    <h1 class="hero-title">Live tee times. <em>No fees.</em></h1>
+    <p class="hero-sub">Compare real-time availability at 340+ public golf courses across 14 states. Book directly with the course — <strong>no markup, no signup, no middleman</strong>.</p>
     <div class="search-wrap">
       <div class="search-bar">
         <div class="field-group">
@@ -664,6 +707,29 @@
         </div>
         <button class="search-btn" onclick="applyFilters()">Search</button>
       </div>
+    </div>
+
+    <div class="hero-state-chips" id="heroStateChips">
+      <button class="hero-state-chip" onclick="heroJumpToState('arizona')">Arizona <span class="chip-count" id="hcount-arizona"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('california')">California <span class="chip-count" id="hcount-california"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('colorado')">Colorado <span class="chip-count" id="hcount-colorado"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('florida')">Florida <span class="chip-count" id="hcount-florida"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('georgia')">Georgia <span class="chip-count" id="hcount-georgia"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('illinois')">Illinois <span class="chip-count" id="hcount-illinois"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('michigan')">Michigan <span class="chip-count" id="hcount-michigan"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('nevada')">Nevada <span class="chip-count" id="hcount-nevada"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('new-jersey')">New Jersey <span class="chip-count" id="hcount-new-jersey"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('north-carolina')">North Carolina <span class="chip-count" id="hcount-north-carolina"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('south-carolina')">South Carolina <span class="chip-count" id="hcount-south-carolina"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('texas')">Texas <span class="chip-count" id="hcount-texas"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('utah')">Utah <span class="chip-count" id="hcount-utah"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('virginia')">Virginia <span class="chip-count" id="hcount-virginia"></span></button>
+    </div>
+
+    <div class="hero-trust">
+      <div class="trust-item"><span class="trust-icon">$</span><span><strong>No booking fees</strong> — direct with the course</span></div>
+      <div class="trust-item"><span class="trust-icon">⚡</span><span><strong>Live pricing</strong> · refreshed every 10 min</span></div>
+      <div class="trust-item"><span class="trust-icon">✓</span><span><strong>No signup required</strong> · just browse and click</span></div>
     </div>
   </div>
 </div>
@@ -2017,7 +2083,18 @@ function updateStateCounts(){
   Object.keys(courses).forEach(s=>{
     const el=document.getElementById(`count-${s}`);
     if(el) el.textContent=courses[s].length;
+    const chip=document.getElementById(`hcount-${s}`);
+    if(chip) chip.textContent=courses[s].length;
   });
+}
+function heroJumpToState(state){
+  // Click the matching state-tab in the sticky nav (which runs setActiveState)
+  // and scroll to the results so the user sees the courses immediately.
+  const tab=document.querySelector(`.state-tab[onclick*="'${state}'"]`);
+  if(tab) tab.click();
+  // Smooth-scroll to the results section
+  const results=document.getElementById('resultsTitle');
+  if(results) results.scrollIntoView({behavior:'smooth',block:'start'});
 }
 updateStateCounts();
 renderCards();
