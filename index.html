@@ -1185,6 +1185,9 @@ const MEMBERSPORTS_IDS = {
   'Overland Park Golf Course': { clubId: 3755, courseId: 4827,  bookClubId: 3660, bookCourseId: 4711 },
   'Kennedy Golf Course':       { clubId: 3629, courseId: 20573, bookClubId: 3660, bookCourseId: 4711 },
   'Harvard Gulch Par 3':       { clubId: 3713, courseId: 4781,  bookClubId: 3660, bookCourseId: 4711 },
+  // ── Golf Lakewood (City of Lakewood, parent group 3703/20589) ────────────
+  'Fox Hollow at Lakewood':    { clubId: 3703, courseId: 20589, bookClubId: 3703, bookCourseId: 20589 },
+  'Homestead Golf Course':     { clubId: 3807, courseId: 4902,  bookClubId: 3703, bookCourseId: 20589 },
 };
 
 function msMinutesToTime12h(minutes) {
@@ -1635,6 +1638,11 @@ const courses = {
     // ── Colorado Springs munis (foreUP) ──────────────────────────────────────
     {name:'Patty Jewett Golf Course',city:'Colorado Springs',rating:4.3,reviews:678,isLive:true},
     {name:'Valley Hi Golf Course',city:'Colorado Springs',rating:4.0,reviews:489,isLive:true},
+    // ── Lakewood munis (MemberSports) ────────────────────────────────────────
+    {name:'Fox Hollow at Lakewood',city:'Lakewood',rating:4.3,reviews:734,isLive:true},
+    {name:'Homestead Golf Course',city:'Lakewood',rating:4.2,reviews:589,isLive:true},
+    // ── Broomfield (chronogolf) ──────────────────────────────────────────────
+    {name:'Broadlands Golf Course',city:'Broomfield',rating:4.2,reviews:478,isLive:true},
   ],
   georgia: [
     // NAMES MUST MATCH the `course` field in /api/tee-times-ga responses.
