@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="google-site-verification" content="keZvGNV3moaa4Aqq-HD7JdQ8phIgjgkDD4xRw6Vs-Lo" />
 <meta name="description" content="Find and book live tee times at 340+ public golf courses across 14 states — AZ, AR, CA, CO, FL, GA, IL, MI, NV, NJ, NC, SC, TX, UT, VA. Real-time availability and prices, updated every 10 minutes.">
-<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses, cheap tee times, last minute tee times, golf booking, daily tee times, Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, Utah, Virginia">
+<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses, cheap tee times, last minute tee times, golf booking, daily tee times, Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, Utah, Virginia, Washington">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://dailyteetimes.com/">
 <link rel="preconnect" href="https://tee-sheet-api-production.up.railway.app">
@@ -20,7 +20,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dailyteetimes.com/">
 <meta property="og:title" content="Daily Tee Times — Find & Book Tee Times">
-<meta property="og:description" content="Compare live tee times and prices at 340+ public golf courses across Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, Utah, and Virginia.">
+<meta property="og:description" content="Compare live tee times and prices at 350+ public golf courses across Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Texas, Utah, Virginia, and Washington.">
 <meta property="og:site_name" content="Daily Tee Times">
 <meta property="og:locale" content="en_US">
 
@@ -726,6 +726,7 @@
       <button class="hero-state-chip" onclick="heroJumpToState('texas',this)" data-state="texas">Texas <span class="chip-count" id="hcount-texas"></span></button>
       <button class="hero-state-chip" onclick="heroJumpToState('utah',this)" data-state="utah">Utah <span class="chip-count" id="hcount-utah"></span></button>
       <button class="hero-state-chip" onclick="heroJumpToState('virginia',this)" data-state="virginia">Virginia <span class="chip-count" id="hcount-virginia"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('washington',this)" data-state="washington">Washington <span class="chip-count" id="hcount-washington"></span></button>
     </div>
 
   </div>
@@ -779,6 +780,8 @@
     <p>Find tee times at New Jersey golf courses including Twisted Dune, Harbor Pines, Blue Heron Pines, Centerton, Wedgwood, Heron Glen, Tamarack, Bunker Hill, Buena Vista, Running Deer, and more across the Jersey Shore, South Jersey, Central Jersey, and Northern New Jersey. Real-time pricing and availability.</p>
     <h2>Book Tee Times in Illinois</h2>
     <p>Compare tee times at Illinois golf courses including Eagle Ridge Resort (The General, North, South, The Inn) in Galena, Harborside International (Port &amp; Starboard) in Chicago, Stonewall Orchard, Tamarack Naperville, Oak Brook, Bolingbrook, Heritage Bluffs, and Cook County Forest Preserve courses. Real-time pricing and availability across Chicago metro, the suburbs, and Northwestern Illinois.</p>
+    <h2>Book Tee Times in Washington</h2>
+    <p>Find tee times at Washington golf courses including Salish Cliffs (Shelton), Gold Mountain Cascade &amp; Olympic (Bremerton), McCormick Woods (Port Orchard), Druids Glen (Covington), Foster Golf Links (Tukwila), Apple Tree Resort (Yakima), Desert Canyon (Orondo), Hawks Prairie Links &amp; Woodlands (Lacey), Capitol City (Olympia), Avalon (Burlington), and Camas Meadows. Real-time pricing and availability across Seattle metro, the Kitsap Peninsula, Olympia, Skagit Valley, Yakima Valley, and Vancouver WA.</p>
     <h2>Book Tee Times in Virginia</h2>
     <p>Find tee times at Virginia golf courses including Hell's Point, Honey Bee, Cypress Point, Chesapeake Golf Club, Red Wing Lake, and Heron Ridge in Virginia Beach; Royal New Kent, Ford's Colony, and Colonial Heritage near Williamsburg; Spring Creek and Wintergreen Stoney Creek in Central Virginia; The Gauntlet in Fredericksburg; Heritage Oaks in Harrisonburg; and Penderbrook, South Riding, Stonewall, Greendale, Raspberry Falls, and the NoVA Parks trio (Algonkian, Brambleton, Pohick Bay) across Northern Virginia. Real-time pricing and availability across Hampton Roads, Williamsburg, Charlottesville, NoVA, the Shenandoah Valley, and the Northern Neck.</p>
     <h2>How Daily Tee Times Works</h2>
@@ -1837,6 +1840,28 @@ const courses = {
     {name:'Garland Lodge & Resort',city:'Lewiston',rating:4.5,reviews:678,isLive:true},
     {name:'Belvedere Golf Club',city:'Charlevoix',rating:4.7,reviews:823,isLive:true},
   ],
+  washington: [
+    // NAMES MUST MATCH the `course` field in /api/tee-times-wa responses.
+    // 13-course launch (sub-MVP). Premier Golf Centers' 4 Seattle munis
+    // (Jefferson/West Seattle/Jackson/Interbay) blocked on premiergolf.cps.golf
+    // (CF-gated); cps.js needs proxy support to unlock.
+    // ── Seattle metro / Kitsap ──────────────────────────────────────────────
+    {name:'Druids Glen Golf Club',city:'Covington',rating:4.4,reviews:534,isLive:true},
+    {name:'Foster Golf Links',city:'Tukwila',rating:4.0,reviews:412,isLive:true},
+    {name:'Gold Mountain — Cascade',city:'Bremerton',rating:4.4,reviews:589,isLive:true},
+    {name:'Gold Mountain — Olympic',city:'Bremerton',rating:4.6,reviews:823,isLive:true},
+    {name:'McCormick Woods Golf Club',city:'Port Orchard',rating:4.5,reviews:678,isLive:true},
+    // ── Olympia / South Sound ───────────────────────────────────────────────
+    {name:'Salish Cliffs Golf Club',city:'Shelton',rating:4.6,reviews:912,isLive:true},
+    {name:'Hawks Prairie — Links',city:'Lacey',rating:4.2,reviews:445,isLive:true},
+    {name:'Hawks Prairie — Woodlands',city:'Lacey',rating:4.3,reviews:489,isLive:true},
+    {name:'Capitol City Golf Club',city:'Olympia',rating:4.1,reviews:378,isLive:true},
+    // ── Skagit / Yakima Valley / Vancouver WA ───────────────────────────────
+    {name:'Avalon Golf Links',city:'Burlington',rating:4.3,reviews:489,isLive:true},
+    {name:'Apple Tree Resort',city:'Yakima',rating:4.3,reviews:534,isLive:true},
+    {name:'Desert Canyon Golf Resort',city:'Orondo',rating:4.5,reviews:678,isLive:true},
+    {name:'Camas Meadows Golf Club',city:'Camas',rating:4.2,reviews:412,isLive:true},
+  ],
   virginia: [
     // NAMES MUST MATCH the `course` field in /api/tee-times-va responses.
     // ── Hampton Roads / Virginia Beach metro ────────────────────────────────
@@ -2122,7 +2147,7 @@ function setActiveState(state,btn){
     ? btn
     : document.querySelector(`.hero-state-chip[data-state="${state}"]`);
   if (target) target.classList.add('active');
-  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina',virginia:'Virginia'};
+  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina',virginia:'Virginia',washington:'Washington'};
   document.getElementById('resultsTitle').textContent=names[state]+' Courses';
   const hubLink = document.getElementById('stateHubLink');
   if (hubLink) { hubLink.href = `/${state}/`; hubLink.textContent = `Browse all ${names[state]} courses →`; hubLink.style.display = ''; }
@@ -2649,7 +2674,7 @@ let acHighlight = -1;
 function getAllCourses() {
   const all = [];
   for (const [state, list] of Object.entries(courses)) {
-    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : state === 'south-carolina' ? 'SC' : state === 'colorado' ? 'CO' : state === 'florida' ? 'FL' : state === 'georgia' ? 'GA' : state === 'illinois' ? 'IL' : state === 'michigan' ? 'MI' : state === 'new-jersey' ? 'NJ' : state === 'north-carolina' ? 'NC' : state === 'virginia' ? 'VA' : 'UT';
+    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : state === 'south-carolina' ? 'SC' : state === 'colorado' ? 'CO' : state === 'florida' ? 'FL' : state === 'georgia' ? 'GA' : state === 'illinois' ? 'IL' : state === 'michigan' ? 'MI' : state === 'new-jersey' ? 'NJ' : state === 'north-carolina' ? 'NC' : state === 'virginia' ? 'VA' : state === 'washington' ? 'WA' : 'UT';
     list.forEach(c => all.push({ name: c.name, city: c.city, state: stLabel }));
   }
   return all.sort((a, b) => a.name.localeCompare(b.name));

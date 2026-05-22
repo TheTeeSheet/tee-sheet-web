@@ -33,13 +33,13 @@ const STATE_NAMES = {
   texas: 'Texas', nevada: 'Nevada', 'south-carolina': 'South Carolina',
   colorado: 'Colorado', florida: 'Florida', georgia: 'Georgia',
   illinois: 'Illinois', michigan: 'Michigan', 'new-jersey': 'New Jersey',
-  'north-carolina': 'North Carolina', virginia: 'Virginia',
+  'north-carolina': 'North Carolina', virginia: 'Virginia', washington: 'Washington',
 };
 const STATE_CODES = {
   arizona: 'AZ', utah: 'UT', california: 'CA', texas: 'TX', nevada: 'NV',
   'south-carolina': 'SC', colorado: 'CO', florida: 'FL', georgia: 'GA',
   illinois: 'IL', michigan: 'MI', 'new-jersey': 'NJ', 'north-carolina': 'NC',
-  virginia: 'VA',
+  virginia: 'VA', washington: 'WA',
 };
 
 // State centroids (lat, lng) for state-hub schema
@@ -51,6 +51,7 @@ const STATE_COORDS = {
   georgia: [32.6415, -83.4426], illinois: [40.6331, -89.3985],
   michigan: [44.3148, -85.6024], 'new-jersey': [40.0583, -74.4057],
   'north-carolina': [35.7596, -79.0193], virginia: [37.4316, -78.6569],
+  washington: [47.7511, -120.7401],
 };
 
 // City coords — curated for cities where we have ≥1 course. Cities not in
@@ -212,6 +213,13 @@ const CITY_COORDS = {
   'virginia/Irvington': [37.6588, -76.4108], 'virginia/Wintergreen': [37.9090, -78.9444],
   'virginia/Zion Crossroads': [38.0473, -78.2783], 'virginia/Front Royal': [38.9182, -78.1944],
   'virginia/Harrisonburg': [38.4496, -78.8689],
+  // ── Washington ──
+  'washington/Covington': [47.3590, -122.1163], 'washington/Tukwila': [47.4759, -122.2618],
+  'washington/Bremerton': [47.5673, -122.6329], 'washington/Port Orchard': [47.5404, -122.6362],
+  'washington/Shelton': [47.2154, -123.1007], 'washington/Lacey': [47.0343, -122.8232],
+  'washington/Olympia': [47.0379, -122.9007], 'washington/Burlington': [48.4757, -122.3287],
+  'washington/Yakima': [46.6021, -120.5059], 'washington/Orondo': [47.5562, -120.2026],
+  'washington/Camas': [45.5874, -122.3995],
 };
 
 // City region context (curated for ~140 metros)
@@ -341,6 +349,17 @@ const CITY_REGION = {
   'Elmer': 'south Jersey farmland',
   'Lakewood': 'Ocean County',
   'Ringoes': 'Hunterdon County rolling hills',
+  'Covington': 'south King County, ~30 min from Seattle',
+  'Tukwila': 'south Seattle metro near Sea-Tac',
+  'Bremerton': 'Kitsap Peninsula across Puget Sound from Seattle',
+  'Port Orchard': 'Kitsap Peninsula',
+  'Shelton': 'Mason County, south of the Olympic Peninsula',
+  'Lacey': 'south Puget Sound, east of Olympia',
+  'Olympia': 'state capital on south Puget Sound',
+  'Burlington': 'Skagit Valley, north of Seattle',
+  'Yakima': 'central Washington Yakima Valley wine country',
+  'Orondo': 'Columbia River Gorge, north of Wenatchee',
+  'Camas': 'SW Washington across the Columbia from Portland',
 };
 
 const STATE_REGIONS = {
@@ -358,6 +377,7 @@ const STATE_REGIONS = {
   'new-jersey': 'the Jersey Shore, South Jersey, and Central/North NJ',
   'north-carolina': 'Pinehurst, the Triangle, OBX, Asheville, and the coast',
   virginia: 'Hampton Roads, NoVA, Williamsburg, Wintergreen, and the Shenandoah',
+  washington: 'Seattle metro, Kitsap Peninsula, Olympia, the Yakima Valley, and Vancouver WA',
 };
 
 // ── Extract courses dict from index.html ─────────────────────────────────
