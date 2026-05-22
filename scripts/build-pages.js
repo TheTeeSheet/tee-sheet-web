@@ -34,12 +34,13 @@ const STATE_NAMES = {
   colorado: 'Colorado', florida: 'Florida', georgia: 'Georgia',
   illinois: 'Illinois', michigan: 'Michigan', 'new-jersey': 'New Jersey',
   'north-carolina': 'North Carolina', virginia: 'Virginia', washington: 'Washington',
+  tennessee: 'Tennessee',
 };
 const STATE_CODES = {
   arizona: 'AZ', utah: 'UT', california: 'CA', texas: 'TX', nevada: 'NV',
   'south-carolina': 'SC', colorado: 'CO', florida: 'FL', georgia: 'GA',
   illinois: 'IL', michigan: 'MI', 'new-jersey': 'NJ', 'north-carolina': 'NC',
-  virginia: 'VA', washington: 'WA',
+  virginia: 'VA', washington: 'WA', tennessee: 'TN',
 };
 
 // State centroids (lat, lng) for state-hub schema
@@ -51,7 +52,7 @@ const STATE_COORDS = {
   georgia: [32.6415, -83.4426], illinois: [40.6331, -89.3985],
   michigan: [44.3148, -85.6024], 'new-jersey': [40.0583, -74.4057],
   'north-carolina': [35.7596, -79.0193], virginia: [37.4316, -78.6569],
-  washington: [47.7511, -120.7401],
+  washington: [47.7511, -120.7401], tennessee: [35.7478, -86.6923],
 };
 
 // City coords — curated for cities where we have ≥1 course. Cities not in
@@ -220,6 +221,13 @@ const CITY_COORDS = {
   'washington/Olympia': [47.0379, -122.9007], 'washington/Burlington': [48.4757, -122.3287],
   'washington/Yakima': [46.6021, -120.5059], 'washington/Orondo': [47.5562, -120.2026],
   'washington/Camas': [45.5874, -122.3995],
+  // ── Tennessee ──
+  'tennessee/Crossville': [35.9489, -85.0269], 'tennessee/Harrison': [35.1632, -85.1469],
+  'tennessee/Winchester': [35.1862, -86.1119], 'tennessee/Pikeville': [35.6121, -85.1936],
+  'tennessee/Burns': [36.0526, -87.3122], 'tennessee/Buchanan': [36.4317, -88.1117],
+  'tennessee/Pickwick Dam': [35.0656, -88.2358], 'tennessee/Kingsport': [36.5484, -82.5618],
+  'tennessee/Old Hickory': [36.2520, -86.6261], 'tennessee/Pigeon Forge': [35.7884, -83.5544],
+  'tennessee/Gatlinburg': [35.7142, -83.5102], 'tennessee/Rockford': [35.8265, -83.9249],
 };
 
 // City region context (curated for ~140 metros)
@@ -360,6 +368,19 @@ const CITY_REGION = {
   'Yakima': 'central Washington Yakima Valley wine country',
   'Orondo': 'Columbia River Gorge, north of Wenatchee',
   'Camas': 'SW Washington across the Columbia from Portland',
+  // ── Tennessee ──
+  'Crossville': 'Cumberland Plateau, the heart of TN State Parks golf',
+  'Harrison': 'Chattanooga area, on Lake Chickamauga',
+  'Winchester': 'Tims Ford lake country in southern middle Tennessee',
+  'Pikeville': 'Fall Creek Falls State Park area, Cumberland Plateau',
+  'Burns': 'Dickson County, west of Nashville',
+  'Buchanan': 'Land Between the Lakes area on Kentucky Lake',
+  'Pickwick Dam': 'Pickwick Lake on the Tennessee River',
+  'Kingsport': 'Tri-Cities region in northeast Tennessee',
+  'Old Hickory': 'east Nashville on the Cumberland River',
+  'Pigeon Forge': 'Smokies gateway, just outside Great Smoky Mountains National Park',
+  'Gatlinburg': 'Great Smoky Mountains National Park entrance',
+  'Rockford': 'south of Knoxville near the Smokies',
 };
 
 const STATE_REGIONS = {
@@ -378,6 +399,7 @@ const STATE_REGIONS = {
   'north-carolina': 'Pinehurst, the Triangle, OBX, Asheville, and the coast',
   virginia: 'Hampton Roads, NoVA, Williamsburg, Wintergreen, and the Shenandoah',
   washington: 'Seattle metro, Kitsap Peninsula, Olympia, the Yakima Valley, and Vancouver WA',
+  tennessee: 'Middle Tennessee, the Cumberland Plateau, the Great Smoky Mountains, and East Tennessee',
 };
 
 // ── Extract courses dict from index.html ─────────────────────────────────
