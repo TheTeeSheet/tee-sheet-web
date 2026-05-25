@@ -556,7 +556,7 @@
 
   /* ── DATE chips + PRICE chips quick-filter rows ── */
   .quick-filter-row {
-    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
     margin: 10px 0 0; font-size: 12px;
   }
   .quick-filter-row .label {
@@ -853,9 +853,9 @@
       <div class="quick-filter-row" id="quickPriceChips">
         <span class="label">Max price</span>
         <button class="quick-chip active" data-maxprice=""    onclick="pickMaxPrice('',this)">Any</button>
-        <button class="quick-chip"        data-maxprice="50"  onclick="pickMaxPrice(50,this)">Under $50</button>
-        <button class="quick-chip"        data-maxprice="75"  onclick="pickMaxPrice(75,this)">Under $75</button>
         <button class="quick-chip"        data-maxprice="100" onclick="pickMaxPrice(100,this)">Under $100</button>
+        <button class="quick-chip"        data-maxprice="150" onclick="pickMaxPrice(150,this)">Under $150</button>
+        <button class="quick-chip"        data-maxprice="200" onclick="pickMaxPrice(200,this)">Under $200</button>
       </div>
     </div>
 
