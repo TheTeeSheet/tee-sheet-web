@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="google-site-verification" content="keZvGNV3moaa4Aqq-HD7JdQ8phIgjgkDD4xRw6Vs-Lo" />
 <meta name="description" content="Find and book live tee times at 340+ public golf courses across 14 states — AZ, AR, CA, CO, FL, GA, IL, MI, NV, NJ, NC, SC, TX, UT, VA. Real-time availability and prices, updated every 10 minutes.">
-<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses, cheap tee times, last minute tee times, golf booking, daily tee times, Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, South Carolina, Tennessee, Texas, Utah, Virginia, Washington">
+<meta name="keywords" content="tee times, golf tee times, book tee times, golf courses, cheap tee times, last minute tee times, golf booking, daily tee times, Arizona, California, Colorado, Florida, Georgia, Illinois, Michigan, Nevada, New Jersey, North Carolina, Oregon, South Carolina, Tennessee, Texas, Utah, Virginia, Washington">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://dailyteetimes.com/">
 <link rel="preconnect" href="https://tee-sheet-api-production.up.railway.app">
@@ -726,6 +726,7 @@
       <button class="hero-state-chip" onclick="heroJumpToState('texas',this)" data-state="texas">Texas <span class="chip-count" id="hcount-texas"></span></button>
       <button class="hero-state-chip" onclick="heroJumpToState('utah',this)" data-state="utah">Utah <span class="chip-count" id="hcount-utah"></span></button>
       <button class="hero-state-chip" onclick="heroJumpToState('virginia',this)" data-state="virginia">Virginia <span class="chip-count" id="hcount-virginia"></span></button>
+      <button class="hero-state-chip" onclick="heroJumpToState('oregon',this)" data-state="oregon">Oregon <span class="chip-count" id="hcount-oregon"></span></button>
       <button class="hero-state-chip" onclick="heroJumpToState('tennessee',this)" data-state="tennessee">Tennessee <span class="chip-count" id="hcount-tennessee"></span></button>
       <button class="hero-state-chip" onclick="heroJumpToState('washington',this)" data-state="washington">Washington <span class="chip-count" id="hcount-washington"></span></button>
     </div>
@@ -781,6 +782,8 @@
     <p>Find tee times at New Jersey golf courses including Twisted Dune, Harbor Pines, Blue Heron Pines, Centerton, Wedgwood, Heron Glen, Tamarack, Bunker Hill, Buena Vista, Running Deer, and more across the Jersey Shore, South Jersey, Central Jersey, and Northern New Jersey. Real-time pricing and availability.</p>
     <h2>Book Tee Times in Illinois</h2>
     <p>Compare tee times at Illinois golf courses including Eagle Ridge Resort (The General, North, South, The Inn) in Galena, Harborside International (Port &amp; Starboard) in Chicago, Stonewall Orchard, Tamarack Naperville, Oak Brook, Bolingbrook, Heritage Bluffs, and Cook County Forest Preserve courses. Real-time pricing and availability across Chicago metro, the suburbs, and Northwestern Illinois.</p>
+    <h2>Book Tee Times in Oregon</h2>
+    <p>Find tee times at Oregon golf courses including Eastmoreland (Portland's classic muni), Heron Lakes (Greenback &amp; Great Blue), Rose City, Colwood, RedTail (Beaverton), Langdon Farms (Aurora), Pumpkin Ridge — Ghost Creek (North Plains), Aspen Lakes (Sisters), River's Edge &amp; Widgi Creek (Bend), Salishan Golf Links (Oregon coast), Florence Golf Links, Tokatee (Blue River), and Emerald Valley (Creswell). Real-time pricing and availability across Portland metro, Central Oregon, the Oregon Coast, and the Cascades.</p>
     <h2>Book Tee Times in Tennessee</h2>
     <p>Find tee times at Tennessee golf courses including the 4 Bear Trace at Tennessee State Parks (Cumberland Mountain, Harrison Bay, Tims Ford, plus Ross Creek Landing), Fall Creek Falls, Montgomery Bell, Paris Landing, Pickwick Landing, and Warriors' Path State Park courses, Hermitage Golf (Old Hickory, near Nashville), Gatlinburg Golf Course, Bent Creek (Gatlinburg), and Egwani Farms. Real-time pricing and availability across Middle Tennessee, the Cumberland Plateau, and the Great Smoky Mountains.</p>
     <h2>Book Tee Times in Washington</h2>
@@ -1254,6 +1257,8 @@ const MEMBERSPORTS_IDS = {
   // ── Golf Lakewood (City of Lakewood, parent group 3703/20589) ────────────
   'Fox Hollow at Lakewood':    { clubId: 3703, courseId: 20589, bookClubId: 3703, bookCourseId: 20589 },
   'Homestead Golf Course':     { clubId: 3807, courseId: 4902,  bookClubId: 3703, bookCourseId: 20589 },
+  // ── Oregon ─────────────────────────────────────────────────────────────
+  'Florence Golf Links':       { clubId: 13169, courseId: 16224, bookClubId: 13169, bookCourseId: 16224 },
 };
 
 function msMinutesToTime12h(minutes) {
@@ -1843,6 +1848,28 @@ const courses = {
     {name:'Garland Lodge & Resort',city:'Lewiston',rating:4.5,reviews:678,isLive:true},
     {name:'Belvedere Golf Club',city:'Charlevoix',rating:4.7,reviews:823,isLive:true},
   ],
+  oregon: [
+    // NAMES MUST MATCH the `course` field in /api/tee-times-or responses.
+    // ── Portland metro ──────────────────────────────────────────────────────
+    {name:'Eastmoreland Golf Course',city:'Portland',rating:4.3,reviews:567,isLive:true},
+    {name:'Rose City Golf Club',city:'Portland',rating:4.2,reviews:489,isLive:true},
+    {name:'Colwood Golf Center',city:'Portland',rating:4.0,reviews:312,isLive:true},
+    {name:'Heron Lakes — Greenback',city:'Portland',rating:4.1,reviews:412,isLive:true},
+    {name:'Heron Lakes — Great Blue',city:'Portland',rating:4.3,reviews:445,isLive:true},
+    {name:'RedTail Golf Course',city:'Beaverton',rating:4.2,reviews:478,isLive:true},
+    {name:'Langdon Farms Golf Club',city:'Aurora',rating:4.3,reviews:534,isLive:true},
+    {name:'Pumpkin Ridge — Ghost Creek',city:'North Plains',rating:4.7,reviews:892,isLive:true},
+    // ── Central OR / Bend ───────────────────────────────────────────────────
+    {name:'Aspen Lakes Golf Course',city:'Sisters',rating:4.5,reviews:678,isLive:true},
+    {name:"River's Edge Golf Resort",city:'Bend',rating:4.2,reviews:456,isLive:true},
+    {name:'Widgi Creek Golf Club',city:'Bend',rating:4.3,reviews:489,isLive:true},
+    // ── Coast ───────────────────────────────────────────────────────────────
+    {name:'Salishan Golf Links',city:'Gleneden Beach',rating:4.5,reviews:678,isLive:true},
+    {name:'Florence Golf Links',city:'Florence',rating:4.4,reviews:534,isLive:true},
+    // ── Cascades / South ────────────────────────────────────────────────────
+    {name:'Tokatee Golf Club',city:'Blue River',rating:4.5,reviews:589,isLive:true},
+    {name:'Emerald Valley Golf & Resort',city:'Creswell',rating:4.2,reviews:445,isLive:true},
+  ],
   tennessee: [
     // NAMES MUST MATCH the `course` field in /api/tee-times-tn responses.
     // ── TN State Parks (Bear Trace Trail + 5 others) ────────────────────────
@@ -2168,7 +2195,7 @@ function setActiveState(state,btn){
     ? btn
     : document.querySelector(`.hero-state-chip[data-state="${state}"]`);
   if (target) target.classList.add('active');
-  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina',tennessee:'Tennessee',virginia:'Virginia',washington:'Washington'};
+  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan','new-jersey':'New Jersey','north-carolina':'North Carolina',oregon:'Oregon',tennessee:'Tennessee',virginia:'Virginia',washington:'Washington'};
   document.getElementById('resultsTitle').textContent=names[state]+' Courses';
   const hubLink = document.getElementById('stateHubLink');
   if (hubLink) { hubLink.href = `/${state}/`; hubLink.textContent = `Browse all ${names[state]} courses →`; hubLink.style.display = ''; }
@@ -2695,7 +2722,7 @@ let acHighlight = -1;
 function getAllCourses() {
   const all = [];
   for (const [state, list] of Object.entries(courses)) {
-    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : state === 'south-carolina' ? 'SC' : state === 'colorado' ? 'CO' : state === 'florida' ? 'FL' : state === 'georgia' ? 'GA' : state === 'illinois' ? 'IL' : state === 'michigan' ? 'MI' : state === 'new-jersey' ? 'NJ' : state === 'north-carolina' ? 'NC' : state === 'tennessee' ? 'TN' : state === 'virginia' ? 'VA' : state === 'washington' ? 'WA' : 'UT';
+    const stLabel = state === 'arizona' ? 'AZ' : state === 'california' ? 'CA' : state === 'texas' ? 'TX' : state === 'nevada' ? 'NV' : state === 'south-carolina' ? 'SC' : state === 'colorado' ? 'CO' : state === 'florida' ? 'FL' : state === 'georgia' ? 'GA' : state === 'illinois' ? 'IL' : state === 'michigan' ? 'MI' : state === 'new-jersey' ? 'NJ' : state === 'north-carolina' ? 'NC' : state === 'oregon' ? 'OR' : state === 'tennessee' ? 'TN' : state === 'virginia' ? 'VA' : state === 'washington' ? 'WA' : 'UT';
     list.forEach(c => all.push({ name: c.name, city: c.city, state: stLabel }));
   }
   return all.sort((a, b) => a.name.localeCompare(b.name));

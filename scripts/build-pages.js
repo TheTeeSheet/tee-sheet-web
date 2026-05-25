@@ -34,13 +34,13 @@ const STATE_NAMES = {
   colorado: 'Colorado', florida: 'Florida', georgia: 'Georgia',
   illinois: 'Illinois', michigan: 'Michigan', 'new-jersey': 'New Jersey',
   'north-carolina': 'North Carolina', virginia: 'Virginia', washington: 'Washington',
-  tennessee: 'Tennessee',
+  tennessee: 'Tennessee', oregon: 'Oregon',
 };
 const STATE_CODES = {
   arizona: 'AZ', utah: 'UT', california: 'CA', texas: 'TX', nevada: 'NV',
   'south-carolina': 'SC', colorado: 'CO', florida: 'FL', georgia: 'GA',
   illinois: 'IL', michigan: 'MI', 'new-jersey': 'NJ', 'north-carolina': 'NC',
-  virginia: 'VA', washington: 'WA', tennessee: 'TN',
+  virginia: 'VA', washington: 'WA', tennessee: 'TN', oregon: 'OR',
 };
 
 // State centroids (lat, lng) for state-hub schema
@@ -53,6 +53,7 @@ const STATE_COORDS = {
   michigan: [44.3148, -85.6024], 'new-jersey': [40.0583, -74.4057],
   'north-carolina': [35.7596, -79.0193], virginia: [37.4316, -78.6569],
   washington: [47.7511, -120.7401], tennessee: [35.7478, -86.6923],
+  oregon: [43.8041, -120.5542],
 };
 
 // City coords — curated for cities where we have ≥1 course. Cities not in
@@ -228,6 +229,12 @@ const CITY_COORDS = {
   'tennessee/Pickwick Dam': [35.0656, -88.2358], 'tennessee/Kingsport': [36.5484, -82.5618],
   'tennessee/Old Hickory': [36.2520, -86.6261], 'tennessee/Pigeon Forge': [35.7884, -83.5544],
   'tennessee/Gatlinburg': [35.7142, -83.5102], 'tennessee/Rockford': [35.8265, -83.9249],
+  // ── Oregon ──
+  'oregon/Portland': [45.5152, -122.6784], 'oregon/Beaverton': [45.4871, -122.8037],
+  'oregon/Aurora': [45.2331, -122.7547], 'oregon/North Plains': [45.5965, -122.9942],
+  'oregon/Sisters': [44.2912, -121.5494], 'oregon/Bend': [44.0582, -121.3153],
+  'oregon/Gleneden Beach': [44.8842, -124.0212], 'oregon/Florence': [43.9826, -124.0998],
+  'oregon/Blue River': [44.1620, -122.3320], 'oregon/Creswell': [43.9176, -123.0252],
 };
 
 // City region context (curated for ~140 metros)
@@ -381,6 +388,17 @@ const CITY_REGION = {
   'Pigeon Forge': 'Smokies gateway, just outside Great Smoky Mountains National Park',
   'Gatlinburg': 'Great Smoky Mountains National Park entrance',
   'Rockford': 'south of Knoxville near the Smokies',
+  // ── Oregon ──
+  'Portland': 'Willamette Valley golf hub with the oldest munis in the PNW',
+  'Beaverton': 'west Portland suburbs in Washington County',
+  'Aurora': 'south of Portland in the Willamette Valley',
+  'North Plains': 'wine country west of Portland',
+  'Sisters': 'Cascades volcanic high desert in Central Oregon',
+  'Bend': 'high desert resort town in Central Oregon',
+  'Gleneden Beach': 'central Oregon Coast',
+  'Florence': 'central Oregon Coast',
+  'Blue River': 'McKenzie River Valley in the Cascades',
+  'Creswell': 'south of Eugene in the Willamette Valley',
 };
 
 const STATE_REGIONS = {
@@ -400,6 +418,7 @@ const STATE_REGIONS = {
   virginia: 'Hampton Roads, NoVA, Williamsburg, Wintergreen, and the Shenandoah',
   washington: 'Seattle metro, Kitsap Peninsula, Olympia, the Yakima Valley, and Vancouver WA',
   tennessee: 'Middle Tennessee, the Cumberland Plateau, the Great Smoky Mountains, and East Tennessee',
+  oregon: 'Portland metro, Central Oregon, the Oregon Coast, and the Cascades',
 };
 
 // ── Extract courses dict from index.html ─────────────────────────────────
