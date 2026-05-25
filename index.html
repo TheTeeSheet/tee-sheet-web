@@ -521,6 +521,108 @@
   .empty-state h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
   .empty-state p { font-size: 13px; color: var(--gray-dark); }
 
+  /* ── LOADING SHIMMER for in-flight tee-time grids ── */
+  .tee-times-loading {
+    display: flex; gap: 7px; flex-wrap: wrap;
+  }
+  .tee-times-loading .skel-tile {
+    height: 54px; width: 70px; border-radius: 8px; flex-shrink: 0;
+    background: linear-gradient(90deg, #ece9e3 25%, #f5f2ec 50%, #ece9e3 75%);
+    background-size: 200% 100%; animation: shimmer 1.3s infinite;
+  }
+  /* The count pill while loading shimmers in place */
+  .tee-time-count.loading {
+    background: linear-gradient(90deg, #e6efe7 25%, #f0f6f1 50%, #e6efe7 75%);
+    background-size: 200% 100%; animation: shimmer 1.3s infinite;
+    color: transparent !important; width: 64px;
+  }
+
+  /* ── SCARCITY badge (≤4 times remaining) ── */
+  .scarcity-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #fff1eb; color: #c0421c; font-size: 11px; font-weight: 700;
+    padding: 3px 8px; border-radius: 999px; border: 1px solid #f4ccba;
+    letter-spacing: 0.02em; white-space: nowrap;
+  }
+  .scarcity-badge::before { content: '🔥'; font-size: 10px; }
+
+  /* ── DATE chips + PRICE chips quick-filter rows ── */
+  .quick-filter-row {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin: 10px 0 0; font-size: 12px;
+  }
+  .quick-filter-row .label {
+    color: rgba(255,255,255,0.7); font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; font-size: 11px; margin-right: 2px;
+  }
+  .quick-chip {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+    color: var(--white); padding: 5px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+  }
+  .quick-chip:hover { background: rgba(255,255,255,0.16); }
+  .quick-chip.active {
+    background: var(--gold, #f5c842); color: var(--green-deep, #2e5031);
+    border-color: var(--gold, #f5c842);
+  }
+
+  /* ── EMPTY-CARD "Set alert" CTA (replaces dead-end "No times" text) ── */
+  .empty-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #f4f8f3; color: var(--green-deep, #2e5031);
+    border: 1px solid #c9dcc9; border-radius: 8px;
+    padding: 9px 14px; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .empty-cta:hover { background: #e6efe7; border-color: #a8c4a8; }
+  .empty-cta-prefix {
+    color: var(--gray-dark); font-style: italic; font-weight: 400;
+    margin-right: 6px;
+  }
+  .empty-cta-wrap {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 4px 0;
+  }
+
+  /* ── ONBOARDING modal (first-visit home-state picker) ── */
+  .onboarding-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1100;
+    background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .onboarding-overlay.open { display: flex; }
+  .onboarding-modal {
+    background: var(--white); border-radius: 18px; padding: 32px 28px 24px;
+    width: 100%; max-width: 480px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: modalIn 0.25s ease;
+  }
+  .onboarding-modal h2 {
+    font-size: 22px; font-weight: 700; margin-bottom: 6px;
+    color: var(--green-deep, #2e5031);
+  }
+  .onboarding-modal .ob-sub {
+    font-size: 14px; color: var(--gray-dark); margin-bottom: 20px;
+  }
+  .onboarding-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-bottom: 18px;
+  }
+  .ob-state-btn {
+    background: var(--white); border: 1.5px solid #d8d3cc; border-radius: 10px;
+    padding: 11px 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+    color: var(--text-dark); transition: all 0.15s; text-align: center;
+  }
+  .ob-state-btn:hover { border-color: var(--green-accent, #4a7c50); background: #f4f8f3; }
+  .onboarding-skip {
+    display: block; width: 100%; text-align: center; background: none;
+    border: none; color: var(--gray-dark); font-size: 13px; cursor: pointer;
+    padding: 8px; margin-top: 4px;
+  }
+  .onboarding-skip:hover { color: var(--text-dark); text-decoration: underline; }
+  @media (max-width: 480px) {
+    .onboarding-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
   /* ── ACCOUNT MODAL ── */
   .modal-overlay {
     display: none; position: fixed; inset: 0; z-index: 999;
@@ -700,7 +802,7 @@
       <div class="search-bar">
         <div class="field-group">
           <label>Date</label>
-          <input type="date" id="dateFilter">
+          <input type="date" id="dateFilter" onchange="syncDateChipFromInput()">
         </div>
         <div class="field-group">
           <label>Players</label>
@@ -731,6 +833,21 @@
           </select>
         </div>
         <button class="search-btn" onclick="applyFilters()">Search</button>
+      </div>
+      <!-- Quick-pick filter chips: dates + max price (golfers' actual mental model) -->
+      <div class="quick-filter-row" id="quickDateChips">
+        <span class="label">When</span>
+        <button class="quick-chip active" data-dateoffset="0"  onclick="pickDateOffset(0,this)">Today</button>
+        <button class="quick-chip" data-dateoffset="1"  onclick="pickDateOffset(1,this)">Tomorrow</button>
+        <button class="quick-chip" data-dateoffset="sat" onclick="pickDateOffset('sat',this)" id="chipSat">Sat</button>
+        <button class="quick-chip" data-dateoffset="sun" onclick="pickDateOffset('sun',this)" id="chipSun">Sun</button>
+      </div>
+      <div class="quick-filter-row" id="quickPriceChips">
+        <span class="label">Max price</span>
+        <button class="quick-chip active" data-maxprice=""    onclick="pickMaxPrice('',this)">Any</button>
+        <button class="quick-chip"        data-maxprice="50"  onclick="pickMaxPrice(50,this)">Under $50</button>
+        <button class="quick-chip"        data-maxprice="75"  onclick="pickMaxPrice(75,this)">Under $75</button>
+        <button class="quick-chip"        data-maxprice="100" onclick="pickMaxPrice(100,this)">Under $100</button>
       </div>
     </div>
 
@@ -2276,7 +2393,12 @@ const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let activeState='arizona', showingFavs=false, searchQuery='';
+// activeState is restored from localStorage on init (set by the first-visit
+// onboarding modal). Fall back to 'arizona' for both legacy users and users
+// who skipped the modal. maxPrice is null = no filter.
+let activeState = localStorage.getItem('dtt_home_state') || 'arizona';
+let showingFavs=false, searchQuery='';
+let maxPrice = null;
 let favorites=new Set(JSON.parse(localStorage.getItem('tsFavs')||'[]'));
 let currentUser=null;
 let userProfile=null;
@@ -2308,7 +2430,29 @@ function heroJumpToState(state,btn){
   if(results) results.scrollIntoView({behavior:'smooth',block:'start'});
 }
 updateStateCounts();
-renderCards();
+// On first visit, show the onboarding modal (asks user to pick their home
+// state). On return visits, restore the persisted state and apply the
+// matching active chip before the first render.
+(function initHomeState() {
+  refreshDayChipLabels();
+  const saved = localStorage.getItem('dtt_home_state');
+  if (!saved) {
+    showOnboardingIfNeeded();
+    renderCards();
+    return;
+  }
+  // If the saved state isn't 'arizona' (the hardcoded default chip), swap
+  // the active chip so the visual state matches the data state.
+  if (saved !== 'arizona' && courses[saved]) {
+    document.querySelectorAll('.hero-state-chip').forEach(c => c.classList.remove('active'));
+    const target = document.querySelector(`.hero-state-chip[data-state="${saved}"]`);
+    if (target) target.classList.add('active');
+    // Update the results title + hub link too
+    setActiveState(saved, target);  // calls renderCards internally
+    return;
+  }
+  renderCards();
+})();
 
 // ── SEARCH ────────────────────────────────────────────────────────────────────
 function onSearchInput(v){
@@ -2347,6 +2491,11 @@ function courseSeoUrl(name) {
 // ── NAV ───────────────────────────────────────────────────────────────────────
 function setActiveState(state,btn){
   activeState=state; showingFavs=false; clearSearch();
+  // Persist user's last-clicked state so future visits open here. The
+  // onboarding modal sets this on first visit; subsequent chip clicks
+  // (here) refine it. Use a try/catch so private-mode browsers don't
+  // crash the whole render.
+  try { localStorage.setItem('dtt_home_state', state); } catch(e) {}
   document.getElementById('favTab').classList.remove('active');
   document.querySelectorAll('.hero-state-chip').forEach(t=>t.classList.remove('active'));
   // btn may be a chip directly, or null if called programmatically — fall back
@@ -2360,6 +2509,129 @@ function setActiveState(state,btn){
   const hubLink = document.getElementById('stateHubLink');
   if (hubLink) { hubLink.href = `/${state}/`; hubLink.textContent = `Browse all ${names[state]} courses →`; hubLink.style.display = ''; }
   renderCards();
+}
+
+// ── ONBOARDING + QUICK-PICK chip handlers ────────────────────────────────────
+// The onboarding modal pops on first visit (no dtt_home_state in localStorage)
+// to set the user's home state preference. Return visitors skip it. The Skip
+// button defaults to Arizona (same as the legacy hardcoded default).
+function showOnboardingIfNeeded() {
+  if (localStorage.getItem('dtt_home_state')) return;
+  // Build the state grid from the chips we have in the hero
+  const grid = document.getElementById('onboardingGrid');
+  if (!grid) return;
+  const chips = document.querySelectorAll('.hero-state-chip');
+  const labels = {};
+  chips.forEach(ch => {
+    const state = ch.dataset.state;
+    if (!state) return;
+    // First text node = state name (chip-count span is appended after)
+    const name = ch.firstChild && ch.firstChild.textContent.trim();
+    labels[state] = name || state;
+  });
+  // Stable display order — same as the hero row
+  const stateOrder = ['arizona','california','colorado','florida','georgia','illinois','michigan','minnesota','nevada','new-jersey','north-carolina','ohio','oregon','pennsylvania','south-carolina','tennessee','texas','utah','virginia','washington'];
+  grid.innerHTML = stateOrder
+    .filter(s => labels[s])
+    .map(s => `<button class="ob-state-btn" onclick="pickHomeState('${s}')">${labels[s]}</button>`)
+    .join('');
+  document.getElementById('onboardingOverlay').classList.add('open');
+}
+
+function pickHomeState(state) {
+  try { localStorage.setItem('dtt_home_state', state); } catch(e) {}
+  document.getElementById('onboardingOverlay').classList.remove('open');
+  setActiveState(state, null);
+}
+
+function dismissOnboarding() {
+  // Treat skip as "use Arizona" — persist so we don't ask again on next visit
+  try { localStorage.setItem('dtt_home_state', 'arizona'); } catch(e) {}
+  document.getElementById('onboardingOverlay').classList.remove('open');
+}
+
+// Quick-pick DATE chips: Today / Tomorrow / Sat / Sun. Maps to the same
+// dateFilter input the search bar uses, then re-renders. Updates the
+// chip's active state for visual feedback.
+function pickDateOffset(offset, btn) {
+  const d = new Date();
+  if (offset === 'sat' || offset === 'sun') {
+    const targetDow = offset === 'sat' ? 6 : 0; // Sun = 0, Sat = 6
+    let delta = (targetDow - d.getDay() + 7) % 7;
+    if (delta === 0) delta = 7; // always the NEXT Sat/Sun, not today if today is one
+    d.setDate(d.getDate() + delta);
+  } else {
+    d.setDate(d.getDate() + Number(offset || 0));
+  }
+  const iso = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  document.getElementById('dateFilter').value = iso;
+  // Toggle chip active state
+  document.querySelectorAll('#quickDateChips .quick-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  applyFilters();
+}
+
+// On init, refresh "Sat"/"Sun" chip labels to show actual upcoming dates
+// (e.g. "Sat 5/30"). Easier to understand at a glance than just "Sat".
+function refreshDayChipLabels() {
+  const fmt = (n) => `${n.getMonth()+1}/${n.getDate()}`;
+  const today = new Date();
+  for (const day of ['sat','sun']) {
+    const targetDow = day === 'sat' ? 6 : 0;
+    let delta = (targetDow - today.getDay() + 7) % 7;
+    if (delta === 0) delta = 7;
+    const d = new Date(today); d.setDate(today.getDate() + delta);
+    const el = document.getElementById(day === 'sat' ? 'chipSat' : 'chipSun');
+    if (el) el.textContent = (day === 'sat' ? 'Sat ' : 'Sun ') + fmt(d);
+  }
+}
+
+// Quick-pick MAX PRICE chips. Stored in the module-level maxPrice var,
+// applied in _doRender + updateCardLiveData via filterTimesByPrice().
+function pickMaxPrice(price, btn) {
+  maxPrice = price === '' ? null : Number(price);
+  document.querySelectorAll('#quickPriceChips .quick-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderCards();
+}
+
+// Parse the price string from a tee-time object. Tee-time entries can be
+// raw strings (static fallback) or objects with priceStr/price/greenFee
+// fields. Returns a number, or Infinity if unparseable (so price filter
+// never accidentally hides untagged times).
+function teeTimePrice(t) {
+  if (typeof t !== 'object' || t == null) return Infinity;
+  const raw = t.priceStr || t.price || t.greenFee;
+  if (raw == null) return Infinity;
+  const m = String(raw).match(/(\d+(?:\.\d+)?)/);
+  return m ? Number(m[1]) : Infinity;
+}
+
+function filterTimesByMaxPrice(times) {
+  if (maxPrice == null || !times) return times;
+  return times.filter(t => teeTimePrice(t) <= maxPrice);
+}
+
+// If the user types a date directly into the date input (instead of using
+// the chips), figure out which chip — if any — matches the new value and
+// sync the active state. If no chip matches, clear all active.
+function syncDateChipFromInput() {
+  const val = document.getElementById('dateFilter').value;
+  if (!val) return;
+  const picked = new Date(val + 'T12:00:00');
+  const today = new Date(); today.setHours(12, 0, 0, 0);
+  const diffDays = Math.round((picked - today) / 86400000);
+  let matchOffset = null;
+  if (diffDays === 0) matchOffset = '0';
+  else if (diffDays === 1) matchOffset = '1';
+  else if (diffDays > 0 && diffDays < 7) {
+    const dow = picked.getDay();
+    if (dow === 6) matchOffset = 'sat';
+    else if (dow === 0) matchOffset = 'sun';
+  }
+  document.querySelectorAll('#quickDateChips .quick-chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.dateoffset === matchOffset);
+  });
 }
 
 function toggleFavView(){
@@ -2505,12 +2777,29 @@ async function _doRender(){
 
     if(players&&isLiveData&&times) times=times.filter(t=>(t.players||t.spots||t.maxPlayers||4)>=players);
 
+    // Max-price quick-filter chip (Under $50/$75/$100). Hide any times above
+    // the threshold. If all times get filtered out, the card falls through
+    // to the empty-CTA branch (set-alert button) — better UX than a dead row.
+    if (times) times = filterTimesByMaxPrice(times);
+
     const bookUrl=buildBookingUrl(c.name,date,players||1);
     let timesHtml;
     if(times===null){
-      timesHtml=`<span class="no-times" style="color:var(--green-accent)">⏳ Loading times...</span>`;
+      // Skeleton shimmer instead of "⏳ Loading…" — looks more polished
+      // and matches the load skeleton used at first paint.
+      timesHtml = `<div class="tee-times-loading">${Array(5).fill(0).map(()=>`<div class="skel-tile"></div>`).join('')}</div>`;
     } else if(!times.length){
-      timesHtml=`<span class="no-times">${c.isLive ? 'No available times — try a different date or player count' : 'No available times for this selection'}</span>`;
+      // Empty-state → "Set alert" CTA. Converts a dead end into a lead.
+      // Wraps in event.stopPropagation so clicking it doesn't toggle the
+      // card expand state.
+      const esc = c.name.replace(/'/g,"\\'");
+      const reason = c.isLive
+        ? (maxPrice ? `No times under $${maxPrice} today` : 'No times available today')
+        : 'No live availability yet';
+      timesHtml = `<div class="empty-cta-wrap">
+        <span class="empty-cta-prefix">${reason} —</span>
+        <button class="empty-cta" onclick="event.stopPropagation();openAlertModal('${esc}','${c.city}')">🔔 Get an alert when times open</button>
+      </div>`;
     } else if(!c.isLive && !c.staticPrice) {
       timesHtml=`<a href="${bookUrl}" target="_blank" class="check-avail-btn">Check Availability →</a>`;
     } else {
@@ -2563,6 +2852,7 @@ async function _doRender(){
           </div>
         </div>
         <div class="card-action">
+          ${times && times.length >= 1 && times.length <= 4 ? `<span class="scarcity-badge">Only ${times.length} left</span>` : ''}
           <span class="tee-time-count ${times===null?'loading':(times && times.length?'':'empty')}">${times===null?'Loading…':(times && times.length?times.length+(times.length===1?' time':' times'):'No times')}</span>
           <button class="alert-btn ${hasAlert?'has-alert':''}" onclick="event.stopPropagation();openAlertModal('${c.name.replace(/'/g,"\\'")}','${c.city}')" title="Set tee time alert">🔔</button>
           <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -2668,9 +2958,9 @@ function updateCardLiveData(cardEl, c, date, players) {
   const countEl = cardEl.querySelector('.tee-time-count');
   if (!grid) return;
 
-  // Still in-flight? Keep the loading state.
+  // Still in-flight? Keep the shimmer loading state.
   if (cached === null || cached === undefined) {
-    grid.innerHTML = `<span class="no-times" style="color:var(--green-accent)">⏳ Loading times...</span>`;
+    grid.innerHTML = `<div class="tee-times-loading">${Array(5).fill(0).map(()=>`<div class="skel-tile"></div>`).join('')}</div>`;
     if (countEl) { countEl.textContent = 'Loading…'; countEl.classList.add('loading'); countEl.classList.remove('empty'); }
     // Clear tier classes — card hasn't settled yet, stays in the middle.
     cardEl.classList.remove('has-times', 'no-times-final');
@@ -2690,15 +2980,26 @@ function updateCardLiveData(cardEl, c, date, players) {
     });
   }
   if (players && filtered.length) filtered = filtered.filter(t => (t.players||t.spots||t.maxPlayers||4) >= players);
+  // Max-price chip filter
+  filtered = filterTimesByMaxPrice(filtered);
 
-  // Tier the card visually via CSS order (preserves DOM, observer-safe).
+  // Tier the card visually (no CSS order trick now; classes are kept for
+  // future selectors/styling).
   cardEl.classList.toggle('has-times', filtered.length > 0);
   cardEl.classList.toggle('no-times-final', filtered.length === 0);
 
   const bookUrl = buildBookingUrl(c.name, date, players||1);
   let timesHtml;
   if (!filtered.length) {
-    timesHtml = `<span class="no-times">No available times — try a different date or player count</span>`;
+    // Empty-state → set-alert CTA (same as the initial-render branch in
+    // _doRender). Wraps in event.stopPropagation so clicking the alert
+    // doesn't toggle the card-expand state.
+    const esc = c.name.replace(/'/g,"\\'");
+    const reason = maxPrice ? `No times under $${maxPrice}` : 'No available times today';
+    timesHtml = `<div class="empty-cta-wrap">
+      <span class="empty-cta-prefix">${reason} —</span>
+      <button class="empty-cta" onclick="event.stopPropagation();openAlertModal('${esc}','${c.city}')">🔔 Get an alert when times open</button>
+    </div>`;
   } else {
     timesHtml = filtered.map(t => {
       const rawTime = typeof t==='object' ? t.time : t;
@@ -2729,6 +3030,25 @@ function updateCardLiveData(cardEl, c, date, players) {
     } else {
       countEl.textContent = 'No times';
       countEl.classList.add('empty');
+    }
+  }
+  // Sync scarcity badge with the post-fetch count. The badge was rendered
+  // optimistically in _doRender based on the cached/initial value; once
+  // the lazy fetch resolves we may have a new count (e.g. went from 0
+  // cached to 6 fresh) and need to add, update, or remove the badge.
+  const cardAction = cardEl.querySelector('.card-action');
+  if (cardAction) {
+    let badge = cardAction.querySelector('.scarcity-badge');
+    const n = filtered.length;
+    if (n >= 1 && n <= 4) {
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'scarcity-badge';
+        cardAction.insertBefore(badge, cardAction.firstChild);
+      }
+      badge.textContent = `Only ${n} left`;
+    } else if (badge) {
+      badge.remove();
     }
   }
   // No need to recount — every isLive course gets a card and stays visible,
@@ -3213,6 +3533,16 @@ if ('serviceWorker' in navigator) {
   }, true);
 })();
 </script>
+
+<!-- ── ONBOARDING modal (first-visit only — picks user's home state, persists in localStorage) ── -->
+<div class="onboarding-overlay" id="onboardingOverlay">
+  <div class="onboarding-modal" role="dialog" aria-labelledby="obTitle">
+    <h2 id="obTitle">Where do you play?</h2>
+    <p class="ob-sub">Pick your home state and we'll open there every visit. You can change this anytime.</p>
+    <div class="onboarding-grid" id="onboardingGrid"></div>
+    <button class="onboarding-skip" onclick="dismissOnboarding()">Skip — show me Arizona</button>
+  </div>
+</div>
 
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fa288814aa6d45e3afccb07ec44f9bf9"}'></script>
