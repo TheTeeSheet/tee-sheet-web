@@ -2365,7 +2365,7 @@ async function _doRender(){
       const key=`${c.name}|${date}|${players||1}`;
       const ld=teeTimeCache[key];
       if(Array.isArray(ld)){times=ld;if(ld.length>0)isLiveData=true;}
-      else if(ld===null){times=[];}
+      else if(ld===null){times=null;}
       else{times=null;}
     } else {
       times=staticTimes(c.staticPrice||79,9);
