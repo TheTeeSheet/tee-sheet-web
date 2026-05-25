@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pennsylvania Golf Tee Times — 35 Courses | Daily Tee Times</title>
+<meta name="description" content="Live tee times and prices at 35 Pennsylvania golf courses across 32 cities including Allentown, Ambler, Avondale, Bensalem, Blakeslee, Bolivar, Coatesville, Downingtown, East Stroudsburg, Ellwood City, Harleysville, Lake Harmony. Real-time availability, refreshed every 10 minutes.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://dailyteetimes.com/pennsylvania/">
+<link rel="preconnect" href="https://tee-sheet-api-production.up.railway.app"><link rel="preconnect" href="https://static.cloudflareinsights.com">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dailyteetimes.com/pennsylvania/">
+<meta property="og:title" content="Pennsylvania Golf Tee Times — 35 Courses">
+<meta property="og:description" content="Live tee times at 35 Pennsylvania golf courses. Real-time availability.">
+<meta property="og:image" content="https://dailyteetimes.com/og/pennsylvania.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Daily Tee Times">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dailyteetimes.com/og/pennsylvania.svg">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AdministrativeArea","name":"Pennsylvania","url":"https://dailyteetimes.com/pennsylvania/","geo":{"@type":"GeoCoordinates","latitude":41.2033,"longitude":-77.1945}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://dailyteetimes.com/"},{"@type":"ListItem","position":2,"name":"Pennsylvania","item":"https://dailyteetimes.com/pennsylvania/"}]}</script>
+
+<style>
+:root{--green-deep:#2e5031;--green-accent:#4a7c50;--green-light:#7eb085;--white:#fff;--bg:#f7faf7;--text:#1a2a1c;--muted:#5e6b60;--border:#d8e1da;--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--green-accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.header{background:var(--green-deep);padding:18px 32px;display:flex;align-items:center;justify-content:space-between}
+.logo{color:var(--white);font-size:20px;font-weight:700;text-decoration:none;letter-spacing:-0.3px}
+.logo:hover{text-decoration:none}
+.header nav a{color:rgba(255,255,255,0.82);margin-left:18px;font-size:14px}
+.header nav a:hover{color:var(--white);text-decoration:none}
+.crumb{padding:14px 32px;font-size:13px;color:var(--muted);background:var(--white);border-bottom:1px solid var(--border)}
+.crumb a{color:var(--green-accent)}
+.main{max-width:880px;margin:0 auto;padding:32px}
+.main h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin-bottom:6px;letter-spacing:-0.5px}
+.location{color:var(--muted);font-size:15px;margin-bottom:6px}
+.rating{color:var(--green-accent);font-size:14px;margin-bottom:24px;font-weight:600}
+.intro p{margin:0 0 14px;color:var(--text);font-size:16px}
+section.block{margin:28px 0;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+section.block h2{font-size:20px;margin-bottom:14px;font-weight:700}
+.tee-times-meta{font-size:13px;color:var(--muted);margin-bottom:14px}
+.tee-times-grid{display:flex;flex-wrap:wrap;gap:8px}
+.tee-time-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:var(--green-accent);color:var(--white)!important;border-radius:8px;font-size:11px;min-width:88px;transition:background 0.15s}
+.tee-time-btn:hover{background:var(--green-deep);text-decoration:none}
+.tee-time-btn .t-time{font-weight:700;font-size:14px}
+.tee-time-btn .t-price{font-weight:600;font-size:13px}
+.loading,.no-times{color:var(--muted);font-size:14px;padding:12px 0}
+.how-list{padding-left:24px;color:var(--text);font-size:15px}
+.how-list li{margin-bottom:6px}
+.faq details{padding:14px 0;border-bottom:1px solid var(--border)}
+.faq details:last-child{border-bottom:none}
+.faq summary{font-weight:600;cursor:pointer;font-size:15px;list-style:none;padding-right:24px;position:relative;color:var(--text)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:0;top:-2px;font-size:22px;color:var(--muted);font-weight:400}
+.faq details[open] summary::after{content:'−'}
+.faq details p{margin-top:10px;color:var(--text);font-size:15px}
+.nearby h2,.sister h2{font-size:18px;margin:32px 0 12px;font-weight:700}
+.nearby-grid,.sister-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.nearby-card,.sister-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.nearby-card:hover,.sister-card:hover{border-color:var(--green-accent)}
+.nearby-card a,.sister-card a{display:block;color:var(--text)}
+.nearby-card .nm,.sister-card .nm{font-weight:600;font-size:14px;margin-bottom:2px}
+.nearby-card .ct,.sister-card .ct{color:var(--muted);font-size:12px}
+.state-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:24px}
+.state-course{padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.state-course:hover{border-color:var(--green-accent)}
+.state-course a{display:block;color:var(--text)}
+.state-course .nm{font-weight:600;font-size:15px;margin-bottom:4px}
+.state-course .ct{color:var(--muted);font-size:13px}
+.city-header{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin:28px 0 8px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.city-header a{font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.city-card{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.15s}
+.city-card:hover{border-color:var(--green-accent)}
+.city-card a{display:block;color:var(--text)}
+.city-card .nm{font-weight:600;font-size:15px;margin-bottom:2px}
+.city-card .ct{color:var(--muted);font-size:12px}
+.ranked-list{margin-top:20px;display:flex;flex-direction:column;gap:14px}
+.ranked-item{display:flex;gap:18px;align-items:flex-start;padding:18px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.rank{flex:0 0 48px;height:48px;border-radius:50%;background:var(--green-deep);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
+.ranked-item-body{flex:1}
+.ranked-item-body h3{font-size:17px;margin-bottom:2px}
+.ranked-item-body h3 a{color:var(--text)}
+.ranked-item-meta{font-size:13px;color:var(--muted);margin-bottom:6px}
+.ranked-item-rating{color:var(--green-accent);font-weight:700;font-size:14px;margin-bottom:6px}
+.ranked-item-desc{color:var(--text);font-size:14px}
+.cta-block{margin:32px 0;padding:24px;background:var(--green-deep);color:var(--white);border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.cta-block strong{font-size:18px;font-weight:700;display:block}
+.cta-block span{color:rgba(255,255,255,0.75);font-size:14px}
+.cta-btn{padding:12px 22px;background:var(--green-light);color:var(--green-deep)!important;border-radius:8px;font-weight:700;font-size:14px}
+.cta-btn:hover{background:var(--white);text-decoration:none}
+footer{background:var(--green-deep);padding:28px 24px;text-align:center;color:rgba(255,255,255,0.55);font-size:12px;margin-top:48px}
+footer a{color:rgba(255,255,255,0.82)}
+.footer-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
+@media(max-width:600px){.main{padding:20px 18px}.header,.crumb{padding-left:18px;padding-right:18px}.cta-block{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a class="logo" href="/">Daily Tee Times</a>
+  <nav><a href="/">All States</a></nav>
+</header>
+
+<nav class="crumb"><a href="/">Home</a> &rsaquo; Pennsylvania</nav>
+
+<main class="main">
+  <h1>Pennsylvania Golf Tee Times</h1>
+  <div class="location">35 courses across 32 cities</div>
+
+  <section class="intro" style="margin-top:24px">
+    <p>Daily Tee Times aggregates live availability and pricing at <strong>35 Pennsylvania golf courses</strong> across Philly metro, Pittsburgh, the Pocono and Lehigh Valley, and Penn State country. From Allentown to York, you can compare today's tee times across the state in one place. Real-time data, refreshed every 10 minutes.</p>
+    <p>Click any course or city below to see its current availability and pricing — or use the <a href="/">homepage</a> to filter all 35 Pennsylvania courses by date, players, and time of day.</p>
+  </section>
+
+  <div class="cta-block">
+    <div><strong>Best Golf Courses in Pennsylvania</strong><span>35 courses ranked by golfer rating</span></div>
+    <a class="cta-btn" href="/pennsylvania/best-golf-courses/">View ranked list →</a>
+  </div>
+
+  
+    <h2 class="city-header"><span>Allentown (1)</span><a href="/pennsylvania/allentown/">View Allentown →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/twin-lakes-golf-club/"><div class="nm">Twin Lakes Golf Club</div><div class="ct">★ 4 · 312 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Ambler (1)</span><a href="/pennsylvania/ambler/">View Ambler →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/limekiln-golf-club/"><div class="nm">Limekiln Golf Club</div><div class="ct">★ 4 · 312 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Avondale (1)</span><a href="/pennsylvania/avondale/">View Avondale →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/inniscrone-golf-club/"><div class="nm">Inniscrone Golf Club</div><div class="ct">★ 4.5 · 678 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Bensalem (1)</span><a href="/pennsylvania/bensalem/">View Bensalem →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/bensalem-township-country-club/"><div class="nm">Bensalem Township Country Club</div><div class="ct">★ 4 · 267 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Blakeslee (1)</span><a href="/pennsylvania/blakeslee/">View Blakeslee →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/jack-frost-national-golf-club/"><div class="nm">Jack Frost National Golf Club</div><div class="ct">★ 4.5 · 678 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Bolivar (1)</span><a href="/pennsylvania/bolivar/">View Bolivar →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/champion-lakes-golf-club/"><div class="nm">Champion Lakes Golf Club</div><div class="ct">★ 4.2 · 445 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Coatesville (1)</span><a href="/pennsylvania/coatesville/">View Coatesville →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/broad-run-golfers-club/"><div class="nm">Broad Run Golfers Club</div><div class="ct">★ 4.3 · 512 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Downingtown (1)</span><a href="/pennsylvania/downingtown/">View Downingtown →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/downingtown-country-club/"><div class="nm">Downingtown Country Club</div><div class="ct">★ 4.4 · 589 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>East Stroudsburg (1)</span><a href="/pennsylvania/east-stroudsburg/">View East Stroudsburg →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/great-bear-golf-club/"><div class="nm">Great Bear Golf Club</div><div class="ct">★ 4.4 · 567 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Ellwood City (1)</span><a href="/pennsylvania/ellwood-city/">View Ellwood City →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/olde-stonewall-golf-club/"><div class="nm">Olde Stonewall Golf Club</div><div class="ct">★ 4.7 · 823 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Harleysville (2)</span><a href="/pennsylvania/harleysville/">View Harleysville →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/lederach-golf-club/"><div class="nm">Lederach Golf Club</div><div class="ct">★ 4.4 · 534 reviews</div></a></div><div class="state-course"><a href="/pennsylvania/mainland-golf-course/"><div class="nm">Mainland Golf Course</div><div class="ct">★ 4.2 · 445 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Lake Harmony (1)</span><a href="/pennsylvania/lake-harmony/">View Lake Harmony →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/split-rock-resort-golf-club/"><div class="nm">Split Rock Resort Golf Club</div><div class="ct">★ 4.3 · 489 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Langhorne (1)</span><a href="/pennsylvania/langhorne/">View Langhorne →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/middletown-country-club/"><div class="nm">Middletown Country Club</div><div class="ct">★ 4.2 · 478 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Limerick (1)</span><a href="/pennsylvania/limerick/">View Limerick →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/turtle-creek-golf-course/"><div class="nm">Turtle Creek Golf Course</div><div class="ct">★ 4.1 · 389 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Midway (1)</span><a href="/pennsylvania/midway/">View Midway →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/quicksilver-golf-club/"><div class="nm">Quicksilver Golf Club</div><div class="ct">★ 4.4 · 578 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Millersville (1)</span><a href="/pennsylvania/millersville/">View Millersville →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/crossgates-golf-club/"><div class="nm">Crossgates Golf Club</div><div class="ct">★ 4.2 · 445 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Mount Wolf (1)</span><a href="/pennsylvania/mount-wolf/">View Mount Wolf →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/royal-manchester-golf-links/"><div class="nm">Royal Manchester Golf Links</div><div class="ct">★ 4.3 · 489 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Murrysville (1)</span><a href="/pennsylvania/murrysville/">View Murrysville →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/rolling-fields-golf-course/"><div class="nm">Rolling Fields Golf Course</div><div class="ct">★ 4.1 · 412 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Norristown (1)</span><a href="/pennsylvania/norristown/">View Norristown →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/jeffersonville-golf-club/"><div class="nm">Jeffersonville Golf Club</div><div class="ct">★ 4.1 · 412 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Oxford (1)</span><a href="/pennsylvania/oxford/">View Oxford →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/wyncote-golf-club/"><div class="nm">Wyncote Golf Club</div><div class="ct">★ 4.3 · 489 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Philadelphia (1)</span><a href="/pennsylvania/philadelphia/">View Philadelphia →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/walnut-lane-golf-club/"><div class="nm">Walnut Lane Golf Club</div><div class="ct">★ 3.9 · 412 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Phoenixville (1)</span><a href="/pennsylvania/phoenixville/">View Phoenixville →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/pickering-valley-golf-club/"><div class="nm">Pickering Valley Golf Club</div><div class="ct">★ 4.2 · 412 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Pine (1)</span><a href="/pennsylvania/pine/">View Pine →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/toms-run-golf-course/"><div class="nm">Tom&#39;s Run Golf Course</div><div class="ct">★ 4.1 · 389 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Quarryville (1)</span><a href="/pennsylvania/quarryville/">View Quarryville →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/tanglewood-manor-golf-course/"><div class="nm">Tanglewood Manor Golf Course</div><div class="ct">★ 4.1 · 389 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Reading (1)</span><a href="/pennsylvania/reading/">View Reading →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/reading-country-club/"><div class="nm">Reading Country Club</div><div class="ct">★ 4.3 · 489 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>South Park (1)</span><a href="/pennsylvania/south-park/">View South Park →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/south-park-golf-course/"><div class="nm">South Park Golf Course</div><div class="ct">★ 4 · 367 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Spring City (1)</span><a href="/pennsylvania/spring-city/">View Spring City →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/spring-hollow-golf-course/"><div class="nm">Spring Hollow Golf Course</div><div class="ct">★ 4.3 · 489 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>State College (2)</span><a href="/pennsylvania/state-college/">View State College →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/penn-state-blue-course/"><div class="nm">Penn State Blue Course</div><div class="ct">★ 4.5 · 678 reviews</div></a></div><div class="state-course"><a href="/pennsylvania/penn-state-white-course/"><div class="nm">Penn State White Course</div><div class="ct">★ 4.2 · 445 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Stevens (1)</span><a href="/pennsylvania/stevens/">View Stevens →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/foxchase-golf-club/"><div class="nm">Foxchase Golf Club</div><div class="ct">★ 4.2 · 412 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>Wernersville (1)</span><a href="/pennsylvania/wernersville/">View Wernersville →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/galen-hall-golf-club/"><div class="nm">Galen Hall Golf Club</div><div class="ct">★ 4.4 · 512 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>White Haven (1)</span><a href="/pennsylvania/white-haven/">View White Haven →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/mountain-laurel-golf-club/"><div class="nm">Mountain Laurel Golf Club</div><div class="ct">★ 4.1 · 367 reviews</div></a></div>
+    </div>
+  
+    <h2 class="city-header"><span>York (2)</span><a href="/pennsylvania/york/">View York →</a></h2>
+    <div class="state-courses">
+      <div class="state-course"><a href="/pennsylvania/heritage-hills-golf-resort/"><div class="nm">Heritage Hills Golf Resort</div><div class="ct">★ 4.3 · 512 reviews</div></a></div><div class="state-course"><a href="/pennsylvania/honey-run-golf-club/"><div class="nm">Honey Run Golf Club</div><div class="ct">★ 4.4 · 534 reviews</div></a></div>
+    </div>
+  
+</main>
+
+<footer>
+  <div class="footer-title">Daily Tee Times</div>
+  <div>Find and book tee times at 450+ golf courses nationally.</div>
+  <div style="margin-top:8px"><a href="/">Home</a></div>
+  <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
+</footer>
+
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fa288814aa6d45e3afccb07ec44f9bf9"}'></script>
+</body>
+</html>

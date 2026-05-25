@@ -34,13 +34,14 @@ const STATE_NAMES = {
   colorado: 'Colorado', florida: 'Florida', georgia: 'Georgia',
   illinois: 'Illinois', michigan: 'Michigan', 'new-jersey': 'New Jersey',
   'north-carolina': 'North Carolina', virginia: 'Virginia', washington: 'Washington',
-  tennessee: 'Tennessee', oregon: 'Oregon',
+  tennessee: 'Tennessee', oregon: 'Oregon', pennsylvania: 'Pennsylvania',
 };
 const STATE_CODES = {
   arizona: 'AZ', utah: 'UT', california: 'CA', texas: 'TX', nevada: 'NV',
   'south-carolina': 'SC', colorado: 'CO', florida: 'FL', georgia: 'GA',
   illinois: 'IL', michigan: 'MI', 'new-jersey': 'NJ', 'north-carolina': 'NC',
   virginia: 'VA', washington: 'WA', tennessee: 'TN', oregon: 'OR',
+  pennsylvania: 'PA',
 };
 
 // State centroids (lat, lng) for state-hub schema
@@ -53,7 +54,7 @@ const STATE_COORDS = {
   michigan: [44.3148, -85.6024], 'new-jersey': [40.0583, -74.4057],
   'north-carolina': [35.7596, -79.0193], virginia: [37.4316, -78.6569],
   washington: [47.7511, -120.7401], tennessee: [35.7478, -86.6923],
-  oregon: [43.8041, -120.5542],
+  oregon: [43.8041, -120.5542], pennsylvania: [41.2033, -77.1945],
 };
 
 // City coords — curated for cities where we have ≥1 course. Cities not in
@@ -235,6 +236,30 @@ const CITY_COORDS = {
   'oregon/Sisters': [44.2912, -121.5494], 'oregon/Bend': [44.0582, -121.3153],
   'oregon/Gleneden Beach': [44.8842, -124.0212], 'oregon/Florence': [43.9826, -124.0998],
   'oregon/Blue River': [44.1620, -122.3320], 'oregon/Creswell': [43.9176, -123.0252],
+  // ── Pennsylvania ──
+  // Philly metro
+  'pennsylvania/Philadelphia': [39.9526, -75.1652], 'pennsylvania/Coatesville': [39.9837, -75.8232],
+  'pennsylvania/Downingtown': [40.0067, -75.7032], 'pennsylvania/Norristown': [40.1215, -75.3399],
+  'pennsylvania/Langhorne': [40.1742, -74.9221], 'pennsylvania/Avondale': [39.8242, -75.7821],
+  'pennsylvania/Harleysville': [40.2773, -75.3866], 'pennsylvania/Spring City': [40.1731, -75.5499],
+  'pennsylvania/Phoenixville': [40.1304, -75.5147], 'pennsylvania/Limerick': [40.2351, -75.5302],
+  'pennsylvania/Ambler': [40.1551, -75.2218], 'pennsylvania/Bensalem': [40.1043, -74.9518],
+  'pennsylvania/Oxford': [39.7848, -75.9787],
+  // Pittsburgh / Western
+  'pennsylvania/Midway': [40.3640, -80.2342], 'pennsylvania/Ellwood City': [40.8617, -80.2868],
+  'pennsylvania/Pine': [40.6612, -80.0432], 'pennsylvania/South Park': [40.2962, -79.9961],
+  'pennsylvania/Murrysville': [40.4412, -79.6779], 'pennsylvania/Bolivar': [40.3917, -79.1500],
+  // Pocono / Lehigh
+  'pennsylvania/Blakeslee': [41.0851, -75.6037], 'pennsylvania/East Stroudsburg': [41.0098, -75.1804],
+  'pennsylvania/Lake Harmony': [41.0640, -75.6071], 'pennsylvania/White Haven': [41.0654, -75.7754],
+  'pennsylvania/Allentown': [40.6084, -75.4902],
+  // Central
+  'pennsylvania/State College': [40.7934, -77.8600], 'pennsylvania/Wernersville': [40.3268, -76.0816],
+  'pennsylvania/Reading': [40.3356, -75.9269],
+  // South Central / York / Lancaster
+  'pennsylvania/York': [39.9626, -76.7277], 'pennsylvania/Mount Wolf': [40.0628, -76.7016],
+  'pennsylvania/Millersville': [40.0006, -76.3530], 'pennsylvania/Quarryville': [39.8965, -76.1652],
+  'pennsylvania/Stevens': [40.1812, -76.1591],
 };
 
 // City region context (curated for ~140 metros)
@@ -399,6 +424,43 @@ const CITY_REGION = {
   'Florence': 'central Oregon Coast',
   'Blue River': 'McKenzie River Valley in the Cascades',
   'Creswell': 'south of Eugene in the Willamette Valley',
+  // ── Pennsylvania — Philly metro ──
+  'Philadelphia': 'fifth-largest U.S. city with historic Fairmount Park golf',
+  'Coatesville': 'Chester County, west of Philly along the Brandywine',
+  'Downingtown': 'Chester County in the western Philadelphia suburbs',
+  'Norristown': 'Montgomery County seat along the Schuylkill River',
+  'Langhorne': 'Bucks County, just north of Philadelphia',
+  'Avondale': 'southern Chester County mushroom country',
+  'Harleysville': 'Montgomery County in the Indian Valley',
+  'Spring City': 'northern Chester County along French Creek',
+  'Phoenixville': 'northwest Chester County along the Schuylkill',
+  'Limerick': 'Montgomery County in the Pottstown area',
+  'Ambler': 'Montgomery County in the northwest Philly suburbs',
+  'Bensalem': 'lower Bucks County on the Delaware River',
+  'Oxford': 'southern Chester County near the Maryland border',
+  // ── Pennsylvania — Pittsburgh / Western ──
+  'Midway': 'Washington County, southwest of Pittsburgh',
+  'Ellwood City': 'Beaver County north of Pittsburgh',
+  'Pine': 'northern Allegheny County in the Pittsburgh suburbs',
+  'South Park': 'Allegheny County, south of Pittsburgh',
+  'Murrysville': 'Westmoreland County east of Pittsburgh',
+  'Bolivar': 'Westmoreland County in the Laurel Highlands',
+  // ── Pennsylvania — Pocono / Lehigh ──
+  'Blakeslee': 'Pocono Mountains, Carbon County',
+  'East Stroudsburg': 'gateway to the Pocono Mountains',
+  'Lake Harmony': 'Pocono Mountains resort area',
+  'White Haven': 'Pocono Mountains, Luzerne County',
+  'Allentown': 'Lehigh Valley, third-largest city in PA',
+  // ── Pennsylvania — Central ──
+  'State College': 'home of Penn State University in Centre County',
+  'Wernersville': 'Berks County, west of Reading',
+  'Reading': 'Berks County seat in the Pennsylvania Dutch country',
+  // ── Pennsylvania — South Central / York / Lancaster ──
+  'York': 'York County seat in the Susquehanna Valley',
+  'Mount Wolf': 'northern York County',
+  'Millersville': 'Lancaster County, southwest of Lancaster city',
+  'Quarryville': 'southern Lancaster County in PA Dutch country',
+  'Stevens': 'northern Lancaster County in PA Dutch country',
 };
 
 const STATE_REGIONS = {
@@ -419,6 +481,7 @@ const STATE_REGIONS = {
   washington: 'Seattle metro, Kitsap Peninsula, Olympia, the Yakima Valley, and Vancouver WA',
   tennessee: 'Middle Tennessee, the Cumberland Plateau, the Great Smoky Mountains, and East Tennessee',
   oregon: 'Portland metro, Central Oregon, the Oregon Coast, and the Cascades',
+  pennsylvania: 'Philly metro, Pittsburgh, the Pocono and Lehigh Valley, and Penn State country',
 };
 
 // ── Extract courses dict from index.html ─────────────────────────────────
@@ -547,7 +610,7 @@ function renderOgImage({ title, subtitle, rating, kicker }) {
   ${t2 ? `<text x="80" y="${t1y + 86}" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="76" fill="#ffffff" font-weight="800">${svgEscape(t2)}</text>` : ''}
   <text x="80" y="${t2 ? 410 : 350}" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="34" fill="rgba(255,255,255,0.85)">${svgEscape(subtitle)}</text>
   ${rating ? `<text x="80" y="${t2 ? 470 : 410}" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="26" fill="#7eb085" font-weight="700">★ ${rating} rating</text>` : ''}
-  <text x="80" y="555" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" fill="rgba(255,255,255,0.55)">Live tee times · 340+ courses · 14 states</text>
+  <text x="80" y="555" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" fill="rgba(255,255,255,0.55)">Live tee times · 450+ courses · 18 states</text>
 </svg>
 `;
 }
@@ -784,7 +847,7 @@ ${PRECONNECT}
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
-  <div>Find and book tee times at 340+ golf courses nationally.</div>
+  <div>Find and book tee times at 450+ golf courses nationally.</div>
   <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="${cityUrl}">${htmlEscape(course.city)}</a> &middot; <a href="/${state}/">${stateName}</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
@@ -911,7 +974,7 @@ ${PRECONNECT}
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
-  <div>Find and book tee times at 340+ golf courses nationally.</div>
+  <div>Find and book tee times at 450+ golf courses nationally.</div>
   <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="/${state}/">${stateName}</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
@@ -1014,7 +1077,7 @@ ${PRECONNECT}
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
-  <div>Find and book tee times at 340+ golf courses nationally.</div>
+  <div>Find and book tee times at 450+ golf courses nationally.</div>
   <div style="margin-top:8px"><a href="/">Home</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
@@ -1157,7 +1220,7 @@ ${PRECONNECT}
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
-  <div>Find and book tee times at 340+ golf courses nationally.</div>
+  <div>Find and book tee times at 450+ golf courses nationally.</div>
   <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="/${state}/">${stateName}</a>${city ? ` &middot; <a href="${parentUrl}">${htmlEscape(city)}</a>` : ''}</div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
