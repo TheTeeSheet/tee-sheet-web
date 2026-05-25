@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2e5031"/>
+      <stop offset="100%" stop-color="#1a2a1c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="32" y="32" width="1136" height="566" fill="none" stroke="#4a7c50" stroke-width="3" rx="24"/>
+  <text x="80" y="120" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="24" fill="rgba(255,255,255,0.55)" font-weight="600" letter-spacing="3">DAILY TEE TIMES</text>
+  
+  <text x="80" y="230" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="76" fill="#ffffff" font-weight="800">Wedgewood Golf &amp; Club</text>
+  <text x="80" y="316" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="76" fill="#ffffff" font-weight="800">Country</text>
+  <text x="80" y="410" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="34" fill="rgba(255,255,255,0.85)">Powell, OH</text>
+  <text x="80" y="470" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="26" fill="#7eb085" font-weight="700">★ 4.3 rating</text>
+  <text x="80" y="555" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" fill="rgba(255,255,255,0.55)">Live tee times · 500+ courses · 20 states</text>
+</svg>

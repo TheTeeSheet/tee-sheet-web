@@ -35,13 +35,14 @@ const STATE_NAMES = {
   illinois: 'Illinois', michigan: 'Michigan', 'new-jersey': 'New Jersey',
   'north-carolina': 'North Carolina', virginia: 'Virginia', washington: 'Washington',
   tennessee: 'Tennessee', oregon: 'Oregon', pennsylvania: 'Pennsylvania',
+  ohio: 'Ohio', minnesota: 'Minnesota',
 };
 const STATE_CODES = {
   arizona: 'AZ', utah: 'UT', california: 'CA', texas: 'TX', nevada: 'NV',
   'south-carolina': 'SC', colorado: 'CO', florida: 'FL', georgia: 'GA',
   illinois: 'IL', michigan: 'MI', 'new-jersey': 'NJ', 'north-carolina': 'NC',
   virginia: 'VA', washington: 'WA', tennessee: 'TN', oregon: 'OR',
-  pennsylvania: 'PA',
+  pennsylvania: 'PA', ohio: 'OH', minnesota: 'MN',
 };
 
 // State centroids (lat, lng) for state-hub schema
@@ -55,6 +56,7 @@ const STATE_COORDS = {
   'north-carolina': [35.7596, -79.0193], virginia: [37.4316, -78.6569],
   washington: [47.7511, -120.7401], tennessee: [35.7478, -86.6923],
   oregon: [43.8041, -120.5542], pennsylvania: [41.2033, -77.1945],
+  ohio: [40.4173, -82.9071], minnesota: [46.7296, -94.6859],
 };
 
 // City coords — curated for cities where we have ≥1 course. Cities not in
@@ -260,6 +262,39 @@ const CITY_COORDS = {
   'pennsylvania/York': [39.9626, -76.7277], 'pennsylvania/Mount Wolf': [40.0628, -76.7016],
   'pennsylvania/Millersville': [40.0006, -76.3530], 'pennsylvania/Quarryville': [39.8965, -76.1652],
   'pennsylvania/Stevens': [40.1812, -76.1591],
+  // ── Ohio ──
+  // Cleveland Metroparks / NE Ohio
+  'ohio/Brecksville': [41.3179, -81.6262], 'ohio/Fairview Park': [41.4417, -81.8540],
+  'ohio/Willoughby Hills': [41.5942, -81.4434], 'ohio/Cleveland': [41.4993, -81.6944],
+  'ohio/Columbia Station': [41.3203, -81.9354], 'ohio/Chesterland': [41.5198, -81.3370],
+  'ohio/Akron': [41.0814, -81.5190], 'ohio/Avon': [41.4517, -82.0354],
+  'ohio/New Albany': [40.0814, -82.8088], 'ohio/Alliance': [40.9145, -81.1057],
+  // Columbus metro
+  'ohio/Columbus': [39.9612, -82.9988], 'ohio/Pickerington': [39.8842, -82.7491],
+  'ohio/Galena': [40.2034, -82.8821], 'ohio/Ashville': [39.7187, -82.9533],
+  'ohio/Powell': [40.1567, -83.0752], 'ohio/Carroll': [39.7967, -82.7124],
+  'ohio/Zanesville': [39.9403, -82.0132], 'ohio/Granville': [40.0681, -82.5191],
+  'ohio/Nashport': [40.0578, -82.1138], 'ohio/Boardman': [41.0264, -80.6612],
+  // Cincinnati metro
+  'ohio/North Bend': [39.1495, -84.7421], 'ohio/Lebanon': [39.4350, -84.2030],
+  'ohio/Indian Springs': [39.4292, -84.5827], 'ohio/Cincinnati': [39.1031, -84.5120],
+  'ohio/Hamilton': [39.3995, -84.5613], 'ohio/Middletown': [39.5151, -84.3983],
+  'ohio/Arlington': [40.8945, -83.6535],
+  // Dayton / Toledo
+  'ohio/Vandalia': [39.8906, -84.1989], 'ohio/Toledo': [41.6528, -83.5379],
+  // ── Minnesota ──
+  // Twin Cities munis / public
+  'minnesota/Maplewood': [45.0033, -92.9952], 'minnesota/White Bear Lake': [45.0846, -93.0099],
+  'minnesota/Hopkins': [44.9249, -93.4012], 'minnesota/Maple Grove': [45.0725, -93.4557],
+  'minnesota/Chaska': [44.7894, -93.6022], 'minnesota/Inver Grove Heights': [44.8480, -93.0427],
+  // Twin Cities daily-fee
+  'minnesota/Shakopee': [44.7974, -93.5269], 'minnesota/Lakeville': [44.6497, -93.2427],
+  'minnesota/Cottage Grove': [44.8278, -92.9438], 'minnesota/Northfield': [44.4583, -93.1616],
+  // Brainerd Lakes
+  'minnesota/Pequot Lakes': [46.6019, -94.3091],
+  // Iron Range / Duluth / Northern MN
+  'minnesota/Biwabik': [47.5328, -92.3413], 'minnesota/Duluth': [46.7867, -92.1005],
+  'minnesota/Walker': [47.1004, -94.5860],
 };
 
 // City region context (curated for ~140 metros)
@@ -461,6 +496,51 @@ const CITY_REGION = {
   'Millersville': 'Lancaster County, southwest of Lancaster city',
   'Quarryville': 'southern Lancaster County in PA Dutch country',
   'Stevens': 'northern Lancaster County in PA Dutch country',
+  // ── Ohio — Cleveland Metroparks / NE ──
+  'Brecksville': 'southern Cleveland suburb in Cuyahoga Valley country',
+  'Fairview Park': 'west Cleveland suburb in the Rocky River Reservation',
+  'Willoughby Hills': 'Lake County, east of Cleveland',
+  'Columbia Station': 'Lorain County southwest of Cleveland',
+  'Chesterland': 'Geauga County in greater Cleveland',
+  'Akron': "Summit County's rubber-capital city — home of Firestone",
+  'Alliance': 'eastern Stark County, between Akron and Youngstown',
+  'Avon': 'Lorain County, west of Cleveland',
+  'New Albany': 'planned community northeast of Columbus',
+  // ── Ohio — Columbus metro ──
+  'Pickerington': 'eastern Columbus suburb in Fairfield County',
+  'Galena': 'Delaware County, north of Columbus near Hoover Reservoir',
+  'Ashville': 'Pickaway County, south of Columbus',
+  'Powell': 'Delaware County, an upscale Columbus suburb',
+  'Carroll': 'Fairfield County, southeast of Columbus',
+  'Zanesville': 'Muskingum County, named for Ebenezer Zane',
+  'Granville': 'Licking County, home of Denison University',
+  'Nashport': 'Muskingum County, near Zanesville',
+  'Boardman': 'Youngstown suburb in Mahoning County',
+  // ── Ohio — Cincinnati metro ──
+  'North Bend': 'Hamilton County village on the Ohio River',
+  'Indian Springs': 'Butler County north of Cincinnati',
+  'Cincinnati': 'Queen City of the Ohio River — major Midwest hub',
+  'Hamilton': 'Butler County seat north of Cincinnati',
+  // ── Ohio — Dayton / Toledo ──
+  'Vandalia': "Dayton's northern suburb, home of Trapshooting Hall of Fame",
+  'Toledo': 'Glass City on Lake Erie — gateway to Maumee Bay',
+  'Arlington': 'Hancock County village in NW Ohio',
+  // ── Minnesota — Twin Cities ──
+  'Maplewood': 'St. Paul eastern suburb in Ramsey County',
+  'White Bear Lake': 'Ramsey County, lakeside community north of St. Paul',
+  'Hopkins': 'Hennepin County, just west of Minneapolis',
+  'Maple Grove': 'Hennepin County, growing suburb northwest of Minneapolis',
+  'Chaska': 'Carver County southwest of Minneapolis',
+  'Inver Grove Heights': 'Dakota County suburb south of St. Paul',
+  'Shakopee': 'Scott County on the Minnesota River',
+  'Lakeville': 'Dakota County, fast-growing suburb south of the metro',
+  'Cottage Grove': 'Washington County, south of St. Paul on the Mississippi',
+  'Northfield': 'Rice County, home of Carleton and St. Olaf colleges',
+  // ── Minnesota — Brainerd Lakes / Iron Range / Northern ──
+  'Pequot Lakes': 'Cass County in the Brainerd Lakes resort area',
+  'Biwabik': "St. Louis County on the Mesabi Iron Range — Giants Ridge's home town",
+  'Duluth': 'Lake Superior port city — gateway to the North Shore',
+  'Walker': 'Cass County on the southern shore of Leech Lake',
 };
 
 const STATE_REGIONS = {
@@ -482,6 +562,8 @@ const STATE_REGIONS = {
   tennessee: 'Middle Tennessee, the Cumberland Plateau, the Great Smoky Mountains, and East Tennessee',
   oregon: 'Portland metro, Central Oregon, the Oregon Coast, and the Cascades',
   pennsylvania: 'Philly metro, Pittsburgh, the Pocono and Lehigh Valley, and Penn State country',
+  ohio: 'Cleveland metro, Columbus, Cincinnati, the Cleveland Metroparks system, Akron, Toledo, and Dayton',
+  minnesota: 'Twin Cities munis, the Brainerd Lakes resort area, Iron Range destinations, and Duluth',
 };
 
 // ── Extract courses dict from index.html ─────────────────────────────────
@@ -610,7 +692,7 @@ function renderOgImage({ title, subtitle, rating, kicker }) {
   ${t2 ? `<text x="80" y="${t1y + 86}" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="76" fill="#ffffff" font-weight="800">${svgEscape(t2)}</text>` : ''}
   <text x="80" y="${t2 ? 410 : 350}" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="34" fill="rgba(255,255,255,0.85)">${svgEscape(subtitle)}</text>
   ${rating ? `<text x="80" y="${t2 ? 470 : 410}" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="26" fill="#7eb085" font-weight="700">★ ${rating} rating</text>` : ''}
-  <text x="80" y="555" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" fill="rgba(255,255,255,0.55)">Live tee times · 450+ courses · 18 states</text>
+  <text x="80" y="555" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" fill="rgba(255,255,255,0.55)">Live tee times · 500+ courses · 20 states</text>
 </svg>
 `;
 }
@@ -847,7 +929,7 @@ ${PRECONNECT}
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
-  <div>Find and book tee times at 450+ golf courses nationally.</div>
+  <div>Find and book tee times at 500+ golf courses nationally.</div>
   <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="${cityUrl}">${htmlEscape(course.city)}</a> &middot; <a href="/${state}/">${stateName}</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
@@ -974,7 +1056,7 @@ ${PRECONNECT}
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
-  <div>Find and book tee times at 450+ golf courses nationally.</div>
+  <div>Find and book tee times at 500+ golf courses nationally.</div>
   <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="/${state}/">${stateName}</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
@@ -1077,7 +1159,7 @@ ${PRECONNECT}
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
-  <div>Find and book tee times at 450+ golf courses nationally.</div>
+  <div>Find and book tee times at 500+ golf courses nationally.</div>
   <div style="margin-top:8px"><a href="/">Home</a></div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
@@ -1220,7 +1302,7 @@ ${PRECONNECT}
 
 <footer>
   <div class="footer-title">Daily Tee Times</div>
-  <div>Find and book tee times at 450+ golf courses nationally.</div>
+  <div>Find and book tee times at 500+ golf courses nationally.</div>
   <div style="margin-top:8px"><a href="/">Home</a> &middot; <a href="/${state}/">${stateName}</a>${city ? ` &middot; <a href="${parentUrl}">${htmlEscape(city)}</a>` : ''}</div>
   <div style="margin-top:8px;opacity:0.7">© 2026 Daily Tee Times. All rights reserved.</div>
 </footer>
