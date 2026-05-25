@@ -10,9 +10,9 @@
   <rect x="32" y="32" width="1136" height="566" fill="none" stroke="#4a7c50" stroke-width="3" rx="24"/>
   <text x="80" y="120" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="24" fill="rgba(255,255,255,0.55)" font-weight="600" letter-spacing="3">DAILY TEE TIMES</text>
   <text x="80" y="170" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" fill="#7eb085" font-weight="600">BEST OF</text>
-  <text x="80" y="270" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="76" fill="#ffffff" font-weight="800">Best Colorado Golf</text>
+  <text x="80" y="270" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="76" fill="#ffffff" font-weight="800">Best Arvada Golf</text>
   
-  <text x="80" y="350" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="34" fill="rgba(255,255,255,0.85)">Top 25 ranked courses</text>
+  <text x="80" y="350" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="34" fill="rgba(255,255,255,0.85)">Top 4 ranked courses · CO</text>
   
   <text x="80" y="555" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="22" fill="rgba(255,255,255,0.55)">Live tee times · 500+ courses · 20 states</text>
 </svg>
