@@ -787,6 +787,95 @@
     cursor: pointer; color: var(--gray-dark); transition: all 0.15s;
   }
   .manage-alerts-btn:hover { border-color: var(--green-accent); color: var(--green-accent); }
+
+  /* ── MOBILE PASS ── consolidated tweaks for phone widths. The earlier
+   * targeted @media queries (state-chips horizontal scroll, city-section
+   * wrap, onboarding 2-col) stay where they are — this block layers on
+   * top to tighten padding/typography/spacing across the rest of the UI
+   * so cards, hero, and chip rows feel breathable on phones. */
+  @media (max-width: 600px) {
+    /* Header — tighter sides, smaller buttons */
+    header { padding: 0 14px; height: 60px; }
+    .logo-text { font-size: 16px; }
+    .alerts-header-btn { padding: 7px 11px; font-size: 12px; gap: 4px; }
+    .account-btn { padding: 7px 13px; font-size: 12px; }
+
+    /* Hero — tighter padding, leaner sub-copy */
+    .hero { padding: 28px 14px 0; }
+    .hero-content { padding-bottom: 22px; }
+    .hero-eyebrow { font-size: 10px; letter-spacing: 0.14em; }
+    .hero-eyebrow .dot { margin: 0 5px; }
+    .hero-sub { font-size: 14px; margin-bottom: 16px; }
+
+    /* Search bar — compact fields, smaller padding/gap */
+    .search-bar { padding: 14px 14px; gap: 10px; border-radius: 12px; }
+    .field-group { min-width: 0; flex-basis: 47%; }
+    .field-group select, .field-group input { font-size: 14px; padding: 9px 10px; }
+    .field-group label { font-size: 9px; letter-spacing: 0.1em; }
+    .search-btn { width: 100%; padding: 11px 16px; font-size: 13px; }
+
+    /* Quick chip rows — tighter, smaller chips */
+    .quick-filter-row { gap: 6px; margin-top: 8px; }
+    .quick-filter-row .label { font-size: 10px; letter-spacing: 0.06em; }
+    .quick-chip { padding: 4px 10px; font-size: 11px; }
+
+    /* Hero state chips — tighter padding (existing rule sets scroll behavior) */
+    .hero-state-chip { padding: 7px 11px; font-size: 12px; }
+    .hero-state-chip .chip-count { font-size: 10px; padding: 1px 5px; }
+
+    /* Sticky nav — make the search bar full-width */
+    .sticky-nav { padding: 8px 12px; }
+    .nav-right { padding: 0; border-left: none; width: 100%; }
+    .fav-tab { padding: 10px 12px; font-size: 11px; }
+    .course-search-wrap { flex: 1; }
+
+    /* Course cards — tighter padding */
+    .main { padding: 18px 14px; }
+    .course-card { padding: 14px 14px; margin-bottom: 10px; }
+    .card-name { font-size: 14px; }
+    .card-meta-line { font-size: 12px; gap: 6px; margin-top: 4px; }
+    .card-rating { font-size: 11px; }
+
+    /* Card action row — scarcity + count + alert + chevron in tight space */
+    .card-action { gap: 6px; }
+    .scarcity-badge { font-size: 10px; padding: 2px 6px; }
+    .tee-time-count { font-size: 11px; padding: 3px 8px; }
+    .card-action .alert-btn { width: 32px; height: 32px; font-size: 14px; }
+    .card-chevron { width: 22px; height: 22px; padding: 6px; margin-left: 4px; }
+
+    /* Tee time buttons — slightly tighter so 4 fit per row on a 360px viewport */
+    .tee-time-btn { min-width: 64px; padding: 7px 8px; }
+    .t-time { font-size: 12px; }
+    .t-price { font-size: 11px; }
+    .t-players { font-size: 9px; }
+    .tee-times-grid { gap: 6px; }
+    .tee-times-loading .skel-tile { width: 62px; height: 48px; }
+
+    /* Empty-card alert CTA — wrap nicely instead of horizontal overflow */
+    .empty-cta-wrap { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .empty-cta { font-size: 12px; padding: 8px 12px; }
+    .empty-cta-prefix { font-size: 12px; margin-right: 0; }
+
+    /* City section header — already has a rule; this just tightens type */
+    .city-section-header { font-size: 11px; }
+    .city-section-header .count { font-size: 10px; }
+    .city-section-header a { font-size: 11px; }
+  }
+
+  /* Tiny phones (iPhone SE etc.) — extra-tight pass */
+  @media (max-width: 380px) {
+    .logo-text { font-size: 15px; }
+    .alerts-header-btn { padding: 6px 9px; font-size: 11px; }
+    .account-btn { padding: 6px 11px; font-size: 11px; }
+    .hero { padding: 22px 12px 0; }
+    .hero-sub { font-size: 13px; }
+    .field-group { flex-basis: 100%; }   /* 1 field per row on tiny screens */
+    .search-bar { padding: 12px; }
+    .quick-chip { padding: 4px 8px; font-size: 10px; }
+    .quick-filter-row .label { font-size: 9px; }
+    .course-card { padding: 12px; }
+    .tee-time-btn { min-width: 60px; padding: 6px 7px; }
+  }
 </style>
 </head>
 <body>
