@@ -199,12 +199,20 @@
     .hero-state-chips { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding: 0 4px 4px; }
     .hero-state-chip { flex-shrink: 0; }
   }
-  .search-wrap { display: flex; justify-content: center; }
+  .search-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+  }
   .search-bar {
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
     border-radius: 14px; padding: 20px 24px;
     display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap;
     width: 100%; max-width: 900px;
+  }
+  /* Quick-filter chip rows sit under the search bar, same max-width as the
+   * bar so the "When" / "Max price" labels left-align with the first field
+   * inside the bar above. */
+  .search-wrap .quick-filter-row {
+    width: 100%; max-width: 900px; padding: 0 4px;
   }
   .field-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 130px; }
   .field-group label {
