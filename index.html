@@ -306,24 +306,16 @@
 
   /* ── CARDS ── */
   /*
-   * #courseCards as a flex column lets us push cards that came back with
-   * NO available tee times to the bottom via CSS `order`, without moving
-   * DOM nodes (DOM moves would invalidate the IntersectionObserver
-   * powering the lazy-load).
-   *
-   * Just one tier rule: any card that completes its fetch empty gets
-   * order:2 (bottom). Everything else keeps the default order:0 and
-   * stays in its alphabetical position — including cards still loading
-   * and cards with tee times. That minimizes layout jumping: as data
-   * lands, populated/loading cards don't move, only empty cards sink.
+   * Cards are inserted in city-sorted order at render time, with
+   * .city-section-header dividers between cities. No CSS-order trick:
+   * every card stays in its natural document position even after its
+   * fetch resolves, so there's zero layout jumping. Cards that come
+   * back empty just swap their "⏳ Loading times..." pill for "No
+   * available times" — the user still sees the course under its city
+   * header, just without bookable times today. State / city counts
+   * always reflect total isLive courses, not just ones with availability.
    */
   #courseCards { display: flex; flex-direction: column; }
-  /* Cards that fetched and confirmed empty are removed from view
-   * entirely (was order:2 — sinking to bottom — but that left phantom
-   * count mismatches in the city section headers). Counts are
-   * recomputed via updateVisibleCounts() after each card transition.
-   */
-  .course-card.no-times-final { display: none; }
   .course-card {
     background: var(--white); border-radius: 12px;
     border: 1px solid rgba(0,0,0,0.06);
@@ -2535,13 +2527,15 @@ async function _doRender(){
     const card=document.createElement('div');
     card.className='course-card';
     card.dataset.courseName=c.name; // used by the IntersectionObserver lazy-loader
-    card.dataset.city=c.city;       // used by updateVisibleCounts() to recount per-city after empties hide
+    card.dataset.city=c.city;       // used by the city-section-header dataset matching for grouping
     card.style.animationDelay=`${idx*40}ms`;
-    // Initial tier for CSS-order sort. Static / cache-hit cards land in
-    // their final tier immediately; live cards still fetching stay in
-    // the middle "loading" tier and get re-tiered by updateCardLiveData.
+    // Mark the card's tier (no-times-final / has-times) for any future
+    // styling or selectors. These classes used to drive a CSS-order sink
+    // for empty cards; cards now stay in their city-sorted positions
+    // regardless. updateCardLiveData() keeps the class in sync once the
+    // lazy fetch resolves.
     if (times === null) {
-      /* loading — no tier class, default order: 1 */
+      /* loading — no tier class assigned */
     } else if (!times.length && c.isLive) {
       card.classList.add('no-times-final');
     } else if (times.length || !c.isLive) {
@@ -2732,37 +2726,10 @@ function updateCardLiveData(cardEl, c, date, players) {
       countEl.classList.add('empty');
     }
   }
-  // Recount per-city + results header now that this card has settled.
-  // Cards with .no-times-final are display:none, so we recount visible cards.
-  updateVisibleCounts();
-}
-
-// Recount visible (non-hidden) cards in each city section + the global
-// results header. Called after each lazy-loaded card settles. A city
-// section whose visible count drops to 0 is hidden entirely.
-function updateVisibleCounts() {
-  const container = document.getElementById('courseCards');
-  if (!container) return;
-  const visibleByCity = {};
-  container.querySelectorAll('.course-card:not(.no-times-final)').forEach(card => {
-    const city = card.dataset.city;
-    if (city) visibleByCity[city] = (visibleByCity[city] || 0) + 1;
-  });
-  let total = 0;
-  container.querySelectorAll('.city-section-header').forEach(h => {
-    const city = h.dataset.city;
-    const n = visibleByCity[city] || 0;
-    total += n;
-    const cntEl = h.querySelector('.count');
-    if (cntEl) cntEl.textContent = `${n} course${n !== 1 ? 's' : ''}`;
-    h.style.display = n === 0 ? 'none' : '';
-  });
-  // Headers don't exist in search/favs mode — fall back to a direct count.
-  if (total === 0) {
-    total = container.querySelectorAll('.course-card:not(.no-times-final)').length;
-  }
-  const resultsCount = document.getElementById('resultsCount');
-  if (resultsCount) resultsCount.textContent = `${total} course${total !== 1 ? 's' : ''}`;
+  // No need to recount — every isLive course gets a card and stays visible,
+  // including ones whose fetch resolves to 0 tee times (they just show the
+  // "No available times" pill). City section counts and the global results
+  // header are set correctly at initial render and never change.
 }
 
 
