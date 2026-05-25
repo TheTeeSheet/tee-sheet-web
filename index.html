@@ -421,6 +421,32 @@
     display: flex; justify-content: flex-end; gap: 8px;
     margin: 0 0 14px 0;
   }
+  /* City section header — renders between groups of cards on the
+   * default browse view (not search, not favs). Gives users a clear
+   * by-city scan path. */
+  .city-section-header {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    margin: 28px 0 14px;
+    padding-top: 18px;
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--green-deep, #2e5031);
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .city-section-header:first-of-type { border-top: none; padding-top: 4px; margin-top: 6px; }
+  .city-section-header .count {
+    font-size: 11px; color: #5e6b60; font-weight: 600; letter-spacing: 0;
+    text-transform: none;
+  }
+  .city-section-header a {
+    font-size: 12px; color: #4a7c50; font-weight: 500;
+    text-decoration: none; margin-left: auto; text-transform: none; letter-spacing: 0;
+  }
+  .city-section-header a:hover { text-decoration: underline; }
+  @media (max-width: 600px) {
+    .city-section-header { font-size: 12px; gap: 8px; margin: 22px 0 10px; padding-top: 14px; }
+    .city-section-header a { width: 100%; margin-left: 0; margin-top: 2px; }
+  }
   .expand-controls button {
     background: transparent; border: 1px solid rgba(0,0,0,0.12);
     color: #555; padding: 6px 12px; border-radius: 6px;
@@ -2274,7 +2300,17 @@ async function _doRender(){
       .sort((a,b)=>b.score-a.score)
       .map(({c})=>c);
   } else {
-    pool.sort((a,b)=>a.name.localeCompare(b.name));
+    // Default + favs: alphabetical by city, then by course name within city.
+    // City section headers get inserted in the render loop below.
+    pool.sort((a,b)=>a.city.localeCompare(b.city)||a.name.localeCompare(b.name));
+  }
+  // Track whether we'll render city section headers (only in browse mode,
+  // not search). Favs span states so headers there are noisy; skip.
+  const showCityHeaders = !searchQuery && !showingFavs;
+  // Pre-compute per-city course counts for header badges
+  const cityCounts = {};
+  if (showCityHeaders) {
+    for (const c of pool) cityCounts[c.city] = (cityCounts[c.city] || 0) + 1;
   }
 
   document.getElementById('resultsCount').textContent=`${pool.length} course${pool.length!==1?'s':''}`;
@@ -2286,7 +2322,19 @@ async function _doRender(){
 
   // Render cards immediately with loading state
   container.innerHTML=`<div class="expand-controls"><button onclick="expandAllCards()">Expand all</button><button onclick="collapseAllCards()">Collapse all</button></div>`;
+  let _currentCity = null;
   pool.forEach((c,idx)=>{
+    // Insert a city section header when the city changes (browse mode only).
+    if (showCityHeaders && c.city !== _currentCity) {
+      _currentCity = c.city;
+      const stateForCity = _courseToState[c.name];
+      const cityHubUrl = stateForCity ? `/${stateForCity}/${courseSlug(c.city)}/` : null;
+      const header = document.createElement('div');
+      header.className = 'city-section-header';
+      const count = cityCounts[c.city] || 0;
+      header.innerHTML = `<span>${c.city.replace(/[<>&]/g,'')}</span><span class="count">${count} course${count!==1?'s':''}</span>${cityHubUrl ? `<a href="${cityHubUrl}">View ${c.city.replace(/[<>&]/g,'')} page →</a>` : ''}`;
+      container.appendChild(header);
+    }
     const isFav=favorites.has(c.name);
     const hasRating=typeof c.rating==='number';
     const fs=hasRating?Math.floor(c.rating):0, half=hasRating&&c.rating%1>=0.5;
