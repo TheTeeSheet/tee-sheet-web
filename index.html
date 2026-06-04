@@ -213,7 +213,9 @@
     text-align: center; text-align-last: center;
   }
   .field-group input::placeholder { color: rgba(255,255,255,0.4); }
-  .field-group input[type="date"] { cursor: pointer; }
+  .field-group input[type="date"] {
+    cursor: pointer; -webkit-appearance: none; appearance: none;
+  }
   .field-group input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1); opacity: 0.7; cursor: pointer;
   }
@@ -225,6 +227,29 @@
     transition: background 0.2s, transform 0.15s; white-space: nowrap; flex-shrink: 0;
   }
   .search-btn:hover { background: #ffd84d; transform: translateY(-1px); }
+
+  /* ── COURSE SUGGESTION FORM ── */
+  .suggest-form {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    align-items: center; justify-content: center;
+  }
+  .suggest-form input {
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
+    padding: 9px 14px; font-family: 'Inter', sans-serif; font-size: 13px;
+    color: #fff; background: rgba(255,255,255,0.1); outline: none;
+  }
+  .suggest-form input.s-name  { width: 180px; }
+  .suggest-form input.s-state { width: 120px; }
+  .suggest-form input.s-email { width: 180px; }
+  .suggest-form button {
+    background: #f5c842; color: #2e5031; border: none; border-radius: 8px;
+    padding: 9px 18px; font-family: 'Inter', sans-serif; font-size: 13px;
+    font-weight: 600; cursor: pointer; white-space: nowrap;
+  }
+  @media (max-width: 600px) {
+    .suggest-form { width: 100%; }
+    .suggest-form input, .suggest-form button { width: 100%; flex-basis: 100%; }
+  }
 
   /* ── STICKY NAV ── */
   .sticky-nav {
@@ -873,23 +898,16 @@
       <iframe name="hidden-suggest" style="display:none"></iframe>
       <div class="quick-filter-row" id="suggestCourseRow" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;padding:4px;">
         <span style="white-space:nowrap;color:rgba(255,255,255,0.7);font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;">Don't see your course?</span>
-        <form
+        <form class="suggest-form"
           action="https://docs.google.com/forms/d/e/1FAIpQLSdiZTlqEKIVXe5Qz2BMcyzGSGhNs6TqUSAQpNrbx61A_ZFflA/formResponse"
           method="POST"
           target="hidden-suggest"
           onsubmit="handleSuggestSubmit(this)"
-          style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;"
         >
-          <input name="entry.233333936" type="text" placeholder="Course name" required
-            style="border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:9px 14px;font-family:'Inter',sans-serif;font-size:13px;color:#fff;background:rgba(255,255,255,0.1);outline:none;width:180px;" />
-          <input name="entry.2132784207" type="text" placeholder="State" required
-            style="border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:9px 14px;font-family:'Inter',sans-serif;font-size:13px;color:#fff;background:rgba(255,255,255,0.1);outline:none;width:120px;" />
-          <input name="entry.449124425" type="email" placeholder="Your email" required
-            style="border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:9px 14px;font-family:'Inter',sans-serif;font-size:13px;color:#fff;background:rgba(255,255,255,0.1);outline:none;width:180px;" />
-          <button type="submit"
-            style="background:#f5c842;color:#2e5031;border:none;border-radius:8px;padding:9px 18px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">
-            Suggest It →
-          </button>
+          <input class="s-name" name="entry.233333936" type="text" placeholder="Course name" required />
+          <input class="s-state" name="entry.2132784207" type="text" placeholder="State" required />
+          <input class="s-email" name="entry.449124425" type="email" placeholder="Your email" required />
+          <button type="submit">Suggest It →</button>
         </form>
         <span id="suggestThanks" style="display:none;color:#7ed492;font-size:13px;font-weight:600;">✓ Thanks! We'll email you when it's added.</span>
       </div>
