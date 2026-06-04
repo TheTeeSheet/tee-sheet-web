@@ -201,13 +201,13 @@
   }
   .field-group select, .field-group input {
     border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
-    padding: 9px 12px; font-family: 'Inter', sans-serif; font-size: 14px;
+    height: 42px; padding: 0 12px; font-family: 'Inter', sans-serif; font-size: 14px;
     color: var(--white); background: rgba(255,255,255,0.1);
     outline: none; cursor: pointer; text-align: center;
   }
   .field-group select {
     -webkit-appearance: none; -moz-appearance: none; appearance: none;
-    padding: 9px 32px 9px 32px;
+    padding: 0 32px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.7)'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 12px center;
     text-align: center; text-align-last: center;
@@ -755,7 +755,8 @@
     /* Search bar — compact fields, smaller padding/gap */
     .search-bar { padding: 14px 14px; gap: 10px; border-radius: 12px; }
     .field-group { min-width: 0; flex-basis: 47%; }
-    .field-group select, .field-group input { font-size: 14px; padding: 9px 10px; }
+    .field-group select, .field-group input { font-size: 14px; height: 42px; padding: 0 10px; }
+    .field-group select { padding: 0 32px; }
     .field-group label { font-size: 9px; letter-spacing: 0.1em; }
     .search-btn { width: 100%; padding: 11px 16px; font-size: 13px; }
 
