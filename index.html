@@ -229,10 +229,20 @@
   .search-btn:hover { background: #ffd84d; transform: translateY(-1px); }
 
   /* ── COURSE SUGGESTION FORM ── */
+  .suggest-toggle {
+    background: none; border: none; cursor: pointer;
+    font-family: 'Inter', sans-serif; white-space: nowrap;
+    color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .suggest-toggle:hover { color: #fff; }
+  .suggest-caret { font-size: 14px; line-height: 1; }
   .suggest-form {
     display: flex; gap: 8px; flex-wrap: wrap;
     align-items: center; justify-content: center;
   }
+  .suggest-form[hidden] { display: none; }
   .suggest-form input {
     border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
     padding: 9px 14px; font-family: 'Inter', sans-serif; font-size: 13px;
@@ -896,9 +906,9 @@
       </div>
       <!-- Course suggestion row -->
       <iframe name="hidden-suggest" style="display:none"></iframe>
-      <div class="quick-filter-row" id="suggestCourseRow" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;padding:4px;">
-        <span style="white-space:nowrap;color:rgba(255,255,255,0.7);font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;">Don't see your course?</span>
-        <form class="suggest-form"
+      <div class="quick-filter-row" id="suggestCourseRow" style="display:flex;flex-direction:column;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;padding:4px;">
+        <button type="button" class="suggest-toggle" aria-expanded="false" onclick="toggleSuggestForm()">Don't see your course? <span class="suggest-caret">+</span></button>
+        <form class="suggest-form" id="suggestForm" hidden
           action="https://docs.google.com/forms/d/e/1FAIpQLSdiZTlqEKIVXe5Qz2BMcyzGSGhNs6TqUSAQpNrbx61A_ZFflA/formResponse"
           method="POST"
           target="hidden-suggest"
@@ -2535,6 +2545,21 @@ function setActiveState(state){
 
 // Course suggestion form: posts to a hidden iframe (no page nav), then
 // swaps the form for a thank-you message.
+function toggleSuggestForm() {
+  const form = document.getElementById('suggestForm');
+  const btn = document.querySelector('.suggest-toggle');
+  const open = form.hasAttribute('hidden');
+  if (open) {
+    form.removeAttribute('hidden');
+    form.querySelector('input').focus();
+  } else {
+    form.setAttribute('hidden', '');
+  }
+  btn.setAttribute('aria-expanded', String(open));
+  const caret = btn.querySelector('.suggest-caret');
+  if (caret) caret.textContent = open ? '−' : '+';
+}
+
 function handleSuggestSubmit(form) {
   setTimeout(function() {
     form.style.display = 'none';
