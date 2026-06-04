@@ -435,8 +435,7 @@
     max-height: 4000px; margin-top: 12px; opacity: 1;
   }
   .expand-controls {
-    display: flex; justify-content: flex-end; gap: 8px;
-    margin: 0 0 14px 0;
+    display: flex; gap: 8px;
   }
   /* City section header — renders between groups of cards on the
    * default browse view (not search, not favs). Gives users a clear
@@ -937,7 +936,8 @@
     <span class="results-count" id="resultsCount"></span>
   </div>
   <div id="courseCards"></div>
-  <div class="results-footer" style="display:flex;justify-content:center;padding:20px 0 8px;">
+  <div class="results-footer" id="resultsFooter" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 0 8px;">
+    <div class="expand-controls"><button onclick="expandAllCards()">Expand all</button><button onclick="collapseAllCards()">Collapse all</button></div>
     <a id="stateHubLink" href="/arizona/" style="font-size:14px;color:var(--green-accent);text-decoration:none">Browse all Arizona courses →</a>
   </div>
 
@@ -2690,13 +2690,16 @@ async function _doRender(){
 
   document.getElementById('resultsCount').textContent=`${pool.length} course${pool.length!==1?'s':''}`;
 
+  const footer=document.getElementById('resultsFooter');
   if(!pool.length){
     container.innerHTML=`<div class="empty-state"><h3>${showingFavs?'No favorites yet':'No courses match'}</h3><p>${showingFavs?'Star a course to save it here.':'Try adjusting your filters.'}</p></div>`;
+    if(footer) footer.style.display='none';
     return;
   }
+  if(footer) footer.style.display='flex';
 
   // Render cards immediately with loading state
-  container.innerHTML=`<div class="expand-controls"><button onclick="expandAllCards()">Expand all</button><button onclick="collapseAllCards()">Collapse all</button></div>`;
+  container.innerHTML='';
   let _currentCity = null;
   pool.forEach((c,idx)=>{
     // Insert a city section header when the city changes (browse mode only).
