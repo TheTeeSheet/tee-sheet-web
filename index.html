@@ -572,45 +572,6 @@
     padding: 4px 0;
   }
 
-  /* ── ONBOARDING modal (first-visit home-state picker) ── */
-  .onboarding-overlay {
-    display: none; position: fixed; inset: 0; z-index: 1100;
-    background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
-    align-items: center; justify-content: center; padding: 20px;
-  }
-  .onboarding-overlay.open { display: flex; }
-  .onboarding-modal {
-    background: var(--white); border-radius: 18px; padding: 32px 28px 24px;
-    width: 100%; max-width: 480px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    animation: modalIn 0.25s ease;
-  }
-  .onboarding-modal h2 {
-    font-size: 22px; font-weight: 700; margin-bottom: 6px;
-    color: var(--green-deep, #2e5031);
-  }
-  .onboarding-modal .ob-sub {
-    font-size: 14px; color: var(--gray-dark); margin-bottom: 20px;
-  }
-  .onboarding-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-    margin-bottom: 18px;
-  }
-  .ob-state-btn {
-    background: var(--white); border: 1.5px solid #d8d3cc; border-radius: 10px;
-    padding: 11px 8px; font-size: 13px; font-weight: 600; cursor: pointer;
-    color: var(--text-dark); transition: all 0.15s; text-align: center;
-  }
-  .ob-state-btn:hover { border-color: var(--green-accent, #4a7c50); background: #f4f8f3; }
-  .onboarding-skip {
-    display: block; width: 100%; text-align: center; background: none;
-    border: none; color: var(--gray-dark); font-size: 13px; cursor: pointer;
-    padding: 8px; margin-top: 4px;
-  }
-  .onboarding-skip:hover { color: var(--text-dark); text-decoration: underline; }
-  @media (max-width: 480px) {
-    .onboarding-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
   /* ── ACCOUNT MODAL ── */
   .modal-overlay {
     display: none; position: fixed; inset: 0; z-index: 999;
@@ -2448,10 +2409,8 @@ const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-// activeState is restored from localStorage on init (set by the first-visit
-// onboarding modal). Fall back to 'arizona' for both legacy users and users
-// who skipped the modal. maxPrice is null = no filter.
-let activeState = localStorage.getItem('dtt_home_state') || 'arizona';
+// Every visit starts on Arizona. maxPrice is null = no filter.
+let activeState = 'arizona';
 let showingFavs=false, searchQuery='';
 let maxPrice = null;
 let favorites=new Set(JSON.parse(localStorage.getItem('tsFavs')||'[]'));
@@ -2470,7 +2429,7 @@ document.getElementById('dateFilter').value=getDefaultDateStr();
 
 // Single source of truth for state display names. Add a new state here (plus
 // its data in `courses` / the API) and it auto-appears in the filter dropdown
-// and the onboarding grid — no markup to maintain.
+// — no markup to maintain.
 const STATE_NAMES={arizona:'Arizona',california:'California',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan',minnesota:'Minnesota',nevada:'Nevada','new-jersey':'New Jersey','north-carolina':'North Carolina',ohio:'Ohio',oregon:'Oregon',pennsylvania:'Pennsylvania','south-carolina':'South Carolina',tennessee:'Tennessee',texas:'Texas',utah:'Utah',virginia:'Virginia',washington:'Washington'};
 // States we actually have data for, sorted alphabetically by display name.
 function stateSlugsSorted(){
@@ -2495,22 +2454,9 @@ function updateStateCounts(){
 }
 buildStateDropdown();
 updateStateCounts();
-// On first visit, show the onboarding modal (asks user to pick their home
-// state). On return visits, restore the persisted state and apply the
-// matching active chip before the first render.
+// Every visit opens on Arizona — sync the dropdown and do the first render.
 (function initHomeState() {
   refreshDayChipLabels();
-  const saved = localStorage.getItem('dtt_home_state');
-  if (!saved) {
-    showOnboardingIfNeeded();
-    renderCards();
-    return;
-  }
-  // Sync the dropdown + results title to the saved state, then render.
-  if (saved !== 'arizona' && courses[saved]) {
-    setActiveState(saved);  // syncs dropdown + title, calls renderCards
-    return;
-  }
   const sel = document.getElementById('stateFilter');
   if (sel) sel.value = activeState;
   renderCards();
@@ -2553,11 +2499,6 @@ function courseSeoUrl(name) {
 // ── NAV ───────────────────────────────────────────────────────────────────────
 function setActiveState(state){
   activeState=state; showingFavs=false; clearSearch();
-  // Persist user's last-selected state so future visits open here. The
-  // onboarding modal sets this on first visit; subsequent dropdown changes
-  // (here) refine it. Use a try/catch so private-mode browsers don't
-  // crash the whole render.
-  try { localStorage.setItem('dtt_home_state', state); } catch(e) {}
   document.getElementById('favTab').classList.remove('active');
   const sel = document.getElementById('stateFilter');
   if (sel) sel.value = state;
@@ -2568,31 +2509,6 @@ function setActiveState(state){
   renderCards();
 }
 
-// ── ONBOARDING + QUICK-PICK chip handlers ────────────────────────────────────
-// The onboarding modal pops on first visit (no dtt_home_state in localStorage)
-// to set the user's home state preference. Return visitors skip it. The Skip
-// button defaults to Arizona (same as the legacy hardcoded default).
-function showOnboardingIfNeeded() {
-  if (localStorage.getItem('dtt_home_state')) return;
-  const grid = document.getElementById('onboardingGrid');
-  if (!grid) return;
-  grid.innerHTML = stateSlugsSorted()
-    .map(s => `<button class="ob-state-btn" onclick="pickHomeState('${s}')">${STATE_NAMES[s]}</button>`)
-    .join('');
-  document.getElementById('onboardingOverlay').classList.add('open');
-}
-
-function pickHomeState(state) {
-  try { localStorage.setItem('dtt_home_state', state); } catch(e) {}
-  document.getElementById('onboardingOverlay').classList.remove('open');
-  setActiveState(state);
-}
-
-function dismissOnboarding() {
-  // Treat skip as "use Arizona" — persist so we don't ask again on next visit
-  try { localStorage.setItem('dtt_home_state', 'arizona'); } catch(e) {}
-  document.getElementById('onboardingOverlay').classList.remove('open');
-}
 
 // Course suggestion form: posts to a hidden iframe (no page nav), then
 // swaps the form for a thank-you message.
@@ -3553,16 +3469,6 @@ if ('serviceWorker' in navigator) {
   }, true);
 })();
 </script>
-
-<!-- ── ONBOARDING modal (first-visit only — picks user's home state, persists in localStorage) ── -->
-<div class="onboarding-overlay" id="onboardingOverlay">
-  <div class="onboarding-modal" role="dialog" aria-labelledby="obTitle">
-    <h2 id="obTitle">Where do you play?</h2>
-    <p class="ob-sub">Pick your home state and we'll open there every visit. You can change this anytime.</p>
-    <div class="onboarding-grid" id="onboardingGrid"></div>
-    <button class="onboarding-skip" onclick="dismissOnboarding()">Skip — show me Arizona</button>
-  </div>
-</div>
 
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fa288814aa6d45e3afccb07ec44f9bf9"}'></script>
