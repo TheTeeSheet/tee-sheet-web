@@ -162,24 +162,6 @@
     line-height: 1.5;
   }
   .hero-sub strong { color: var(--gold); font-weight: 700; }
-  .hero-state-chips {
-    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
-    margin-top: 20px; max-width: 900px; margin-left: auto; margin-right: auto;
-  }
-  .hero-state-chip {
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
-    color: var(--white); padding: 8px 14px; border-radius: 999px;
-    font-size: 13px; font-weight: 600; cursor: pointer;
-    transition: background 0.15s, border-color 0.15s, transform 0.1s;
-    font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 6px;
-  }
-  .hero-state-chip:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
-  .hero-state-chip.active { background: var(--gold); color: var(--green-deep); border-color: var(--gold); font-weight: 700; }
-  .hero-state-chip.active .chip-count { background: rgba(15,46,26,0.18); color: var(--green-deep); }
-  .hero-state-chip .chip-count {
-    background: rgba(255,255,255,0.15); padding: 1px 7px; border-radius: 999px;
-    font-size: 11px; font-weight: 700; color: var(--gold);
-  }
   .hero-trust {
     display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
     margin-top: 24px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.1);
@@ -196,8 +178,6 @@
   @media(max-width:600px){
     .hero-trust { gap: 12px; }
     .trust-item { font-size: 12px; }
-    .hero-state-chips { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding: 0 4px 4px; }
-    .hero-state-chip { flex-shrink: 0; }
   }
   .search-wrap {
     display: flex; flex-direction: column; align-items: center; gap: 10px;
@@ -819,10 +799,6 @@
     .quick-filter-row .label { font-size: 10px; letter-spacing: 0.06em; }
     .quick-chip { padding: 4px 10px; font-size: 11px; }
 
-    /* Hero state chips — tighter padding (existing rule sets scroll behavior) */
-    .hero-state-chip { padding: 7px 11px; font-size: 12px; }
-    .hero-state-chip .chip-count { font-size: 10px; padding: 1px 5px; }
-
     /* Sticky nav — make the search bar full-width */
     .sticky-nav { padding: 8px 12px; }
     .nav-right { padding: 0; border-left: none; width: 100%; }
@@ -898,6 +874,10 @@
     <div class="search-wrap">
       <div class="search-bar">
         <div class="field-group">
+          <label>State</label>
+          <select id="stateFilter" onchange="setActiveState(this.value)"></select>
+        </div>
+        <div class="field-group">
           <label>Date</label>
           <input type="date" id="dateFilter" onchange="syncDateChipFromInput()">
         </div>
@@ -957,33 +937,10 @@
       </div>
     </div>
 
-    <div class="hero-state-chips" id="heroStateChips">
-      <button class="hero-state-chip active" onclick="heroJumpToState('arizona',this)" data-state="arizona">Arizona <span class="chip-count" id="hcount-arizona"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('california',this)" data-state="california">California <span class="chip-count" id="hcount-california"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('colorado',this)" data-state="colorado">Colorado <span class="chip-count" id="hcount-colorado"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('florida',this)" data-state="florida">Florida <span class="chip-count" id="hcount-florida"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('georgia',this)" data-state="georgia">Georgia <span class="chip-count" id="hcount-georgia"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('illinois',this)" data-state="illinois">Illinois <span class="chip-count" id="hcount-illinois"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('michigan',this)" data-state="michigan">Michigan <span class="chip-count" id="hcount-michigan"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('nevada',this)" data-state="nevada">Nevada <span class="chip-count" id="hcount-nevada"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('new-jersey',this)" data-state="new-jersey">New Jersey <span class="chip-count" id="hcount-new-jersey"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('north-carolina',this)" data-state="north-carolina">North Carolina <span class="chip-count" id="hcount-north-carolina"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('south-carolina',this)" data-state="south-carolina">South Carolina <span class="chip-count" id="hcount-south-carolina"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('texas',this)" data-state="texas">Texas <span class="chip-count" id="hcount-texas"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('utah',this)" data-state="utah">Utah <span class="chip-count" id="hcount-utah"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('virginia',this)" data-state="virginia">Virginia <span class="chip-count" id="hcount-virginia"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('oregon',this)" data-state="oregon">Oregon <span class="chip-count" id="hcount-oregon"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('tennessee',this)" data-state="tennessee">Tennessee <span class="chip-count" id="hcount-tennessee"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('washington',this)" data-state="washington">Washington <span class="chip-count" id="hcount-washington"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('pennsylvania',this)" data-state="pennsylvania">Pennsylvania <span class="chip-count" id="hcount-pennsylvania"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('ohio',this)" data-state="ohio">Ohio <span class="chip-count" id="hcount-ohio"></span></button>
-      <button class="hero-state-chip" onclick="heroJumpToState('minnesota',this)" data-state="minnesota">Minnesota <span class="chip-count" id="hcount-minnesota"></span></button>
-    </div>
-
   </div>
 </div>
 
-<!-- STICKY NAV (Favorites + course search; state nav is in the hero chips above) -->
+<!-- STICKY NAV (Favorites + course search; state nav is the dropdown in the hero filter bar) -->
 <nav class="sticky-nav" aria-label="Course search">
   <div class="nav-right">
     <button class="fav-tab" id="favTab" onclick="toggleFavView()">★ Saved</button>
@@ -2518,6 +2475,21 @@ let alertTargetCity=null;
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 document.getElementById('dateFilter').value=getDefaultDateStr();
+
+// Single source of truth for state display names. Add a new state here (plus
+// its data in `courses` / the API) and it auto-appears in the filter dropdown
+// and the onboarding grid — no markup to maintain.
+const STATE_NAMES={arizona:'Arizona',california:'California',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan',minnesota:'Minnesota',nevada:'Nevada','new-jersey':'New Jersey','north-carolina':'North Carolina',ohio:'Ohio',oregon:'Oregon',pennsylvania:'Pennsylvania','south-carolina':'South Carolina',tennessee:'Tennessee',texas:'Texas',utah:'Utah',virginia:'Virginia',washington:'Washington'};
+// States we actually have data for, sorted alphabetically by display name.
+function stateSlugsSorted(){
+  return Object.keys(courses).filter(s=>STATE_NAMES[s]).sort((a,b)=>STATE_NAMES[a].localeCompare(STATE_NAMES[b]));
+}
+function buildStateDropdown(){
+  const sel=document.getElementById('stateFilter');
+  if(!sel) return;
+  sel.innerHTML=stateSlugsSorted().map(s=>`<option value="${s}">${STATE_NAMES[s]}</option>`).join('');
+  sel.value=activeState;
+}
 function updateStateCounts(){
   Object.keys(courses).forEach(s=>{
     // Only count courses that are actively returning live data. Non-live
@@ -2525,16 +2497,11 @@ function updateStateCounts(){
     const n = courses[s].filter(c => c.isLive === true).length;
     const el=document.getElementById(`count-${s}`);
     if(el) el.textContent=n;
-    const chip=document.getElementById(`hcount-${s}`);
-    if(chip) chip.textContent=n;
+    const opt=document.querySelector(`#stateFilter option[value="${s}"]`);
+    if(opt) opt.textContent=`${STATE_NAMES[s]||s} (${n})`;
   });
 }
-function heroJumpToState(state,btn){
-  setActiveState(state,btn);
-  // Smooth-scroll to the results so user sees the new state's courses
-  const results=document.getElementById('resultsTitle');
-  if(results) results.scrollIntoView({behavior:'smooth',block:'start'});
-}
+buildStateDropdown();
 updateStateCounts();
 // On first visit, show the onboarding modal (asks user to pick their home
 // state). On return visits, restore the persisted state and apply the
@@ -2547,16 +2514,13 @@ updateStateCounts();
     renderCards();
     return;
   }
-  // If the saved state isn't 'arizona' (the hardcoded default chip), swap
-  // the active chip so the visual state matches the data state.
+  // Sync the dropdown + results title to the saved state, then render.
   if (saved !== 'arizona' && courses[saved]) {
-    document.querySelectorAll('.hero-state-chip').forEach(c => c.classList.remove('active'));
-    const target = document.querySelector(`.hero-state-chip[data-state="${saved}"]`);
-    if (target) target.classList.add('active');
-    // Update the results title + hub link too
-    setActiveState(saved, target);  // calls renderCards internally
+    setActiveState(saved);  // syncs dropdown + title, calls renderCards
     return;
   }
+  const sel = document.getElementById('stateFilter');
+  if (sel) sel.value = activeState;
   renderCards();
 })();
 
@@ -2595,25 +2559,20 @@ function courseSeoUrl(name) {
 }
 
 // ── NAV ───────────────────────────────────────────────────────────────────────
-function setActiveState(state,btn){
+function setActiveState(state){
   activeState=state; showingFavs=false; clearSearch();
-  // Persist user's last-clicked state so future visits open here. The
-  // onboarding modal sets this on first visit; subsequent chip clicks
+  // Persist user's last-selected state so future visits open here. The
+  // onboarding modal sets this on first visit; subsequent dropdown changes
   // (here) refine it. Use a try/catch so private-mode browsers don't
   // crash the whole render.
   try { localStorage.setItem('dtt_home_state', state); } catch(e) {}
   document.getElementById('favTab').classList.remove('active');
-  document.querySelectorAll('.hero-state-chip').forEach(t=>t.classList.remove('active'));
-  // btn may be a chip directly, or null if called programmatically — fall back
-  // to the matching chip by data-state attribute.
-  const target = (btn && btn.classList.contains('hero-state-chip'))
-    ? btn
-    : document.querySelector(`.hero-state-chip[data-state="${state}"]`);
-  if (target) target.classList.add('active');
-  const names={arizona:'Arizona',utah:'Utah',california:'California',texas:'Texas',nevada:'Nevada','south-carolina':'South Carolina',colorado:'Colorado',florida:'Florida',georgia:'Georgia',illinois:'Illinois',michigan:'Michigan',minnesota:'Minnesota','new-jersey':'New Jersey','north-carolina':'North Carolina',ohio:'Ohio',oregon:'Oregon',pennsylvania:'Pennsylvania',tennessee:'Tennessee',virginia:'Virginia',washington:'Washington'};
-  document.getElementById('resultsTitle').textContent=names[state]+' Courses';
+  const sel = document.getElementById('stateFilter');
+  if (sel) sel.value = state;
+  const name = STATE_NAMES[state] || state;
+  document.getElementById('resultsTitle').textContent=name+' Courses';
   const hubLink = document.getElementById('stateHubLink');
-  if (hubLink) { hubLink.href = `/${state}/`; hubLink.textContent = `Browse all ${names[state]} courses →`; hubLink.style.display = ''; }
+  if (hubLink) { hubLink.href = `/${state}/`; hubLink.textContent = `Browse all ${name} courses →`; hubLink.style.display = ''; }
   renderCards();
 }
 
@@ -2623,23 +2582,10 @@ function setActiveState(state,btn){
 // button defaults to Arizona (same as the legacy hardcoded default).
 function showOnboardingIfNeeded() {
   if (localStorage.getItem('dtt_home_state')) return;
-  // Build the state grid from the chips we have in the hero
   const grid = document.getElementById('onboardingGrid');
   if (!grid) return;
-  const chips = document.querySelectorAll('.hero-state-chip');
-  const labels = {};
-  chips.forEach(ch => {
-    const state = ch.dataset.state;
-    if (!state) return;
-    // First text node = state name (chip-count span is appended after)
-    const name = ch.firstChild && ch.firstChild.textContent.trim();
-    labels[state] = name || state;
-  });
-  // Stable display order — same as the hero row
-  const stateOrder = ['arizona','california','colorado','florida','georgia','illinois','michigan','minnesota','nevada','new-jersey','north-carolina','ohio','oregon','pennsylvania','south-carolina','tennessee','texas','utah','virginia','washington'];
-  grid.innerHTML = stateOrder
-    .filter(s => labels[s])
-    .map(s => `<button class="ob-state-btn" onclick="pickHomeState('${s}')">${labels[s]}</button>`)
+  grid.innerHTML = stateSlugsSorted()
+    .map(s => `<button class="ob-state-btn" onclick="pickHomeState('${s}')">${STATE_NAMES[s]}</button>`)
     .join('');
   document.getElementById('onboardingOverlay').classList.add('open');
 }
@@ -2647,7 +2593,7 @@ function showOnboardingIfNeeded() {
 function pickHomeState(state) {
   try { localStorage.setItem('dtt_home_state', state); } catch(e) {}
   document.getElementById('onboardingOverlay').classList.remove('open');
-  setActiveState(state, null);
+  setActiveState(state);
 }
 
 function dismissOnboarding() {
@@ -2722,11 +2668,8 @@ function syncDateChipFromInput() {
 function toggleFavView(){
   showingFavs=!showingFavs;
   document.getElementById('favTab').classList.toggle('active',showingFavs);
-  document.querySelectorAll('.hero-state-chip').forEach(t=>t.classList.remove('active'));
   if(!showingFavs){
-    const chip=document.querySelector(`.hero-state-chip[data-state="${activeState}"]`);
-    if(chip) chip.classList.add('active');
-    document.getElementById('resultsTitle').textContent=(activeState.charAt(0).toUpperCase()+activeState.slice(1))+' Courses';
+    document.getElementById('resultsTitle').textContent=(STATE_NAMES[activeState]||activeState)+' Courses';
     const hubLink=document.getElementById('stateHubLink');
     if (hubLink) hubLink.style.display='';
   } else {
